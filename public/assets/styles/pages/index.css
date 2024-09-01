@@ -1,0 +1,21 @@
+/* index.html specific styling
+
+Created by: Renan Andrade, 2024/09/01 */
+
+body {
+    position: relative;
+    min-height: 100vh;
+}
+
+.main {
+    margin-left: 4rem;
+    padding: 1rem 2rem;
+}
+
+/* MEDIA QUERIES =========================================================================================================== */
+
+@media screen and (max-width: 768px) {
+    .main {
+        margin: 0;
+    }
+}

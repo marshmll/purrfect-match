@@ -1,0 +1,54 @@
+/* Footer standard styling.
+
+This file is included by components.css
+
+Created by: Renan Andrade, 2024/09/01 */
+
+.header {
+    width: calc(100% - 4rem);
+    height: 4rem;
+    margin-left: 4rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 3rem;
+    right: 0;
+    background-color: #fefefe;
+}
+
+.header__title {
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+.header__search {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    width: 2rem;
+    height: 2rem;
+}
+
+.header__search span {
+    font-size: 2rem;
+}
+
+.header__settings {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.header__settings span {
+    font-size: 2rem;
+}
+
+/* MEDIA QUERIES =========================================================================================================== */
+
+@media screen and (max-width: 768px) {
+    .header {
+        width: 100%;
+        margin: 0;
+    }
+}
