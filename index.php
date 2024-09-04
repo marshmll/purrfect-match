@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="public/assets/styles/pages/index.css" />
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -17,7 +18,10 @@
         <button class="header__search">
             <span class="material-symbols-outlined">search</span>
         </button>
-        <h1 class="header__title">Purrfect Match</h1>
+        <div class="header__main">
+            <div class="header__icon"></div>
+            <h1 class="header__title">Purrfect Match</h1>
+        </div>
         <button class="header__settings">
             <span class="material-symbols-outlined">tune</span>
         </button>
@@ -63,7 +67,7 @@
         </ul>
     </nav>
     <main class="main">
-       
+
     </main>
 </body>
 

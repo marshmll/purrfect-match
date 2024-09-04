@@ -14,12 +14,33 @@ Created by: Renan Andrade, 2024/09/01 */
     justify-content: space-around;
     padding: 0 3rem;
     right: 0;
-    background-color: #fefefe;
+    background-color: var(--main-theme-color);
+}
+
+.header--full {
+    width: 100%;
+    margin-left: 0;
+}
+
+.header__main {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .header__title {
     font-weight: 700;
     font-size: 1.3rem;
+}
+
+.header__icon {
+    width: 1.8rem;
+    height: 1.8rem;
+    margin-right: .3rem;
+    background-image: url('../../images/icons/paw_black.svg');
+    background-size: 120%;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .header__search {
@@ -50,5 +71,6 @@ Created by: Renan Andrade, 2024/09/01 */
     .header {
         width: 100%;
         margin: 0;
+        padding: 0 1rem;
     }
 }
