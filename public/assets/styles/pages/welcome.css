@@ -45,6 +45,28 @@
     font-size: 2rem;
 }
 
+.buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.buttons__container {
+    display: grid;
+    grid-template-columns: 250px 250px;
+    row-gap: 1em;
+    column-gap: 1em;
+
+}
+
+.buttons__button {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 30px 20px;
+    border: 2px solid #ccc;
+}
+
 /* MEDIA QUERIES =========================================================================================================== */
 
 @media screen and (max-width: 768px) {

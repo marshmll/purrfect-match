@@ -35,6 +35,23 @@
             <span class="partnership__prelude">Em parceria com</span>
             <h2 class="partnership__title">Crazy Cat Gang</h2>
         </div>
+
+        <div class="buttons">
+            <div class="buttons__container">
+                <a href="/" class="buttons__button">
+                    Adote um gatinho
+                    <div class="header__icon"></div>
+                </a>
+                <a href="/" class="buttons__button">
+                    Resgate um gatinho
+                    <div class="header__icon"></div>
+                </a>
+                <a href="/" class="buttons__button">
+                    Agende uma visita
+                    <div class="header__icon"></div>
+                </a>
+            </div>
+        </div>
     </main>
 </body>
 
