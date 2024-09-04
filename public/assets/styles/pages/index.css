@@ -12,6 +12,29 @@ body {
     padding: 1rem 2rem;
 }
 
+.hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero__image {
+    display: block;
+    background-image: url("../../images/catHeader.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 70%;
+    height: 23rem;
+    margin-bottom: 2rem;
+}
+
+.hero__title {
+    font-size: 2.5em;
+    font-weight: 600;
+    text-align: center;
+}
+
 /* MEDIA QUERIES =========================================================================================================== */
 
 @media screen and (max-width: 768px) {
