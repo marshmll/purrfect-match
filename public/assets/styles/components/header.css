@@ -11,7 +11,7 @@ Created by: Renan Andrade, 2024/09/01 */
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     padding: 0 3rem;
     right: 0;
     background-color: #fefefe;

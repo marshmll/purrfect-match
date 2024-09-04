@@ -63,11 +63,7 @@
         </ul>
     </nav>
     <main class="main">
-        <div class="hero">
-            <div class="hero__image"></div>
-                
-            <h1 class="hero__title">Encontre um amiguinho e faça seus</br>dias mais alegres</h1>
-        </div>
+       
     </main>
 </body>
 
