@@ -1,4 +1,6 @@
 <?php
+    error_reporting(E_ERROR | E_PARSE);
+
     $url = "http://127.0.0.1:8000/auth";
 
     $data = [
@@ -20,18 +22,12 @@
             'content' => http_build_query($data),
         ],
     ];
-    
-    try {
 
-        $context = stream_context_create($options);
-        $result = file_get_contents($url, false, $context);
+    $context = stream_context_create($options);
+    $result = file_get_contents($url, false, $context);
 
-        if ($result == false) {
-            die("erro");
-        }
-    }
-    catch (Exception $e) {
-        echo "erro http";
+    if ($result == false) {
+        die("Usuário ou senha incorretos.");
     }
 
     $token = json_decode($result);
