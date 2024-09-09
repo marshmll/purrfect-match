@@ -1,36 +1,30 @@
 <?php
-    error_reporting(E_ERROR | E_PARSE);
+require_once("../php/net.php");
 
-    $url = "http://127.0.0.1:8000/auth";
+const API_URL = "http://127.0.0.1:8000/auth";
 
+function authenticateUser($username, $password) {
     $data = [
-        'grant_type' => '',
-        'username' => $_POST['username'],
-        'password' => $_POST['password'],
-        'scope' => '',
-        'client_id' => '',
-        'client_secret' => '',
-    ];
-    
-    $options = [
-        'http' => [
-            'header'=> [
-                'accept: application/json',
-                'Content-Type: application/x-www-form-urlencoded',
-            ],
-            'method' => 'POST',
-            'content' => http_build_query($data),
-        ],
+        'username' => $username,
+        'password' => $password,
     ];
 
-    $context = stream_context_create($options);
-    $result = file_get_contents($url, false, $context);
+    $encoded_form_url = http_build_query($data);
 
-    if ($result == false) {
-        die("Usuário ou senha incorretos.");
-    }
+    $curlFetcher = new CurlFetcher(
+        API_URL,
+        "POST",
+        "application/json",
+        "application/x-www-form-urlencoded"
+    );
 
-    $token = json_decode($result);
+    $res = $curlFetcher->fetch($encoded_form_url);
 
-    var_dump($token);
-?>
+    $curlFetcher->close();
+
+    return $res;
+}
+
+function setAuthenticationCookie($jwt) {
+
+}
