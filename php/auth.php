@@ -25,6 +25,17 @@ function authenticateUser($username, $password) {
     return $res;
 }
 
-function setAuthenticationCookie($jwt) {
+function hasAuthenticationCookieSet() {
+    return isset($_COOKIE['token']);
+}
 
+function setAuthenticationCookie($jwt) {
+    setcookie('token', $jwt, time()+60*60*24*30, '/'); // 30 days
+}
+
+function clearAuthenticationCookie() {
+    if (isset($_COOKIE['token'])) {
+        unset($_COOKIE['token']);
+        setcookie('token', '', time() - 3600, '/'); 
+    }
 }

@@ -11,8 +11,10 @@
     <?php
     require_once('../php/auth.php');
 
-    if (isset($_COOKIE['Authentication'])) {
-        header("Location: http://localhost/purrfect-match/");
+    if (hasAuthenticationCookieSet()) {
+        // header("Location: http://localhost/purrfect-match/");
+        echo $_COOKIE['token'];
+        clearAuthenticationCookie();
         die();
     }
 
@@ -23,7 +25,10 @@
         $res = authenticateUser($username, $password);
 
         if ($res != false) {
-            header("Location: http://localhost/purrfect-match/");
+            // header("Location: http://localhost/purrfect-match/");
+            var_dump($res);
+            setAuthenticationCookie($res['access_token']);
+
             die();
         }
         else {
