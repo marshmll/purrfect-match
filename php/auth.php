@@ -43,8 +43,8 @@ function getAuthenticationCookie() {
     }
 }
 
-function setAuthenticationCookie($jwt) {
-    setcookie('token', $jwt, time()+60*60*24*30, '/'); // 30 days
+function setAuthenticationCookie($jwt, $lifetime) {
+    setcookie('token', $jwt, $lifetime, '/'); // 30 days
 }
 
 function clearAuthenticationCookie() {

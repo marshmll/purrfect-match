@@ -1,0 +1,128 @@
+.main {
+  min-width: 100%;
+  height: 100vh;
+  background-color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("https://images.unsplash.com/photo-1478098711619-5ab0b478d6e6?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Nnx8fGVufDB8fHx8fA%3D%3D");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.login {
+  color: white;
+  background-color: #52525242;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  width: 40%;
+  height: 72%;
+  padding: 4rem 2rem;
+  border-radius: 10px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  backdrop-filter: blur(5px);
+}
+
+.login__title {
+  font-size: 1.8rem;
+  font-family: "Moul", sans-serif;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.login__invalid {
+  display: block;
+  width: 100%;
+  text-align: center;
+  color: rgb(255, 121, 121);
+}
+
+.login__label {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  margin-left: 2rem;
+  padding-top: .5rem;
+  display: block;
+  transition: all 0.3s;
+  transform: translateY(0rem);
+}
+
+.login__input {
+  font-family: "Montserrat", sans-serif;
+  color: #333;
+  font-size: 1.2rem;
+  margin: 0 auto;
+  padding: 1.2rem 1.8rem;
+  border-radius: 0.2rem;
+  background-color: #ffffff;
+  border: none;
+  width: 75%;
+  display: block;
+  border-bottom: 0.3rem solid transparent;
+  transition: all 0.3s;
+  margin-top: 1rem;
+  border: none;
+}
+
+.login__input:user-invalid {
+  outline-color: rgb(255, 0, 0);
+}
+
+.login__input:placeholder-shown + .login__label {
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transform: translateY(4rem);
+  transform: translateY(4rem);
+}
+
+.login__bottom {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 1rem 0;
+}
+
+.login__forgot {
+  color: #ffffff;
+}
+
+.login__forgot:hover {
+  color: #000000;
+}
+
+.login__submit {
+  width: 100%;
+  height: 2.5rem;
+  border-radius: 100px;
+  border: 2px solid #ffffff;
+  background-color: transparent;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 1.2rem;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all ease-in-out 0.2s;
+  letter-spacing: 0.2rem;
+}
+
+.login__submit:hover {
+  color: black;
+  background-color: var(--main-theme-color);
+  font-weight: bold;
+}
+
+.register {
+  display: block;
+  text-align: center;
+  margin-top: 1rem;
+  color: #ffffff;
+}
+
+.register:hover {
+  color: #000000;
+}
