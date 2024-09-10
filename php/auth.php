@@ -1,7 +1,7 @@
 <?php
 require_once("../php/net.php");
 
-const API_URL = "http://127.0.0.1:8000/auth";
+const API_URL = "https://purrfect-match-api.onrender.com";
 
 function authenticateUser($username, $password) {
     $data = [
@@ -11,22 +11,36 @@ function authenticateUser($username, $password) {
 
     $encoded_form_url = http_build_query($data);
 
-    $curlFetcher = new CurlFetcher(
-        API_URL,
-        "POST",
-        "application/json",
-        "application/x-www-form-urlencoded"
-    );
+    $curl = new CurlFetcher([
+        'url' => API_URL . '/auth',
+        'method' => "POST",
+        'opt_array' => [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER => [
+                'accept: application/json',
+                'Content-Type: application/x-www-form-urlencoded'
+            ],
+            CURLOPT_POSTFIELDS => $encoded_form_url,
+        ],
+    ]);
 
-    $res = $curlFetcher->fetch($encoded_form_url);
+    $res = $curl->fetch();
 
-    $curlFetcher->close();
+    $curl->close();
 
     return $res;
 }
 
 function hasAuthenticationCookieSet() {
     return isset($_COOKIE['token']);
+}
+
+function getAuthenticationCookie() {
+    if (hasAuthenticationCookieSet()) {
+        return $_COOKIE['token'];
+    } else {
+        return false;
+    }
 }
 
 function setAuthenticationCookie($jwt) {

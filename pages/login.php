@@ -12,7 +12,7 @@
     require_once('../php/auth.php');
 
     if (hasAuthenticationCookieSet()) {
-        // header("Location: http://localhost/purrfect-match/");
+        header("Location: http://localhost/purrfect-match/pages/me.php");
         echo $_COOKIE['token'];
         clearAuthenticationCookie();
         die();
@@ -25,10 +25,11 @@
         $res = authenticateUser($username, $password);
 
         if ($res != false) {
-            // header("Location: http://localhost/purrfect-match/");
             var_dump($res);
-            setAuthenticationCookie($res['access_token']);
 
+            setAuthenticationCookie($res['access_token']);
+            
+            header("Location: http://localhost/purrfect-match/pages/me.php");
             die();
         }
         else {
@@ -39,10 +40,10 @@
     <main>
         <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST">
             <label for="username">Usuário</label>
-            <input type="text" name="username" id="username">
+            <input type="text" name="username" id="username" required>
             <br>
             <label for="password">Senha</label>
-            <input type="password" name="password" id="password">
+            <input type="password" name="password" id="password" required>
             <br>
             <input type="submit" value="Entrar">
         </form>

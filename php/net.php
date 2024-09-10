@@ -2,36 +2,27 @@
 class CurlFetcher {
     public CurlHandle $curlHandle;
 
-    public function __construct($url, $method, $accept, $content_type) {
-        $this->curlHandle = curl_init($url);
+    public function __construct($configuration) {
+        $this->curlHandle = curl_init($configuration['url']);
 
-        switch ($method) {
+        switch ($configuration['method']) {
             case 'POST':
                 curl_setopt($this->curlHandle, CURLOPT_POST, 1);
                 break;
             case 'GET':
                 break;
             default:
-                die("CurlFetcher::ERROR_UNHANDLED_METHOD_" . $method);
+                die("CurlFetcher::ERROR_UNHANDLED_METHOD_" . $configuration['method']);
                 break;
         }
 
         curl_setopt_array(
             $this->curlHandle,
-            [
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_HTTPHEADER => [
-                    'accept: ' . $accept . '\r\n',
-                    'Content-Type: ' . $content_type,
-                    '\r\n',
-                ]
-            ]
+            $configuration['opt_array'],
         );
     }
 
-    public function fetch($data) {
-        curl_setopt($this->curlHandle, CURLOPT_POSTFIELDS, $data);
-
+    public function fetch() {
         $res = curl_exec($this->curlHandle);
 
         $http_code = curl_getinfo($this->curlHandle, CURLINFO_HTTP_CODE);
