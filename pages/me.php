@@ -42,6 +42,7 @@
             </main>";
         }
 
+        $curl->close()
     ?>
 </body>
 </html>
