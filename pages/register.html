@@ -1,11 +1,107 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro | Purrfect Match</title>
-</head>
-<body>
-    
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../public/assets/styles/reset.css" />
+        <link
+            rel="stylesheet"
+            href="../public/assets/styles/pages/register.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        />
+        <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+        <title>Cadastro | Purrfect Match</title>
+    </head>
+    <body>
+        <main class="main">
+            <div class="register">
+                <h2 class="register__title">Cadastro</h2>
+                <span class="register__invalid"></span>
+                <form class="form" id="form">
+                    <input
+                        required
+                        class="register__input"
+                        type="text"
+                        name="name"
+                        placeholder="Nome Completo"
+                        id="name"
+                    />
+                    <label class="register__label" for="name"
+                        >Nome Completo</label
+                    >
+                    <input
+                        required
+                        class="register__input"
+                        type="text"
+                        name="username"
+                        placeholder="Nome de Usuário"
+                        id="username"
+                    />
+                    <label class="register__label" for="username"
+                        >Nome de Usuário</label
+                    >
+                    <input
+                        required
+                        class="register__input"
+                        type="password"
+                        name="password"
+                        placeholder="Senha"
+                        id="password"
+                    />
+                    <label class="register__label" for="password">Senha</label>
+                    <input
+                        required
+                        class="register__input"
+                        type="date"
+                        name="date_birth"
+                        placeholder="Data de Nascimento"
+                        id="date_birth"
+                    />
+                    <label class="register__label" for="date_birth"
+                        >Data de Nascimento</label
+                    >
+                    <input
+                        required
+                        class="register__input"
+                        type="email"
+                        name="contact_email"
+                        placeholder="E-mail"
+                        id="contact_email"
+                    />
+                    <label class="register__label" for="contact_email"
+                        >E-mail</label
+                    >
+                    <input
+                        required
+                        class="register__input"
+                        type="tel"
+                        name="contact_phone"
+                        placeholder="Telefone (99) 99999-9999"
+                        pattern="(\([0-9]{2}\))\s([9]{1})?([0-9]{5})-([0-9]{4})"
+                        maxlength="15"
+                        onkeyup="handlePhone(event)"
+                        id="contact_phone"
+                    />
+                    <label class="register__label" for="contact_phone"
+                        >Telefone</label
+                    >
+                    <input
+                        required
+                        type="submit"
+                        class="register__submit"
+                        value="CADASTRAR"
+                    />
+                </form>
+                <a class="login" href="./login.html">Já possui conta? Entre!</a>
+            </div>
+        </main>
+        <script src="../public/assets/scripts/inputs.js"></script>
+        <script
+            type="module"
+            src="../public/assets/scripts/register.js"
+        ></script>
+    </body>
 </html>
