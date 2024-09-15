@@ -69,7 +69,6 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['keep
 
     http_response_code(200);
     echo json_encode($res);
-}
-else {
+} else {
     http_response_code(400);
 }
