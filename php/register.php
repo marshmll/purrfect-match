@@ -1,24 +1,10 @@
 <?php
 require_once("./database.php");
 require_once("./jwt.php");
+require_once("./http_responses.php");
 
 // Sets response format to JSON
 header('Content-Type: application/json');
-
-// JSON response in case the username is already in use.
-$user_already_registered_json = json_encode([
-    'detail' => mb_convert_encoding('Nome de usuário já cadastrado.', 'UTF-8', 'auto'),
-]);
-
-// JSON response in case the email is already in use.
-$email_already_registered_json = json_encode([
-    'detail' => mb_convert_encoding('E-mail já cadastrado.', 'UTF-8', 'auto'),
-]);
-
-// JSON response in case the user creation goes wrong.
-$user_creation_error_json = json_encode([
-    'detail' => mb_convert_encoding('Um erro inesperado ocorreu durante a criação do usuário. Caso o problema persista, entre em contato com os responsáveis pelo site.', 'UTF-8', 'auto'),
-]);
 
 // Check for all post data from the form
 if (
@@ -97,7 +83,7 @@ if (
     // If the creation was sucessfull
     if ($result) {
         // Create a JSON Web Token Manager
-        $jwt_manager = new JWTManager("justtestingggg");
+        $jwt_manager = new JWTManager(SECRET_KEY);
         $token_expiration = time() + 7 * 24 * 60 * 60;
 
         // Create token payload

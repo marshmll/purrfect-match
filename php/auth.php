@@ -1,13 +1,9 @@
 <?php
 require_once('./database.php');
 require_once('./jwt.php');
+require_once('./http_responses.php');
 
 header('Content-Type: application/json');
-
-// JSON response to send in case that the username or password is incorrect
-$unautorized_json = json_encode([
-    'detail' => mb_convert_encoding('Usuário ou senha incorretos', 'UTF-8', 'auto'),
-]);
 
 // If all necessary form data was posted
 if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['keep_connected'])) {
@@ -56,7 +52,7 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['keep
     }
 
     // Create a JSON Web Token manager.
-    $jwt_manager = new JWTManager("justtestingggg");
+    $jwt_manager = new JWTManager(SECRET_KEY);
     $token_expiration = 0;
 
     // If user asked to keep connection

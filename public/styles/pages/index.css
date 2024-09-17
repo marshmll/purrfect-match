@@ -1,105 +1,84 @@
-/* index.html specific styling
-
-Created by: Renan Andrade, 2024/09/01 */
-
-body {
-    position: relative;
-    min-height: 100vh;
-}
-
 .main {
-    margin-left: 4rem;
     padding: 1rem 2rem;
 }
 
-.main__title {
-    font-size: 2rem;
-    font-weight: bold;
-    letter-spacing: 0.1rem;
-    font-family: "Montserrat", sans-serif;
+.hero {
+    width: 70%;
+    display: block;
+    margin: 0 auto;
     margin-bottom: 2rem;
 }
 
-.cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    grid-auto-rows: auto;
-    gap: 1rem;
-}
-
-.card {
-    min-height: 28rem;
-    margin-bottom: 1rem;
-    position: relative;
-}
-
-.card:hover {
-    transform: scale(1.02);
-    transition: cubic-bezier(0.645, 0.045, 0.355, 1) 100ms;
-}
-
-.card__image {
-    display: block;
-    cursor: pointer;
-    height: 80%;
-    background-color: #f0f0f0;
-    border-radius: 10px;
-    margin-bottom: 1rem;
-    background-position: center;
+.hero__image {
+    background-image: url("../../images/catHeader.webp");
     background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
-}
-
-.card__personalities {
-    display: grid;
     width: 100%;
-    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-    gap: 0.2rem;
-    margin-top: 0.8rem;
+    height: 23rem;
+    margin-bottom: 2rem;
 }
 
-.card__personality {
-    color: #5a0000;
-    border: 1px solid #5a0000;
-    font-size: 0.7rem;
-    font-weight: 300;
-    border-radius: 8px;
-    padding: 0.1rem 0.1rem;
-    text-align: center;
-}
-
-.card__fav {
-    position: absolute;
-    right: 0;
-    z-index: 9;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-}
-
-.card__fav:hover {
-    color: #8d8d8d;
-}
-
-.card__fav:active {
-    color: red;
-}
-
-.card__name {
+.hero__title {
+    font-size: 2.2em;
     font-weight: 700;
-    font-family: "Plus Jakarta Sans", sans-serif;
-    font-size: 1.2rem;
-    margin-bottom: 0.6rem;
+    text-align: center;
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
 }
 
-.card__age {
-    font-weight: 300;
+.partnership {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.partnership__prelude {
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: .3rem;
+    margin-bottom: .5rem;
+}
+
+.partnership__title {
+    font-family: 'Moul', sans-serif;
+    font-size: 2rem;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.buttons__container {
+    display: grid;
+    grid-template-columns: 250px 250px;
+    row-gap: 1em;
+    column-gap: 1em;
+
+}
+
+.buttons__button {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 30px 20px;
+    border: 2px solid #ccc;
 }
 
 /* MEDIA QUERIES =========================================================================================================== */
 
 @media screen and (max-width: 768px) {
-    .main {
-        margin: 0;
+    .hero {
+        width: 100%;
+    }
+
+    .hero__image {
+        height: 14rem;
+    }
+
+    .hero__title {
+        font-size: 1.8rem;
     }
 }

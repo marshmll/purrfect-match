@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * A secret 256 bits hash that is used to digest the cookie and
+ * verify its signature. 
+ */
+const SECRET_KEY = "nah";
+
 /** 
  * Implementation of IETF RFC 7519 (JSON Web Token)
  * 
@@ -33,7 +39,7 @@ class JWTManager
     /**
      * @brief Checks if a given JWT is valid according to the secret key.
      */
-    public function validadeToken($token)
+    public function isTokenValid($token)
     {
         list($base64_url_header, $base64_url_payload, $base64_url_signature) = explode('.', $token);
         $signature = $this->base64UrlDecode($base64_url_signature);
