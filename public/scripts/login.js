@@ -2,7 +2,7 @@ import { deleteCookie, hasCookieSet, setCookie } from "./cookie.js";
 
 if (hasCookieSet("token")) {
     document.location.replace("http://localhost/purrfect-match/pages/fyp.html");
-    // deleteCookie("token");
+    deleteCookie("token");
 }
 
 const loginForm = document.getElementById("form");
