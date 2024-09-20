@@ -1,7 +1,7 @@
 import { hasCookieSet, getCookie, deleteCookie } from "./cookie.js";
 
 if (!hasCookieSet("token"))
-    window.location.replace("http://127.0.0.1/pages/login.html");
+    window.location.replace("http://localhost/purrfect-match/pages/login.html");
 
 const token = getCookie("token");
 
@@ -12,7 +12,7 @@ async function fetchContent() {
         Authorization: `Bearer ${token}`,
     });
 
-    let data = await fetch("http://127.0.0.1/php/fyp.php", {
+    let data = await fetch("http://localhost/purrfect-match/php/fyp.php", {
         method: "POST",
         headers: headers,
     }).then(async (res) => {
@@ -21,7 +21,7 @@ async function fetchContent() {
         if (res.status != 200) {
             // deleteCookie("token");
             // window.location.replace(
-            //     "http://127.0.0.1/pages/login.html"
+            //     "http://localhost/purrfect-match/pages/login.html"
             // );
             return json.detail;
         }

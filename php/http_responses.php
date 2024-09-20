@@ -1,8 +1,4 @@
 <?php
-$interal_server_error_json = json_encode([
-    'detail' => mb_convert_encoding('Um erro interno ocorreu no sistema. Caso o problema persista, entre em contato com os responsáveis pelo site.', 'UTF-8', 'auto'),
-]);
-
 // JSON response to send in case that the token is invalid or not present.
 $not_authenticated_json = json_encode([
     'detail' => mb_convert_encoding('Não foi possível validar as credenciais.', 'UTF-8', 'auto'),

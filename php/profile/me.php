@@ -2,15 +2,11 @@
 require_once('../database.php');
 require_once('../http_responses.php');
 require_once('../jwt.php');
-require_once('../headers.php');
-require_once('../cors.php');
 
-CORS::sendCORSHeaders();
+$headers = apache_request_headers();
 
-$headers = get_nginx_headers();
-
-if (isset($headers['Authorization'])) {
-    $token = substr($headers['Authorization'], 7, strlen($headers['Authorization']) - 6);
+if (isset($headers['authorization'])) {
+    $token = substr($headers['authorization'], 7, strlen($headers['authorization']) - 6);
 
     $jwt = new JWTManager(SECRET_KEY);
 

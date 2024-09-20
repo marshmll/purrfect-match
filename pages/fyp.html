@@ -3,18 +3,20 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Favoritos | Purrfect Match</title>
-        <link rel="stylesheet" href="../styles/reset.css" />
+        <title>Para Você | Purrfetch Match</title>
+        <link rel="stylesheet" href="../public/styles/reset.css" />
         <link
             rel="stylesheet"
-            href="../styles/components/components.css"
+            href="../public/styles/components/components.css"
         />
+        <link rel="stylesheet" href="../public/styles/pages/fyp.css" />
         <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
         />
         <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
     </head>
+
     <body>
         <header class="header">
             <button class="header__search">
@@ -31,8 +33,8 @@
         <nav class="navbar">
             <ul class="navbar__list">
                 <li class="item">
-                    <a class="item__link" href="./fyp.html" title="Home">
-                        <span class="item__icon material-symbols-outlined"
+                    <a class="item__link active" href="./fyp.html" title="Home">
+                        <span class="item__icon material-symbols-outlined fill"
                             >home</span
                         >
                         <span class="item__text">Home</span>
@@ -40,11 +42,11 @@
                 </li>
                 <li class="item">
                     <a
-                        class="item__link active"
+                        class="item__link"
                         href="./favorites.html"
                         title="Favoritos"
                     >
-                        <span class="item__icon material-symbols-outlined fill"
+                        <span class="item__icon material-symbols-outlined"
                             >favorite</span
                         >
                         <span class="item__text">Favoritos</span>
@@ -84,5 +86,37 @@
                 </li>
             </ul>
         </nav>
+        <main class="main">
+            <h2 class="main__title">Gatinhos para você</h2>
+            <section class="cards">
+                <!-- <article class="card">
+                    <a
+                        class="card__image"
+                        href="/"
+                        style="
+                            background-image: url('https://images.ctfassets.net/ub3bwfd53mwy/5WFv6lEUb1e6kWeP06CLXr/acd328417f24786af98b1750d90813de/4_Image.jpg?w=750');
+                        "
+                    ></a>
+                    <button class="card__fav" title="Adicionar aos favoritos">
+                        <span class="item__icon material-symbols-outlined"
+                            >favorite</span
+                        >
+                    </button>
+                    <div class="card__text">
+                        <h3 class="card__name">Milo</h3>
+                        <span class="card__age">2 anos</span>
+                    </div>
+                    <div class="card__personalities">
+                        <div class="card__personality">Animado</div>
+                        <div class="card__personality">Enérgico</div>
+                        <div class="card__personality">Dócil</div>
+                        <div class="card__personality">Dócil</div>
+                        <div class="card__personality">Dócil</div>
+                        <div class="card__personality">Dócil</div>
+                    </div>
+                </article> -->
+            </section>
+        </main>
+        <script type="module" src="../public/scripts/fyp.js"></script>
     </body>
 </html>
