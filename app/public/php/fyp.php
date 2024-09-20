@@ -2,15 +2,16 @@
 require_once('./database.php');
 require_once('./jwt.php');
 require_once('./http_responses.php');
+require_once('./headers.php');
 
 // Collect headers
-$headers = apache_request_headers();
+$headers = get_nginx_headers();
 
 // If Authorization Bearer is set
-if (isset($headers['authorization'])) {
+if (isset($headers['Authorization'])) {
 
     // Remove 'Bearer ' from the token
-    $token = substr($headers['authorization'], 7, strlen($headers['authorization']) - 6);
+    $token = substr($headers['Authorization'], 7, strlen($headers['Authorization']) - 6);
 
     $jwt = new JWTManager(SECRET_KEY);
 

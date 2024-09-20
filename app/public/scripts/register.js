@@ -19,7 +19,7 @@ registerForm.addEventListener("submit", async (e) => {
         "Content-Type": "application/x-www-form-urlencoded",
     });
 
-    let data = await fetch("http://localhost/purrfect-match/php/register.php", {
+    let data = await fetch("http://127.0.0.1/php/register.php", {
         method: "POST",
         headers: headers,
         body: formURLEncoded,
@@ -37,6 +37,6 @@ registerForm.addEventListener("submit", async (e) => {
 
     if (data) {
         setCookie("token", data.access_token, 7);
-        document.location.replace("http://localhost/purrfect-match/");
+        document.location.replace("http://127.0.0.1/");
     }
 });
