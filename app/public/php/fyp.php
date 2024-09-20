@@ -4,6 +4,8 @@ require_once('./jwt.php');
 require_once('./http_responses.php');
 require_once('./headers.php');
 
+CORS::sendCORSHeaders();
+
 // Collect headers
 $headers = get_nginx_headers();
 

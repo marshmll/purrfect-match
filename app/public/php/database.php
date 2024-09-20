@@ -1,6 +1,4 @@
 <?php
-    require_once('http_responses.php');
-
     const hostname = "db";
     const username = "root";
     const password = "root";
