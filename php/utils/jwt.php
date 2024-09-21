@@ -49,6 +49,22 @@ class JWTManager
     }
 
     /**
+     * @brief Checks if a given JWT is expired.
+     */
+    public function isTokenExpired($token)
+    {
+        $payload = $this->decodeToken($token);
+
+        // Get expiration time (UNIX timestamp)
+        $token_exp = $payload['exp'];
+
+        if (time() >= $token_exp)
+            return true;
+
+        return false;
+    }
+
+    /**
      * @brief Decodes the payload of a given JWT.
      */
     public function decodeToken($token)
@@ -72,4 +88,20 @@ class JWTManager
         $base64Padded = str_pad($base64, strlen($base64) % 4, '=', STR_PAD_RIGHT);
         return base64_decode($base64Padded);
     }
+}
+
+function getAuthTokenFromHeaders($headers)
+{
+    $token = substr($headers['authorization'], 7, strlen($headers['authorization']) - 6);
+
+    return $token;
+}
+
+function createAuthenticationPayload($username, $sub, $exp)
+{
+    return [
+        'usr' => $username,
+        'sub' => $sub,
+        'exp' => $exp
+    ];
 }

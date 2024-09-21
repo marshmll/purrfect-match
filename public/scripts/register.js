@@ -1,4 +1,5 @@
 import { setCookie } from "./cookie.js";
+import { toMySQLDatetime } from "./utils/MySQLDatetime.js";
 
 const registerForm = document.getElementById("form");
 const feedbackSpan = document.querySelector(".register__invalid");
@@ -9,7 +10,7 @@ registerForm.addEventListener("submit", async (e) => {
     const formData = new FormData(registerForm);
     formData.append(
         "datetime_register",
-        new Date().toISOString().slice(0, 19).replace("T", " ")
+        toMySQLDatetime(new Date())
     );
 
     const formURLEncoded = new URLSearchParams(formData).toString();
@@ -37,6 +38,6 @@ registerForm.addEventListener("submit", async (e) => {
 
     if (data) {
         setCookie("token", data.access_token, 7);
-        document.location.replace("http://localhost/purrfect-match/");
+        document.location.replace("http://localhost/purrfect-match/pages/fyp.html");
     }
 });

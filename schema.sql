@@ -120,7 +120,7 @@ CREATE TABLE favorites (
     user_id INTEGER NOT NULL,
     cat_id INTEGER NOT NULL,
     choice_datetime DATETIME NOT NULL,
-    PRIMARY KEY (user_id, cat_id, choice_datetime),
+    PRIMARY KEY (user_id, cat_id),
     FOREIGN KEY(user_id) REFERENCES users (id),
     FOREIGN KEY(cat_id) REFERENCES cats (id)
 );

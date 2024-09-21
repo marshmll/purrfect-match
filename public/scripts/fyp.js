@@ -1,4 +1,5 @@
 import { hasCookieSet, getCookie, deleteCookie } from "./cookie.js";
+import { toMySQLDatetime } from "./utils/MySQLDatetime.js";
 
 if (!hasCookieSet("token"))
     window.location.replace("http://localhost/purrfect-match/pages/login.html");
@@ -6,13 +7,13 @@ if (!hasCookieSet("token"))
 const token = getCookie("token");
 
 async function fetchContent() {
-    let headers = new Headers({
+    const headers = new Headers({
         accept: "application/json",
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
     });
 
-    let data = await fetch("http://localhost/purrfect-match/php/fyp.php", {
+    let data = await fetch("http://localhost/purrfect-match/php/fyp/cats.php", {
         method: "POST",
         headers: headers,
     }).then(async (res) => {
@@ -54,8 +55,8 @@ async function renderContent() {
                 "
             ></a>
             <button class="card__fav" title="Adicionar aos favoritos">
-                <span class="item__icon material-symbols-outlined"
-                    >favorite</span
+                <span class="item__icon material-symbols-outlined ${cat.favorite ? "marked fill" : ""}" id="${cat.id}"
+                    >favorite</span 
                 >
             </button>
             <div class="card__text">
@@ -69,7 +70,51 @@ async function renderContent() {
         `;
     });
 
+    document.querySelectorAll(".card__fav").forEach((button) => {
+        button.addEventListener('click', (e) => favoriteToggle(e.target));
+    })
+
     console.log(cats);
+}
+
+async function favoriteToggle(target) {
+    const isMarked = target.classList.contains('marked');
+
+    const headers = new Headers({
+        accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+    });
+
+    if (!isMarked) {
+        await fetch("http://localhost/purrfect-match/php/fyp/add_favorite.php", {
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify({
+                cat_id: parseInt(target.id),
+                choice_datetime: toMySQLDatetime(new Date()),
+            })
+        }).then(async (res) => {
+            console.log(await res.json());
+
+            target.classList.add('marked');
+            target.classList.add('fill');
+        });
+    }
+    else {
+        await fetch("http://localhost/purrfect-match/php/fyp/remove_favorite.php", {
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify({
+                cat_id: parseInt(target.id),
+            })
+        }).then(async (res) => {
+            console.log(await res.json());
+
+            target.classList.remove('marked');
+            target.classList.remove('fill');
+        });
+    }
 }
 
 renderContent();
