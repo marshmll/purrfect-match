@@ -25,7 +25,7 @@ if (
     );
 
     if (!empty($user))
-        sendResponse($user_already_registered_json, 403);
+        sendResponse($user_already_registered_json, 409);
 
     // Check if the email exists in the database.
     $email = Database::query(
@@ -34,7 +34,7 @@ if (
     );
 
     if (!empty($email))
-        sendResponse($email_already_registered_json, 403);
+        sendResponse($email_already_registered_json, 409);
 
     // Create the user
     $salt = generatePasswordSalt();

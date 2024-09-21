@@ -4,7 +4,7 @@
  * A secret 256 bits hash that is used to digest the cookie and
  * verify its signature. 
  */
-const SECRET_KEY = "nah";
+const SECRET_KEY = "d0c49157fea2ccff061bfec97a77d4a000efb82a632f171e8f7cc4ddee73668158e2db2bdc043ca23f6d86e555dd5ccf4c65e98c09a99262c301309cc07f89fc";
 
 /** 
  * Implementation of IETF RFC 7519 (JSON Web Token)
