@@ -1,4 +1,4 @@
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
     id INTEGER NOT NULL AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
     username VARCHAR(20) NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE users (
     UNIQUE (username)
 );
 
-CREATE TABLE cats (
+CREATE TABLE IF NOT EXISTS cats (
     id INTEGER NOT NULL AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
     age SMALLINT NOT NULL,
@@ -21,27 +21,27 @@ CREATE TABLE cats (
     PRIMARY KEY (id)
 );
 
-CREATE TABLE diseases (
+CREATE TABLE IF NOT EXISTS diseases (
     id INTEGER NOT NULL AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
     description VARCHAR(1024),
     PRIMARY KEY (id)
 );
 
-CREATE TABLE personalities (
+CREATE TABLE IF NOT EXISTS personalities (
     id INTEGER NOT NULL AUTO_INCREMENT,
     name VARCHAR(30) NOT NULL,
     description VARCHAR(1024) NOT NULL,
     PRIMARY KEY (id)
 );
 
-CREATE TABLE colors (
+CREATE TABLE IF NOT EXISTS colors (
     id INTEGER NOT NULL AUTO_INCREMENT,
     name VARCHAR(10) NOT NULL,
     PRIMARY KEY (id)
 );
 
-CREATE TABLE cat_diseases (
+CREATE TABLE IF NOT EXISTS cat_diseases (
     cat_id INTEGER NOT NULL,
     disease_id INTEGER NOT NULL,
     PRIMARY KEY (cat_id, disease_id),
@@ -49,7 +49,7 @@ CREATE TABLE cat_diseases (
     FOREIGN KEY(disease_id) REFERENCES diseases (id)
 );
 
-CREATE TABLE cat_colors (
+CREATE TABLE IF NOT EXISTS cat_colors (
     cat_id INTEGER NOT NULL,
     color_id INTEGER NOT NULL,
     PRIMARY KEY (cat_id, color_id),
@@ -57,7 +57,7 @@ CREATE TABLE cat_colors (
     FOREIGN KEY(color_id) REFERENCES colors (id)
 );
 
-CREATE TABLE cat_personalities (
+CREATE TABLE IF NOT EXISTS cat_personalities (
     cat_id INTEGER NOT NULL,
     personality_id INTEGER NOT NULL,
     PRIMARY KEY (cat_id, personality_id),
@@ -65,7 +65,7 @@ CREATE TABLE cat_personalities (
     FOREIGN KEY(personality_id) REFERENCES personalities (id)
 );
 
-CREATE TABLE vaccines (
+CREATE TABLE IF NOT EXISTS vaccines (
     id INTEGER NOT NULL AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
     description VARCHAR(1024),
@@ -74,7 +74,7 @@ CREATE TABLE vaccines (
     FOREIGN KEY(disease_id) REFERENCES diseases (id)
 );
 
-CREATE TABLE color_preferences (
+CREATE TABLE IF NOT EXISTS color_preferences (
     color_id INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
     PRIMARY KEY (color_id, user_id),
@@ -82,7 +82,7 @@ CREATE TABLE color_preferences (
     FOREIGN KEY(user_id) REFERENCES users (id)
 );
 
-CREATE TABLE personality_preferences (
+CREATE TABLE IF NOT EXISTS personality_preferences (
     personality_id INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
     PRIMARY KEY (personality_id, user_id),
@@ -90,7 +90,7 @@ CREATE TABLE personality_preferences (
     FOREIGN KEY(user_id) REFERENCES users (id)
 );
 
-CREATE TABLE rescues (
+CREATE TABLE IF NOT EXISTS rescues (
     user_id INTEGER NOT NULL,
     request_datetime DATETIME NOT NULL,
     status VARCHAR(50) NOT NULL,
@@ -105,7 +105,7 @@ CREATE TABLE rescues (
     FOREIGN KEY(user_id) REFERENCES users (id)
 );
 
-CREATE TABLE adoptions (
+CREATE TABLE IF NOT EXISTS adoptions (
     user_id INTEGER NOT NULL,
     cat_id INTEGER NOT NULL,
     request_datetime DATETIME NOT NULL,
@@ -116,7 +116,7 @@ CREATE TABLE adoptions (
     FOREIGN KEY(cat_id) REFERENCES cats (id)
 );
 
-CREATE TABLE favorites (
+CREATE TABLE IF NOT EXISTS favorites (
     user_id INTEGER NOT NULL,
     cat_id INTEGER NOT NULL,
     choice_datetime DATETIME NOT NULL,
@@ -125,7 +125,7 @@ CREATE TABLE favorites (
     FOREIGN KEY(cat_id) REFERENCES cats (id)
 );
 
-CREATE TABLE physical_descriptions (
+CREATE TABLE IF NOT EXISTS physical_descriptions (
     cat_id INTEGER NOT NULL,
     description VARCHAR(1024) NOT NULL,
     PRIMARY KEY (cat_id),
@@ -133,7 +133,7 @@ CREATE TABLE physical_descriptions (
 );
 
 
-CREATE TABLE messages (
+CREATE TABLE IF NOT EXISTS messages (
     sender_id INTEGER NOT NULL,
     receiver_id INTEGER NOT NULL,
     sent_datetime DATETIME NOT NULL,
@@ -145,7 +145,7 @@ CREATE TABLE messages (
 );
 
 
-CREATE TABLE vaccinations (
+CREATE TABLE IF NOT EXISTS vaccinations (
     cat_id INTEGER NOT NULL,
     vaccine_id INTEGER NOT NULL,
     dose CHAR(3) NOT NULL,
@@ -167,11 +167,19 @@ VALUES
 INSERT INTO personalities (name, description)
 VALUES
     ('Dócil', 'Um gatinho dócil é aquele que é tranquilo, calmo e fácil de lidar. Ele geralmente gosta de carinho, se adapta bem a diferentes situações e convive bem com outras pessoas e animais. É como um anjo de quatro patas! ❤️'),
-    ('Agitado', 'Um gatinho agitado é pura energia! Ele adora brincar, correr, pular e explorar tudo ao redor. É como um furacão de fofura que não para um minuto! ️ Se você busca um companheiro para te tirar do tédio, um gatinho agitado é a escolha perfeita! Mas prepare-se para muitas aventuras e brincadeiras!');
+    ('Agitado', 'Um gatinho agitado é pura energia! Ele adora brincar, correr, pular e explorar tudo ao redor. É como um furacão de fofura que não para um minuto! ️ Se você busca um companheiro para te tirar do tédio, um gatinho agitado é a escolha perfeita! Mas prepare-se para muitas aventuras e brincadeiras!'),
+    ('Curioso', 'Um gatinho curioso é como um pequeno explorador! Ele adora investigar tudo o que está ao seu redor, desde uma simples caixa até os cantos mais altos da casa. Seus olhos grandes e brilhantes transmitem toda a sua curiosidade, e ele está sempre pronto para descobrir algo novo. Prepare-se para ter seus móveis inspecionados, suas plantas cheiradas e até mesmo seus pés investigados! Mas não se preocupe, essa curiosidade é parte do charme desses felinos inteligentes.'),
+    ('Independente', 'Um gatinho independente adora ter seu próprio espaço e tempo. Ele é como um pequeno lobo solitário que aprecia sua liberdade. Apesar de gostar da companhia humana, ele não precisa de atenção constante e pode se entreter por conta própria. É um felino autossuficiente que sabe cuidar de si mesmo.');
+
 
 INSERT INTO cat_personalities (cat_id, personality_id)
 VALUES
     (1, 1),
     (1, 2),
     (2, 1),
-    (2, 2);
+    (2, 2),
+    (3, 4),
+    (3, 2),
+    (4, 1),
+    (5, 2),
+    (5, 3);

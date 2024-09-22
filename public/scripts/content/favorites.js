@@ -1,42 +1,27 @@
-import { hasCookieSet, getCookie, deleteCookie } from "./cookie.js";
-import { toMySQLDatetime } from "./utils/MySQLDatetime.js";
+import { hasCookieSet } from "../utils/cookie.js";
+import { fetchAPI } from "../utils/api.js";
+import { toMySQLDatetime } from "../utils/mySQLDatetime.js";
 
 if (!hasCookieSet("token"))
     window.location.replace("http://localhost/purrfect-match/pages/login.html");
 
-const token = getCookie("token");
-
-async function fetchContent() {
-    const headers = new Headers({
-        accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-    });
-
-    let data = await fetch("http://localhost/purrfect-match/php/fyp/cats.php", {
-        method: "POST",
-        headers: headers,
-    }).then(async (res) => {
-        let json = await res.json();
-
-        if (res.status != 200) {
-            // deleteCookie("token");
-            // window.location.replace(
-            //     "http://localhost/purrfect-match/pages/login.html"
-            // );
-            return json.detail;
-        }
-
-        return json;
-    });
-
-    return data;
-}
-
-async function renderContent() {
+async function renderFavoritesPage() {
     const container = document.querySelector(".cards");
 
-    let cats = await fetchContent();
+    let response = await fetchAPI("content/favorites.php");
+
+    if (response.status != 200) {
+        deleteCookie("token");
+        window.location.replace("http://localhost/purrfect-match/pages/login.html");
+        return;
+    }
+
+    const cats = response.data;
+
+    if (cats.length == 0) {
+        container.innerHTML = "<p>Adicione gatinhos aos seus favoritos para vê-los aqui.</p>";
+        return;
+    }
 
     cats.forEach((cat) => {
         let personalities = "";
@@ -80,41 +65,35 @@ async function renderContent() {
 async function favoriteToggle(target) {
     const isMarked = target.classList.contains('marked');
 
-    const headers = new Headers({
-        accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-    });
-
     if (!isMarked) {
-        await fetch("http://localhost/purrfect-match/php/fyp/add_favorite.php", {
-            method: "POST",
-            headers: headers,
-            body: JSON.stringify({
+        let response = await fetchAPI(
+            "content/add_favorite.php",
+            "POST",
+            {
                 cat_id: parseInt(target.id),
-                choice_datetime: toMySQLDatetime(new Date()),
-            })
-        }).then(async (res) => {
-            console.log(await res.json());
+                choice_datetime: toMySQLDatetime(new Date())
+            }
+        );
 
+        if (response.status == 201) {
             target.classList.add('marked');
             target.classList.add('fill');
-        });
+        }
     }
     else {
-        await fetch("http://localhost/purrfect-match/php/fyp/remove_favorite.php", {
-            method: "POST",
-            headers: headers,
-            body: JSON.stringify({
+        let response = await fetchAPI(
+            "content/remove_favorite.php",
+            "POST",
+            {
                 cat_id: parseInt(target.id),
-            })
-        }).then(async (res) => {
-            console.log(await res.json());
+            }
+        );
 
+        if (response.status == 200) {
             target.classList.remove('marked');
             target.classList.remove('fill');
-        });
+        }
     }
 }
 
-renderContent();
+renderFavoritesPage();

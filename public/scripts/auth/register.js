@@ -1,5 +1,5 @@
-import { setCookie } from "./cookie.js";
-import { toMySQLDatetime } from "./utils/MySQLDatetime.js";
+import { setCookie } from "../utils/cookie.js";
+import { toMySQLDatetime } from "../utils/MySQLDatetime.js";
 
 const registerForm = document.getElementById("form");
 const feedbackSpan = document.querySelector(".register__invalid");
@@ -20,7 +20,7 @@ registerForm.addEventListener("submit", async (e) => {
         "Content-Type": "application/x-www-form-urlencoded",
     });
 
-    let data = await fetch("http://localhost/purrfect-match/php/register.php", {
+    let data = await fetch("http://localhost/purrfect-match/api/register.php", {
         method: "POST",
         headers: headers,
         body: formURLEncoded,

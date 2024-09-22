@@ -3,9 +3,9 @@ require_once('../utils/database.php');
 require_once('../utils/jwt.php');
 require_once('../utils/http_responses.php');
 
-header('Content-Type: application/json');
-
+// Collect headers and body
 $headers = apache_request_headers();
+$body = json_decode(file_get_contents('php://input'), true);
 
 // If Authorization Bearer is set
 if (isset($headers['authorization'])) {
@@ -15,19 +15,14 @@ if (isset($headers['authorization'])) {
 
     $jwt = new JWTManager(SECRET_KEY);
 
+    // Check if the token has the expected signature
     if (!$jwt->isTokenValid($token) or $jwt->isTokenExpired($token))
         sendNotAuthenticatedResponse();
 
     $payload = $jwt->decodeToken($token);
 
-    // Query for getting all cats
     $cats = Database::query(
         "SELECT id, name, age, sex
-        FROM cats"
-    );
-
-    $user_favorites = Database::query(
-        "SELECT id
         FROM cats
         WHERE id IN
         (
@@ -54,7 +49,8 @@ if (isset($headers['authorization'])) {
                 FROM cat_personalities WHERE
                 cat_id = %s
             )",
-            [$cat['id']]
+            [$cat['id']],
+            true
         );
 
         // Save each personality in an array.
@@ -65,17 +61,7 @@ if (isset($headers['authorization'])) {
 
         // Add the personality array to the cat row.
         $cat += ['personalities' => $cat_personalities];
-
-        $is_favorite = false;
-
-        foreach ($user_favorites as $favorite) {
-            if ($favorite['id'] == $cat['id']) {
-                $is_favorite = true;
-                break;
-            }
-        }
-
-        $cat += ['favorite' => $is_favorite];
+        $cat += ['favorite' => true];
 
         // Add the cat row in a array.
         $data[] = $cat;
@@ -85,5 +71,4 @@ if (isset($headers['authorization'])) {
     sendOKResponse(json_encode($data));
 }
 
-// If reaches here, it means no Bearer token was received, send unauthorized.
-sendNotAuthenticatedResponse();
+sendBadRequestResponse();

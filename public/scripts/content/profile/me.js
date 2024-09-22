@@ -1,4 +1,4 @@
-import { getCookie, hasCookieSet } from "../cookie.js";
+import { getCookie, hasCookieSet } from "../../utils/cookie.js";
 
 if (!hasCookieSet("token"))
     window.location.replace("http://localhost/purrfect-match/pages/login.html");

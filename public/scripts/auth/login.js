@@ -1,4 +1,4 @@
-import { deleteCookie, hasCookieSet, setCookie } from "./cookie.js";
+import { deleteCookie, hasCookieSet, setCookie } from "../utils/cookie.js";
 
 if (hasCookieSet("token")) {
     document.location.replace("http://localhost/purrfect-match/pages/fyp.html");
@@ -23,7 +23,7 @@ loginForm.addEventListener("submit", async (e) => {
         "Content-Type": "application/x-www-form-urlencoded",
     });
 
-    let data = await fetch("http://localhost/purrfect-match/php/auth.php", {
+    let data = await fetch("http://localhost/purrfect-match/api/auth.php", {
         method: "POST",
         headers: headers,
         body: formURLEncoded,

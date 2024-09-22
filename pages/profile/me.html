@@ -1,165 +1,95 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Perfil | Purrfect Match</title>
-        <link rel="stylesheet" href="../../public/styles/reset.css" />
-        <link
-            rel="stylesheet"
-            href="../../public/styles/components/components.css"
-        />
-        <link rel="stylesheet" href="../../public/styles/pages/profile.css" />
-        <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-        />
-        <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
-    </head>
-    <body>
-        <nav class="navbar">
-            <ul class="navbar__list">
-                <li class="item">
-                    <a class="item__link" href="./fyp.html" title="Home">
-                        <span class="item__icon material-symbols-outlined"
-                            >home</span
-                        >
-                        <span class="item__text">Home</span>
-                    </a>
-                </li>
-                <li class="item">
-                    <a
-                        class="item__link"
-                        href="./favorites.html"
-                        title="Favoritos"
-                    >
-                        <span class="item__icon material-symbols-outlined"
-                            >favorite</span
-                        >
-                        <span class="item__text">Favoritos</span>
-                    </a>
-                </li>
-                <li class="item">
-                    <a class="item__link" href="/" title="Adoção">
-                        <span class="item__icon material-symbols-outlined"
-                            >search</span
-                        >
-                        <span class="item__text">Adoção</span>
-                    </a>
-                </li>
-                <li class="item">
-                    <a class="item__link" href="./donations.html" title="Doar">
-                        <span class="item__icon material-symbols-outlined"
-                            >attach_money</span
-                        >
-                        <span class="item__text">Doar</span>
-                    </a>
-                </li>
-                <li class="item">
-                    <a
-                        class="item__link active"
-                        href="./profile.html"
-                        title="Perfil"
-                    >
-                        <span class="item__icon material-symbols-outlined fill"
-                            >person</span
-                        >
-                        <span class="item__text">Perfil</span>
-                    </a>
-                </li>
-                <li class="item">
-                    <a class="item__link" href="./login.html" title="Sair">
-                        <span class="item__icon material-symbols-outlined"
-                            >logout</span
-                        >
-                        <span class="item__text">Sair</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <main class="main">
-            <section class="head">
-                <div class="head__user">
-                    <div class="head__pfp"></div>
-                    <span class="head__username"
-                        ></span
-                    >
-                </div>
-            </section>
-            <section class="settings">
-                <article class="settings__article settings__personal">
-                    <h3 class="settings__title">Dados Pessoais</h3>
-                    <form id="personal_data_form" action="">
-                        <label for="nome" class="settings__label"
-                            >Nome Completo</label
-                        >
-                        <input
-                            class="settings__input"
-                            type="text"
-                            name="name"
-                            id="name"
-                            placeholder="Nome Completo"
-                            value="Renan da Silva Oliveira Andrade"
-                            required
-                        />
-                        <label for="username" class="settings__label"
-                            >Nome de Usuário</label
-                        >
-                        <input
-                            class="settings__input"
-                            type="text"
-                            name="username"
-                            id="username"
-                            placeholder="Nome de Usuário"
-                            value="renan"
-                            required
-                        />
-                        <label for="date_birth" class="settings__label"
-                            >Data de Nascimento</label
-                        >
-                        <input
-                            class="settings__input"
-                            type="date"
-                            name="date_birth"
-                            id="date_birth"
-                            value="2006-07-24"
-                            required
-                        />
-                        <label for="contact_email" class="settings__label"
-                            >Email</label
-                        >
-                        <input
-                            class="settings__input"
-                            type="email"
-                            name="contact_email"
-                            id="contact_email"
-                            placeholder="E-mail"
-                            value="renandasilvaoliveiraandrade@gmail.com"
-                        />
-                        <label for="contact_phone" class="settings__label"
-                            >Telefone</label
-                        >
-                        <input
-                            class="settings__input"
-                            type="tel"
-                            name="contact_phone"
-                            id="contact_phone"
-                            placeholder="(99) 99999-9999"
-                            value="(41) 99878-1618"
-                        />
-                        <a class="settings__link" href="./profile.html">Alterar senha</a>
-                        <input
-                            class="settings__submit"
-                            type="submit"
-                            value="SALVAR"
-                        />
-                    </form>
-                </article>
-                <article class="settings__article">
-                    <h3 class="settings__title">Preferências de Gatos</h3>
-                </article>
-            </section>
-        </main>
-        <script type="module" src="../../public/scripts/profile/me.js"></script>
-    </body>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perfil | Purrfect Match</title>
+    <link rel="stylesheet" href="../../public/styles/reset.css" />
+    <link rel="stylesheet" href="../../public/styles/components/components.css" />
+    <link rel="stylesheet" href="../../public/styles/pages/profile.css" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
+</head>
+
+<body>
+    <nav class="navbar">
+        <ul class="navbar__list">
+            <li class="item">
+                <a class="item__link" href="./fyp.html" title="Home">
+                    <span class="item__icon material-symbols-outlined">home</span>
+                    <span class="item__text">Home</span>
+                </a>
+            </li>
+            <li class="item">
+                <a class="item__link" href="./favorites.html" title="Favoritos">
+                    <span class="item__icon material-symbols-outlined">favorite</span>
+                    <span class="item__text">Favoritos</span>
+                </a>
+            </li>
+            <li class="item">
+                <a class="item__link" href="/" title="Adoção">
+                    <span class="item__icon material-symbols-outlined">search</span>
+                    <span class="item__text">Adoção</span>
+                </a>
+            </li>
+            <li class="item">
+                <a class="item__link" href="./donations.html" title="Doar">
+                    <span class="item__icon material-symbols-outlined">attach_money</span>
+                    <span class="item__text">Doar</span>
+                </a>
+            </li>
+            <li class="item">
+                <a class="item__link active" href="./profile.html" title="Perfil">
+                    <span class="item__icon material-symbols-outlined fill">person</span>
+                    <span class="item__text">Perfil</span>
+                </a>
+            </li>
+            <li class="item">
+                <a class="item__link" href="./login.html" title="Sair">
+                    <span class="item__icon material-symbols-outlined">logout</span>
+                    <span class="item__text">Sair</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <main class="main">
+        <section class="head">
+            <div class="head__user">
+                <div class="head__pfp"></div>
+                <span class="head__username"></span>
+            </div>
+        </section>
+        <section class="settings">
+            <article class="settings__article settings__personal">
+                <h3 class="settings__title">Dados Pessoais</h3>
+                <form id="personal_data_form" action="">
+                    <label for="nome" class="settings__label">Nome Completo</label>
+                    <input class="settings__input" type="text" name="name" id="name" placeholder="Nome Completo"
+                        value="Renan da Silva Oliveira Andrade" required />
+                    <label for="username" class="settings__label">Nome de Usuário</label>
+                    <input class="settings__input" type="text" name="username" id="username"
+                        placeholder="Nome de Usuário" value="renan" required />
+                    <label for="date_birth" class="settings__label">Data de Nascimento</label>
+                    <input class="settings__input" type="date" name="date_birth" id="date_birth" value="2006-07-24"
+                        required />
+                    <label for="contact_email" class="settings__label">Email</label>
+                    <input class="settings__input" type="email" name="contact_email" id="contact_email"
+                        placeholder="E-mail" value="renandasilvaoliveiraandrade@gmail.com" />
+                    <label for="contact_phone" class="settings__label">Telefone</label>
+                    <input class="settings__input" type="tel" name="contact_phone" id="contact_phone"
+                        placeholder="(99) 99999-9999" value="(41) 99878-1618" />
+                    <a class="settings__link" href="./profile.html">Alterar senha</a>
+                    <input class="settings__submit" type="submit" value="SALVAR" />
+                </form>
+            </article>
+            <article class="settings__article">
+                <h3 class="settings__title">Preferências de Gatos</h3>
+            </article>
+        </section>
+    </main>
+    <script type="module" src="../../public/scripts/content/profile/me.js"></script>
+</body>
+
 </html>

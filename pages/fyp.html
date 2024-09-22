@@ -1,95 +1,76 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Para Você | Purrfetch Match</title>
-        <link rel="stylesheet" href="../public/styles/reset.css" />
-        <link
-            rel="stylesheet"
-            href="../public/styles/components/components.css"
-        />
-        <link rel="stylesheet" href="../public/styles/pages/fyp.css" />
-        <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-        />
-        <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
-    </head>
 
-    <body>
-        <header class="header">
-            <button class="header__search">
-                <span class="material-symbols-outlined">search</span>
-            </button>
-            <div class="header__main">
-                <div class="header__icon"></div>
-                <h1 class="header__title">Purrfect Match</h1>
-            </div>
-            <button class="header__settings">
-                <span class="material-symbols-outlined">tune</span>
-            </button>
-        </header>
-        <nav class="navbar">
-            <ul class="navbar__list">
-                <li class="item">
-                    <a class="item__link active" href="./fyp.html" title="Home">
-                        <span class="item__icon material-symbols-outlined fill"
-                            >home</span
-                        >
-                        <span class="item__text">Home</span>
-                    </a>
-                </li>
-                <li class="item">
-                    <a
-                        class="item__link"
-                        href="./favorites.html"
-                        title="Favoritos"
-                    >
-                        <span class="item__icon material-symbols-outlined"
-                            >favorite</span
-                        >
-                        <span class="item__text">Favoritos</span>
-                    </a>
-                </li>
-                <li class="item">
-                    <a class="item__link" href="/" title="Adoção">
-                        <span class="item__icon material-symbols-outlined"
-                            >search</span
-                        >
-                        <span class="item__text">Adoção</span>
-                    </a>
-                </li>
-                <li class="item">
-                    <a class="item__link" href="./donations.html" title="Doar">
-                        <span class="item__icon material-symbols-outlined"
-                            >attach_money</span
-                        >
-                        <span class="item__text">Doar</span>
-                    </a>
-                </li>
-                <li class="item">
-                    <a class="item__link" href="./profile.html" title="Perfil">
-                        <span class="item__icon material-symbols-outlined"
-                            >person</span
-                        >
-                        <span class="item__text">Perfil</span>
-                    </a>
-                </li>
-                <li class="item">
-                    <a class="item__link" href="./login.html" title="Sair">
-                        <span class="item__icon material-symbols-outlined"
-                            >logout</span
-                        >
-                        <span class="item__text">Sair</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <main class="main">
-            <h2 class="main__title">Gatinhos para você</h2>
-            <section class="cards"></section>
-        </main>
-        <script type="module" src="../public/scripts/fyp.js"></script>
-    </body>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Para Você | Purrfetch Match</title>
+    <link rel="stylesheet" href="../public/styles/reset.css" />
+    <link rel="stylesheet" href="../public/styles/components/components.css" />
+    <link rel="stylesheet" href="../public/styles/pages/fyp.css" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+</head>
+
+<body>
+    <header class="header">
+        <button class="header__search">
+            <span class="material-symbols-outlined">search</span>
+        </button>
+        <div class="header__main">
+            <div class="header__icon"></div>
+            <h1 class="header__title">Purrfect Match</h1>
+        </div>
+        <button class="header__settings">
+            <span class="material-symbols-outlined">tune</span>
+        </button>
+    </header>
+    <nav class="navbar">
+        <ul class="navbar__list">
+            <li class="item">
+                <a class="item__link active" href="./fyp.html" title="Home">
+                    <span class="item__icon material-symbols-outlined fill">home</span>
+                    <span class="item__text">Home</span>
+                </a>
+            </li>
+            <li class="item">
+                <a class="item__link" href="./favorites.html" title="Favoritos">
+                    <span class="item__icon material-symbols-outlined">favorite</span>
+                    <span class="item__text">Favoritos</span>
+                </a>
+            </li>
+            <li class="item">
+                <a class="item__link" href="/" title="Adoção">
+                    <span class="item__icon material-symbols-outlined">search</span>
+                    <span class="item__text">Adoção</span>
+                </a>
+            </li>
+            <li class="item">
+                <a class="item__link" href="./donations.html" title="Doar">
+                    <span class="item__icon material-symbols-outlined">attach_money</span>
+                    <span class="item__text">Doar</span>
+                </a>
+            </li>
+            <li class="item">
+                <a class="item__link" href="./profile.html" title="Perfil">
+                    <span class="item__icon material-symbols-outlined">person</span>
+                    <span class="item__text">Perfil</span>
+                </a>
+            </li>
+            <li class="item">
+                <a class="item__link" href="./login.html" title="Sair">
+                    <span class="item__icon material-symbols-outlined">logout</span>
+                    <span class="item__text">Sair</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <main class="main">
+        <h2 class="main__title">Gatinhos para você</h2>
+        <section class="cards"></section>
+    </main>
+    <script type="module" src="../public/scripts/content/fyp.js"></script>
+</body>
+
 </html>
