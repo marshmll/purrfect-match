@@ -24,14 +24,14 @@ CREATE TABLE IF NOT EXISTS cats (
 CREATE TABLE IF NOT EXISTS diseases (
     id INTEGER NOT NULL AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
-    description VARCHAR(1024),
+    description TEXT NOT NULL,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS personalities (
     id INTEGER NOT NULL AUTO_INCREMENT,
     name VARCHAR(30) NOT NULL,
-    description VARCHAR(1024) NOT NULL,
+    description TEXT NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS cat_personalities (
 CREATE TABLE IF NOT EXISTS vaccines (
     id INTEGER NOT NULL AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
-    description VARCHAR(1024),
+    description TEXT NOT NULL,
     disease_id INTEGER NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY(disease_id) REFERENCES diseases (id)
@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS rescues (
     request_datetime DATETIME NOT NULL,
     status VARCHAR(50) NOT NULL,
     closure_datetime SMALLINT,
-    description VARCHAR(1024) NOT NULL,
+    description TEXT NOT NULL,
     addr_city VARCHAR(50) NOT NULL,
     addr_state VARCHAR(100) NOT NULL,
     addr_street VARCHAR(100) NOT NULL,
