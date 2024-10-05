@@ -2,7 +2,7 @@ import { fetchAPI } from "../utils/api.js";
 import { deleteCookie, hasCookieSet, setCookie } from "../utils/cookie.js";
 
 if (hasCookieSet("token")) {
-    document.location.replace("http://localhost/purrfect-match/pages/fyp.html");
+    document.location.replace("http://localhost:8000/pages/fyp.html");
 }
 
 const loginForm = document.getElementById("form");
@@ -12,7 +12,7 @@ loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     if (hasCookieSet("token")) {
-        document.location.replace("http://localhost/purrfect-match/pages/fyp.html");
+        document.location.replace("http://localhost:8000/pages/fyp.html");
     }
 
     const formData = Object.fromEntries(new FormData(e.target));
@@ -34,6 +34,6 @@ loginForm.addEventListener("submit", async (e) => {
     }
     else {
         setCookie("token", res.data.access_token, 7);
-        document.location.replace("http://localhost/purrfect-match/pages/fyp.html");
+        document.location.replace("http://localhost:8000/pages/fyp.html");
     }
 });

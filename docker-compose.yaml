@@ -1,4 +1,12 @@
 services:
+  webserver:
+    image: php:apache
+    container_name: webserver
+    build: ./docker/php
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - '8000:80'
   db:
     image: mysql/mysql-server:latest
     container_name: mysql

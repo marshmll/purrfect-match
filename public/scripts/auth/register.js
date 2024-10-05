@@ -1,3 +1,4 @@
+import { fetchAPI } from "../utils/api.js";
 import { setCookie } from "../utils/cookie.js";
 import { toMySQLDatetime } from "../utils/mySQLDatetime.js";
 
@@ -20,24 +21,13 @@ registerForm.addEventListener("submit", async (e) => {
         "Content-Type": "application/x-www-form-urlencoded",
     });
 
-    let data = await fetch("http://localhost/purrfect-match/api/register.php", {
-        method: "POST",
-        headers: headers,
-        body: formURLEncoded,
-    }).then(async (res) => {
-        let json = await res.json();
-        
-        if (res.status != 201) {
-            feedbackSpan.textContent = json.detail;
-            return false;
-        }
+    const res = await fetchAPI("register.php", "POST", formURLEncoded, headers);
 
-        feedbackSpan.textContent = "";
-        return json;
-    });
-
-    if (data) {
-        setCookie("token", data.access_token, 7);
-        document.location.replace("http://localhost/purrfect-match/pages/fyp.html");
+    if (res.status != 201) {
+        feedbackSpan.textContent = res.data.detail;
+        return false;
     }
+
+    setCookie("token", res.data.access_token, 7);
+    document.location.replace("http://localhost:8000/pages/fyp.html");
 });

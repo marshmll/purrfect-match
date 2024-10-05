@@ -7,7 +7,7 @@ export async function fetchAPI(endpoint, method = "POST", body = {}, headers = n
         Authorization: `Bearer ${getCookie("token")}`,
     });
 
-    let data = await fetch(`http://localhost/purrfect-match/api/${endpoint}`, {
+    let data = await fetch(`http://localhost:8000/api/${endpoint}`, {
         method: method,
         headers: headers,
         body: typeof(body) == "object" ?  JSON.stringify(body) : body,

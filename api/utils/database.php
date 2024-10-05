@@ -1,11 +1,11 @@
 <?php
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-const HOSTNAME = "127.0.0.1";
+const HOSTNAME = "mysql";
 const USERNAME = "client";
 const PASSWORD = "bancodedados";
 const DATABASE = "purrfect_db";
-const PORT     = "3307"; // Docker's database port.
+const PORT     = "3306"; // Docker's database port.
 
 class Database
 {
