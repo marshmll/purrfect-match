@@ -2,14 +2,17 @@ services:
   db:
     image: mysql/mysql-server:latest
     container_name: mysql
+    restart: always
     environment:
       - MYSQL_DATABASE=purrfect_db
       - MYSQL_ROOT_PASSWORD=root
+      - LANG=C.UTF-8
     ports:
       - '3307:3306'
     volumes:
       - mysql-volume:/var/lib/mysql
       - ./database:/docker-entrypoint-initdb.d
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --innodb-strict-mode=true
 volumes:
   mysql-volume:
     driver: local
