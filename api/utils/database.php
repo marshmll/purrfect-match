@@ -5,6 +5,7 @@ const HOSTNAME = "127.0.0.1";
 const USERNAME = "client";
 const PASSWORD = "bancodedados";
 const DATABASE = "purrfect_db";
+const PORT     = "3307"; // Docker's database port.
 
 class Database
 {
@@ -16,12 +17,15 @@ class Database
         }
 
         // MySQLi connection
-        $mysqli = new mysqli(HOSTNAME, USERNAME, PASSWORD, DATABASE);
+        $mysqli = new mysqli(HOSTNAME, USERNAME, PASSWORD, DATABASE, PORT);
 
         // Check connection
         if ($mysqli->connect_error) {
             die("[Database]: Connection failed: " . $mysqli->connect_error);
         }
+
+        // Assure utf8 charset.
+        $mysqli->set_charset("utf8");
 
         $escaped_params = [];
 
@@ -43,23 +47,14 @@ class Database
 
         $data = array();
 
-        if ($response->num_rows == 1)
-        {
+        if ($response->num_rows == 1) {
             if ($always_array == false)
-            {
                 $data = $response->fetch_assoc();
-            }
             else
-            {
                 $data = $response->fetch_all(MYSQLI_ASSOC);
-            }
-        }
-        else if ($response->num_rows > 1)
-        {
+        } else if ($response->num_rows > 1) {
             while ($row = $response->fetch_assoc())
-            {
                 $data[] = $row;
-            }
         }
 
         $mysqli->close();

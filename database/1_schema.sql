@@ -1,3 +1,5 @@
+ALTER DATABASE purrfect_db CHARACTER SET utf8mb4;
+
 CREATE TABLE IF NOT EXISTS users (
     id INTEGER NOT NULL AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
@@ -11,7 +13,7 @@ CREATE TABLE IF NOT EXISTS users (
     contact_phone CHAR(15) NOT NULL,
     PRIMARY KEY (id),
     UNIQUE (username)
-);
+) CHARACTER SET utf8mb4;
 
 CREATE TABLE IF NOT EXISTS cats (
     id INTEGER NOT NULL AUTO_INCREMENT,
@@ -19,27 +21,27 @@ CREATE TABLE IF NOT EXISTS cats (
     age SMALLINT NOT NULL,
     sex CHAR(1) NOT NULL,
     PRIMARY KEY (id)
-);
+) CHARACTER SET utf8mb4;
 
 CREATE TABLE IF NOT EXISTS diseases (
     id INTEGER NOT NULL AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
     description TEXT NOT NULL,
     PRIMARY KEY (id)
-);
+) CHARACTER SET utf8mb4;
 
 CREATE TABLE IF NOT EXISTS personalities (
     id INTEGER NOT NULL AUTO_INCREMENT,
     name VARCHAR(30) NOT NULL,
     description TEXT NOT NULL,
     PRIMARY KEY (id)
-);
+) CHARACTER SET utf8mb4;
 
 CREATE TABLE IF NOT EXISTS colors (
     id INTEGER NOT NULL AUTO_INCREMENT,
     name VARCHAR(10) NOT NULL,
     PRIMARY KEY (id)
-);
+) CHARACTER SET utf8mb4;
 
 CREATE TABLE IF NOT EXISTS cat_diseases (
     cat_id INTEGER NOT NULL,
@@ -47,7 +49,7 @@ CREATE TABLE IF NOT EXISTS cat_diseases (
     PRIMARY KEY (cat_id, disease_id),
     FOREIGN KEY(cat_id) REFERENCES cats (id),
     FOREIGN KEY(disease_id) REFERENCES diseases (id)
-);
+) CHARACTER SET utf8mb4;
 
 CREATE TABLE IF NOT EXISTS cat_colors (
     cat_id INTEGER NOT NULL,
@@ -55,7 +57,7 @@ CREATE TABLE IF NOT EXISTS cat_colors (
     PRIMARY KEY (cat_id, color_id),
     FOREIGN KEY(cat_id) REFERENCES cats (id),
     FOREIGN KEY(color_id) REFERENCES colors (id)
-);
+) CHARACTER SET utf8mb4;
 
 CREATE TABLE IF NOT EXISTS cat_personalities (
     cat_id INTEGER NOT NULL,
@@ -63,7 +65,7 @@ CREATE TABLE IF NOT EXISTS cat_personalities (
     PRIMARY KEY (cat_id, personality_id),
     FOREIGN KEY(cat_id) REFERENCES cats (id),
     FOREIGN KEY(personality_id) REFERENCES personalities (id)
-);
+) CHARACTER SET utf8mb4;
 
 CREATE TABLE IF NOT EXISTS vaccines (
     id INTEGER NOT NULL AUTO_INCREMENT,
@@ -72,7 +74,7 @@ CREATE TABLE IF NOT EXISTS vaccines (
     disease_id INTEGER NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY(disease_id) REFERENCES diseases (id)
-);
+) CHARACTER SET utf8mb4;
 
 CREATE TABLE IF NOT EXISTS color_preferences (
     color_id INTEGER NOT NULL,
@@ -80,7 +82,7 @@ CREATE TABLE IF NOT EXISTS color_preferences (
     PRIMARY KEY (color_id, user_id),
     FOREIGN KEY(color_id) REFERENCES colors (id),
     FOREIGN KEY(user_id) REFERENCES users (id)
-);
+) CHARACTER SET utf8mb4;
 
 CREATE TABLE IF NOT EXISTS personality_preferences (
     personality_id INTEGER NOT NULL,
@@ -88,7 +90,7 @@ CREATE TABLE IF NOT EXISTS personality_preferences (
     PRIMARY KEY (personality_id, user_id),
     FOREIGN KEY(personality_id) REFERENCES personalities (id),
     FOREIGN KEY(user_id) REFERENCES users (id)
-);
+) CHARACTER SET utf8mb4;
 
 CREATE TABLE IF NOT EXISTS rescues (
     user_id INTEGER NOT NULL,
@@ -103,7 +105,7 @@ CREATE TABLE IF NOT EXISTS rescues (
     addr_zipcode CHAR(8) NOT NULL,
     PRIMARY KEY (user_id, request_datetime),
     FOREIGN KEY(user_id) REFERENCES users (id)
-);
+) CHARACTER SET utf8mb4;
 
 CREATE TABLE IF NOT EXISTS adoptions (
     user_id INTEGER NOT NULL,
@@ -114,7 +116,7 @@ CREATE TABLE IF NOT EXISTS adoptions (
     PRIMARY KEY (user_id, cat_id),
     FOREIGN KEY(user_id) REFERENCES users (id),
     FOREIGN KEY(cat_id) REFERENCES cats (id)
-);
+) CHARACTER SET utf8mb4;
 
 CREATE TABLE IF NOT EXISTS favorites (
     user_id INTEGER NOT NULL,
@@ -123,15 +125,14 @@ CREATE TABLE IF NOT EXISTS favorites (
     PRIMARY KEY (user_id, cat_id),
     FOREIGN KEY(user_id) REFERENCES users (id),
     FOREIGN KEY(cat_id) REFERENCES cats (id)
-);
+) CHARACTER SET utf8mb4;
 
 CREATE TABLE IF NOT EXISTS physical_descriptions (
     cat_id INTEGER NOT NULL,
     description VARCHAR(1024) NOT NULL,
     PRIMARY KEY (cat_id),
     FOREIGN KEY(cat_id) REFERENCES cats (id)
-);
-
+) CHARACTER SET utf8mb4;
 
 CREATE TABLE IF NOT EXISTS messages (
     sender_id INTEGER NOT NULL,
@@ -142,8 +143,7 @@ CREATE TABLE IF NOT EXISTS messages (
     PRIMARY KEY (sender_id, receiver_id, sent_datetime),
     FOREIGN KEY(sender_id) REFERENCES users (id),
     FOREIGN KEY(receiver_id) REFERENCES users (id)
-);
-
+) CHARACTER SET utf8mb4;
 
 CREATE TABLE IF NOT EXISTS vaccinations (
     cat_id INTEGER NOT NULL,
@@ -154,32 +154,4 @@ CREATE TABLE IF NOT EXISTS vaccinations (
     PRIMARY KEY (cat_id, vaccine_id),
     FOREIGN KEY(cat_id) REFERENCES cats (id),
     FOREIGN KEY(vaccine_id) REFERENCES vaccines (id)
-);
-
-INSERT INTO cats (name, age, sex)
-VALUES
-    ('Luna', 1, 'F'),
-    ('Leo', 2, 'M'),
-    ('Charlie', 5, 'M'),
-    ('Max', 2, 'M'),
-    ('Mia', 1, 'F');
-
-INSERT INTO personalities (name, description)
-VALUES
-    ('Dócil', 'Um gatinho dócil é aquele que é tranquilo, calmo e fácil de lidar. Ele geralmente gosta de carinho, se adapta bem a diferentes situações e convive bem com outras pessoas e animais. É como um anjo de quatro patas! ❤️'),
-    ('Agitado', 'Um gatinho agitado é pura energia! Ele adora brincar, correr, pular e explorar tudo ao redor. É como um furacão de fofura que não para um minuto! ️ Se você busca um companheiro para te tirar do tédio, um gatinho agitado é a escolha perfeita! Mas prepare-se para muitas aventuras e brincadeiras!'),
-    ('Curioso', 'Um gatinho curioso é como um pequeno explorador! Ele adora investigar tudo o que está ao seu redor, desde uma simples caixa até os cantos mais altos da casa. Seus olhos grandes e brilhantes transmitem toda a sua curiosidade, e ele está sempre pronto para descobrir algo novo. Prepare-se para ter seus móveis inspecionados, suas plantas cheiradas e até mesmo seus pés investigados! Mas não se preocupe, essa curiosidade é parte do charme desses felinos inteligentes.'),
-    ('Independente', 'Um gatinho independente adora ter seu próprio espaço e tempo. Ele é como um pequeno lobo solitário que aprecia sua liberdade. Apesar de gostar da companhia humana, ele não precisa de atenção constante e pode se entreter por conta própria. É um felino autossuficiente que sabe cuidar de si mesmo.');
-
-
-INSERT INTO cat_personalities (cat_id, personality_id)
-VALUES
-    (1, 1),
-    (1, 2),
-    (2, 1),
-    (2, 2),
-    (3, 4),
-    (3, 2),
-    (4, 1),
-    (5, 2),
-    (5, 3);
+) CHARACTER SET utf8mb4;
