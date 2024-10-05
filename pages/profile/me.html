@@ -17,13 +17,13 @@
     <nav class="navbar">
         <ul class="navbar__list">
             <li class="item">
-                <a class="item__link" href="./fyp.html" title="Home">
+                <a class="item__link" href="../fyp.html" title="Home">
                     <span class="item__icon material-symbols-outlined">home</span>
                     <span class="item__text">Home</span>
                 </a>
             </li>
             <li class="item">
-                <a class="item__link" href="./favorites.html" title="Favoritos">
+                <a class="item__link" href="../favorites.html" title="Favoritos">
                     <span class="item__icon material-symbols-outlined">favorite</span>
                     <span class="item__text">Favoritos</span>
                 </a>
@@ -35,13 +35,13 @@
                 </a>
             </li>
             <li class="item">
-                <a class="item__link" href="./donations.html" title="Doar">
+                <a class="item__link" href="../donations.html" title="Doar">
                     <span class="item__icon material-symbols-outlined">attach_money</span>
                     <span class="item__text">Doar</span>
                 </a>
             </li>
             <li class="item">
-                <a class="item__link active" href="./profile.html" title="Perfil">
+                <a class="item__link active" href="./me.html" title="Perfil">
                     <span class="item__icon material-symbols-outlined fill">person</span>
                     <span class="item__text">Perfil</span>
                 </a>
@@ -67,19 +67,18 @@
                 <form id="personal_data_form" action="">
                     <label for="nome" class="settings__label">Nome Completo</label>
                     <input class="settings__input" type="text" name="name" id="name" placeholder="Nome Completo"
-                        value="Renan da Silva Oliveira Andrade" required />
+                        required />
                     <label for="username" class="settings__label">Nome de Usuário</label>
                     <input class="settings__input" type="text" name="username" id="username"
-                        placeholder="Nome de Usuário" value="renan" required />
+                        placeholder="Nome de Usuário" required />
                     <label for="date_birth" class="settings__label">Data de Nascimento</label>
-                    <input class="settings__input" type="date" name="date_birth" id="date_birth" value="2006-07-24"
-                        required />
+                    <input class="settings__input" type="date" name="date_birth" id="date_birth" required />
                     <label for="contact_email" class="settings__label">Email</label>
                     <input class="settings__input" type="email" name="contact_email" id="contact_email"
-                        placeholder="E-mail" value="renandasilvaoliveiraandrade@gmail.com" />
+                        placeholder="E-mail" />
                     <label for="contact_phone" class="settings__label">Telefone</label>
                     <input class="settings__input" type="tel" name="contact_phone" id="contact_phone"
-                        placeholder="(99) 99999-9999" value="(41) 99878-1618" />
+                        placeholder="(99) 99999-9999" />
                     <a class="settings__link" href="./profile.html">Alterar senha</a>
                     <input class="settings__submit" type="submit" value="SALVAR" />
                 </form>
@@ -90,6 +89,7 @@
         </section>
     </main>
     <script type="module" src="../../public/scripts/content/profile/me.js"></script>
+    <script type="module" src="../../public/scripts/components/navbar.js"></script>
 </body>
 
 </html>

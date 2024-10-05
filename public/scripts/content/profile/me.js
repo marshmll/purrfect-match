@@ -1,42 +1,28 @@
-import { getCookie, hasCookieSet } from "../../utils/cookie.js";
+import { fetchAPI } from "../../utils/api.js";
+import { deleteCookie, hasCookieSet } from "../../utils/cookie.js";
 
 if (!hasCookieSet("token"))
     window.location.replace("http://localhost/purrfect-match/pages/login.html");
 
-const token = getCookie("token");
-
-async function fetchContent() {
-    let headers = new Headers({
-        accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-    });
-
-    let data = await fetch("http://localhost/purrfect-match/php/profile/me.php", {
-        method: "POST",
-        headers: headers,
-    }).then(async (res) => {
-        let json = await res.json();
-
-        if (res.status != 200) {
-            // deleteCookie("token");
-            // window.location.replace(
-            //     "http://localhost/purrfect-match/pages/login.html"
-            // );
-            return json.detail;
-        }
-
-        return json;
-    });
-
-    return data;
-}
-
 async function renderContent() {
-    let user = await fetchContent();
-
     const title = document.querySelector(".head__username");
+
+    const res = await fetchAPI("content/me.php");
+
+    if (res.status == 401) {
+        deleteCookie('token');
+        window.location.replace("http://localhost/purrfect-match/pages/login.html");
+    }
+
+    const user = res.data;
+
     title.textContent = `${user.name} (@${user.username})`;
+
+    document.getElementById("name").value = user.name;
+    document.getElementById("username").value = user.username;
+    document.getElementById("date_birth").value = user.date_birth;
+    document.getElementById("contact_email").value = user.contact_email;
+    document.getElementById("contact_phone").value = user.contact_phone;
 }
 
 renderContent();
