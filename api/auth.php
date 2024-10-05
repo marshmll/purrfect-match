@@ -7,12 +7,12 @@ require_once('./utils/password.php');
 header('Content-Type: application/json');
 
 // If all necessary form data was posted
-if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['keep_connected'])) {
+if (isset($_POST['username']) && isset($_POST['password'])) {
 
     // Save data into variables
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $keep_connected = $_POST['keep_connected'];
+    $keep_connected = isset($_POST['keep_connected']) ? $_POST['keep_connected'] : false;
 
     $user = Database::query(
         "SELECT pass_salt, pass_hash FROM users WHERE username='%s'",
@@ -35,7 +35,9 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['keep
 
     // Create a JSON Web Token manager.
     $jwt_manager = new JWTManager(SECRET_KEY);
-    $token_expiration = 0;
+
+    // 1 hour expiration time.
+    $token_expiration = time() + 1 * 60 * 60;
 
     // If user asked to keep connection, set expiration delta to 7 days
     if ($keep_connected == 'on')

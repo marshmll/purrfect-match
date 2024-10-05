@@ -90,6 +90,8 @@ class JWTManager
     }
 }
 
+/* TOOLS ==================================================================================================== */
+
 function getAuthTokenFromHeaders($headers)
 {
     $token = substr($headers['authorization'], 7, strlen($headers['authorization']) - 6);

@@ -10,7 +10,7 @@ export async function fetchAPI(endpoint, method = "POST", body = {}, headers = n
     let data = await fetch(`http://localhost/purrfect-match/api/${endpoint}`, {
         method: method,
         headers: headers,
-        body: JSON.stringify(body),
+        body: typeof(body) == "object" ?  JSON.stringify(body) : body,
     }).then(async (res) => {
         const data = {
             status: res.status,

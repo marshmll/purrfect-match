@@ -1,5 +1,5 @@
 import { setCookie } from "../utils/cookie.js";
-import { toMySQLDatetime } from "../utils/MySQLDatetime.js";
+import { toMySQLDatetime } from "../utils/mySQLDatetime.js";
 
 const registerForm = document.getElementById("form");
 const feedbackSpan = document.querySelector(".register__invalid");

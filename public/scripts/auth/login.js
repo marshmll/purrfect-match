@@ -1,8 +1,8 @@
+import { fetchAPI } from "../utils/api.js";
 import { deleteCookie, hasCookieSet, setCookie } from "../utils/cookie.js";
 
 if (hasCookieSet("token")) {
     document.location.replace("http://localhost/purrfect-match/pages/fyp.html");
-    deleteCookie("token");
 }
 
 const loginForm = document.getElementById("form");
@@ -23,22 +23,17 @@ loginForm.addEventListener("submit", async (e) => {
         "Content-Type": "application/x-www-form-urlencoded",
     });
 
-    let data = await fetch("http://localhost/purrfect-match/api/auth.php", {
-        method: "POST",
-        headers: headers,
-        body: formURLEncoded,
-    }).then((res) => {
-        if (res.status == 401) {
-            feedbackSpan.textContent = "Usuário ou senha incorretos";
-            return false;
-        }
+    const res = await fetchAPI("auth.php", "POST", formURLEncoded, headers);
 
-        feedbackSpan.textContent = "";
-        return res.json();
-    });
-
-    if (data) {
-        setCookie("token", data.access_token, 7);
+    if (res.status == 401) {
+        feedbackSpan.textContent = `Usuário ou senha incorretos.`;
+    }
+    else if (res.status != 200)
+    {
+        feedbackSpan.textContent = `Ocorreu um erro no processamento da requisição. Erro: ${res.status}`;
+    }
+    else {
+        setCookie("token", res.data.access_token, 7);
         document.location.replace("http://localhost/purrfect-match/pages/fyp.html");
     }
 });

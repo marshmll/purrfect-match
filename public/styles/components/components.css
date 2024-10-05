@@ -2,5 +2,7 @@
 
 Created by: Renan Andrade, 2024/09/01 */
 
-@import url("./header.css"); /* Header styles */
-@import url("./navbar.css"); /* Navbar styles */
+@import url("./header.css");    /* Header styles */
+@import url("./navbar.css");    /* Navbar styles */
+@import url("./loader.css");    /* Loader styles */
+@import url("./skeletons.css"); /* Skeletons syles */

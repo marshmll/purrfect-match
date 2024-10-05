@@ -23,6 +23,8 @@ async function renderFavoritesPage() {
         return;
     }
 
+    container.innerHTML = "";
+
     cats.forEach((cat) => {
         let personalities = "";
 

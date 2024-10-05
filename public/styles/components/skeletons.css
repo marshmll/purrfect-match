@@ -1,0 +1,25 @@
+.image-skeleton {
+    display: block !important;
+    animation: 1s ease-in-out infinite skeletonLoading;
+}
+
+.text-skeleton {
+    display: block !important;
+    min-width: 5rem !important;
+    min-height: 1rem !important;
+    animation: 1s ease-in-out infinite skeletonLoading;
+}
+
+@keyframes skeletonLoading {
+    0% {
+        background-color: #fafafa;
+    }
+
+    50% {
+        background-color: #f0f0f0;
+    }
+
+    100% {
+        background-color: #fafafa;
+    }
+}

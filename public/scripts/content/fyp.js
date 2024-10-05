@@ -17,6 +17,7 @@ async function renderForYouPage() {
     }
 
     const cats = response.data;
+    container.innerHTML = "";
 
     cats.forEach((cat) => {
         let personalities = "";
@@ -27,17 +28,12 @@ async function renderForYouPage() {
 
         container.innerHTML += `
         <article class="card">
-            <a
-                class="card__image"
-                href="/"
-                style="
+            <a class="card__image" href="/" style="
                     background-image: url('https://images.ctfassets.net/ub3bwfd53mwy/5WFv6lEUb1e6kWeP06CLXr/acd328417f24786af98b1750d90813de/4_Image.jpg?w=750');
-                "
-            ></a>
+                "></a>
             <button class="card__fav" title="Adicionar aos favoritos">
-                <span class="item__icon material-symbols-outlined ${cat.favorite ? "marked fill" : ""}" id="${cat.id}"
-                    >favorite</span 
-                >
+                <span class="item__icon material-symbols-outlined ${cat.favorite ? " marked fill" : "" }"
+                    id="${cat.id}">favorite</span>
             </button>
             <div class="card__text">
                 <h3 class="card__name">${cat.name}</h3>
