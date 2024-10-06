@@ -1,5 +1,5 @@
 import { fetchAPI } from "../../utils/api.js";
-import { deleteCookie, hasCookieSet } from "../../utils/cookie.js";
+import { deleteCookie, getCookie, hasCookieSet } from "../../utils/cookie.js";
 
 if (!hasCookieSet("token"))
     window.location.replace("http://localhost/purrfect-match/pages/login.html");
@@ -7,7 +7,7 @@ if (!hasCookieSet("token"))
 async function renderContent() {
     const title = document.querySelector(".head__username");
 
-    const res = await fetchAPI("content/me.php");
+    const res = await fetchAPI("content/profile/me.php");
 
     if (res.status == 401) {
         deleteCookie('token');

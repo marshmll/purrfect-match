@@ -8,7 +8,7 @@ if (!hasCookieSet("token"))
 async function renderFavoritesPage() {
     const container = document.querySelector(".cards");
 
-    let response = await fetchAPI("content/favorites.php");
+    let response = await fetchAPI("content/favorites/all.php");
 
     if (response.status != 200) {
         deleteCookie("token");
@@ -69,7 +69,7 @@ async function favoriteToggle(target) {
 
     if (!isMarked) {
         let response = await fetchAPI(
-            "content/add_favorite.php",
+            "content/favorites/add_favorite.php",
             "POST",
             {
                 cat_id: parseInt(target.id),
@@ -84,7 +84,7 @@ async function favoriteToggle(target) {
     }
     else {
         let response = await fetchAPI(
-            "content/remove_favorite.php",
+            "content/favorites/remove_favorite.php",
             "POST",
             {
                 cat_id: parseInt(target.id),

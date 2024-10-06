@@ -1,7 +1,7 @@
 <?php
-require_once('../utils/database.php');
-require_once('../utils/jwt.php');
-require_once('../utils/http_responses.php');
+require_once('../../utils/database.php');
+require_once('../../utils/jwt.php');
+require_once('../../utils/http_responses.php');
 
 // Collect headers and body
 $headers = apache_request_headers();
@@ -10,7 +10,7 @@ $body = json_decode(file_get_contents('php://input'), true);
 // If Authorization Bearer is set
 if (isset($headers['authorization'])) {
 
-    if (!isset($body['cat_id']) || !isset($body['choice_datetime']))
+    if (!isset($body['cat_id']))
         sendBadRequestResponse();
 
     // Remove 'Bearer ' from the token
@@ -25,22 +25,19 @@ if (isset($headers['authorization'])) {
     $payload = $jwt->decodeToken($token);
 
     $result = Database::query(
-        "INSERT INTO favorites
-        (user_id, cat_id, choice_datetime)
-        VALUES
-        (%d, %d, '%s')",
+        "DELETE FROM favorites
+        WHERE user_id = %d
+        AND cat_id = %d",
         [
             $payload['sub'],
-            $body['cat_id'],
-            $body['choice_datetime']
+            $body['cat_id']
         ]
     );
 
-    if (!$result)
-        sendConflictResponse();
-
-    sendResponse(json_encode(['added' => $body['cat_id']]), 201);
+    if ($result)
+        sendOKResponse(json_encode(['deleted' => $body['cat_id']]));
+    else
+        sendBadRequestResponse();
 }
 
-// If reaches here, it means no Bearer token was received, send unauthorized.
-sendBadRequestResponse();
+sendUnauthorizedResponse();

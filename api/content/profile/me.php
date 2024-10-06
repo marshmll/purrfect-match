@@ -1,7 +1,7 @@
 <?php
-require_once('../utils/database.php');
-require_once('../utils/http_responses.php');
-require_once('../utils/jwt.php');
+require_once('../../utils/database.php');
+require_once('../../utils/http_responses.php');
+require_once('../../utils/jwt.php');
 
 $headers = apache_request_headers();
 // If Authorization Bearer is set
