@@ -8,7 +8,7 @@ if (!hasCookieSet("token"))
 async function renderForYouPage() {
     const container = document.querySelector(".cards");
 
-    let response = await fetchAPI("content/cats.php");
+    let response = await fetchAPI("content/cats/all.php");
 
     if (response.status != 200) {
         deleteCookie("token");
