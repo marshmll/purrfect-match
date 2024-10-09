@@ -1,7 +1,7 @@
 <?php
-require_once('../utils/database.php');
-require_once('../utils/jwt.php');
-require_once('../utils/http_responses.php');
+require_once('../../utils/database.php');
+require_once('../../utils/jwt.php');
+require_once('../../utils/http_responses.php');
 
 header('Content-Type: application/json');
 
