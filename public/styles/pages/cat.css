@@ -1,0 +1,189 @@
+body {
+    position: relative;
+    min-height: 100vh;
+}
+
+p {
+    line-height: 1.5rem;
+}
+
+.main {
+    margin-left: 4rem;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row;
+}
+
+.heading {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.heading__picture {
+    display: block;
+    width: 25vw;
+    height: 25vw;
+    background-color: #f0f0f0;
+    border-radius: 100%;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    margin-bottom: .6rem;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.heading__name {
+    font-size: 2rem;
+    font-weight: bold;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    text-align: center;
+    margin-bottom: .8rem;
+}
+
+.heading__age {
+    font-size: 1.1rem;
+    font-weight: 300;
+    display: block;
+    margin-bottom: .3rem;
+    text-align: center;
+}
+
+.heading__sex {
+    font-size: 1.1rem;
+    font-weight: 300;
+    display: block;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.heading__buttons {
+    gap: .4rem;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.heading__button {
+    background-color: transparent;
+    border: none;
+    background-color: gold;
+    height: 2rem;
+    width: 8rem;
+    cursor: pointer;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.heading__button--adopt {
+    background-color: #F5F2F0;
+}
+
+.heading__button--favorite {
+    background-color: #ca2b3a;
+    color: white;
+}
+
+.heading__personalities {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    gap: 1px;
+}
+
+.heading__personality {
+    border-radius: 50px;
+    background-color: #eeeeee;
+    min-width: 30%;
+    font-size: 1rem;
+    padding: .2rem .3rem;
+    margin-bottom: .4rem;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+}
+
+.about {
+    width: 60%;
+    height: 85vh;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+.about__title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    margin-bottom: .9rem;
+}
+
+.about__paragraph {
+    font-size: 1.1rem;
+    text-align: justify;
+}
+
+.about__subsection {
+    padding: 1rem;
+}
+
+.about__subtitle {
+    font-size: 1.3rem;
+    font-weight: 600;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    border-left: 2px solid #ca2b3a;
+    padding-left: .4rem;
+    margin-bottom: .5rem;
+}
+
+.about__personality {
+
+    strong {
+        font-weight: bold;
+        display: inline;
+    }
+    
+    span {
+        font-size: 14px;
+    }
+
+    p {
+        text-align: justify;
+        font-size: 1.1rem;
+        margin-top: 1rem;
+    }
+}
+
+.about__vaccine {
+
+    strong {
+        font-weight: bold;
+        display: inline;
+    }
+    
+    span {
+        font-size: 18px;
+    }
+
+    p {
+        text-align: justify;
+        font-size: 1.1rem;
+        margin-top: 1rem;
+    }
+}
+
+/* MEDIA QUERIES =========================================================================================================== */
+
+@media screen and (max-width: 768px) {
+    .main {
+        margin: 0;
+    }
+}
