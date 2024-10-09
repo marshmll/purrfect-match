@@ -3,7 +3,7 @@ import { fetchAPI } from "../utils/api.js";
 import { toMySQLDatetime } from "../utils/mySQLDatetime.js";
 
 if (!hasCookieSet("token"))
-    window.location.replace("http://localhost/purrfect-match/pages/login.html");
+    window.location.replace("http://localhost:8000/pages/login.html");
 
 async function renderFavoritesPage() {
     const container = document.querySelector(".cards");
@@ -12,7 +12,7 @@ async function renderFavoritesPage() {
 
     if (response.status != 200) {
         deleteCookie("token");
-        window.location.replace("http://localhost/purrfect-match/pages/login.html");
+        window.location.replace("http://localhost:8000/pages/login.html");
         return;
     }
 
