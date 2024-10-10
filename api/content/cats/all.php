@@ -22,7 +22,7 @@ if (isset($headers['authorization'])) {
 
     // Query for getting all cats
     $cats = Database::query(
-        "SELECT id, name, age, sex
+        "SELECT id, name, age, sex, picture_url
         FROM cats"
     );
 

@@ -99,11 +99,12 @@ function getAuthTokenFromHeaders($headers)
     return $token;
 }
 
-function createAuthenticationPayload($username, $sub, $exp)
+function createAuthenticationPayload($username, $sub, $exp, $rol)
 {
     return [
         'usr' => $username,
         'sub' => $sub,
-        'exp' => $exp
+        'exp' => $exp,
+        'rol' => $rol
     ];
 }

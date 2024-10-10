@@ -24,6 +24,8 @@ async function renderContent() {
     document.getElementById("contact_email").value = user.contact_email;
     document.getElementById("contact_phone").value = user.contact_phone;
 
+    document.querySelector(".head__pfp").style.backgroundImage = `url("${user.pfp_url}")`;
+
     const preferences = await fetchAPI("content/user/preferences/all.php");
 
     if (profile.status == 401) {
