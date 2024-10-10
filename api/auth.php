@@ -25,12 +25,12 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     // Hash the received password with the salt
     $hash = hashPassword($_POST['password'], $user['pass_salt']);
 
-    $hash_owner_id = Database::query(
-        "SELECT id FROM users WHERE pass_hash='%s'",
+    $hash_owner = Database::query(
+        "SELECT id, role FROM users WHERE pass_hash='%s'",
         [$hash]
     );
 
-    if (empty($hash_owner_id))
+    if (empty($hash_owner))
         sendUnauthorizedResponse();
 
     // Create a JSON Web Token manager.
@@ -44,7 +44,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         $token_expiration = time() + 7 * 24 * 60 * 60;
 
     // JWT payload
-    $payload = createAuthenticationPayload($username, $hash_owner_id['id'], $token_expiration);
+    $payload = createAuthenticationPayload($username, $hash_owner['id'], $token_expiration, $hash_owner['role']);
 
     // Create token from payload
     $token = $jwt_manager->createToken($payload);

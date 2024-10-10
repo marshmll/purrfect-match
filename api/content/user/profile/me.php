@@ -19,7 +19,7 @@ if (isset($headers['authorization'])) {
     $payload = $jwt->decodeToken($token);
 
     $user = Database::query(
-        "SELECT name, username, date_birth, contact_email, contact_phone
+        "SELECT name, username, date_birth, contact_email, contact_phone, pfp_url
         FROM users
         WHERE id = '%s'",
         [

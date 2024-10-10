@@ -22,7 +22,7 @@ if (isset($headers['authorization'])) {
     $payload = $jwt->decodeToken($token);
 
     $cats = Database::query(
-        "SELECT id, name, age, sex
+        "SELECT id, name, age, sex, picture_url
         FROM cats
         WHERE id IN
         (

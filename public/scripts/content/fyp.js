@@ -3,7 +3,7 @@ import { hasCookieSet, deleteCookie } from "../utils/cookie.js";
 import { toMySQLDatetime } from "../utils/mySQLDatetime.js";
 
 if (!hasCookieSet("token"))
-    window.location.replace("http://localhost/purrfect-match/pages/login.html");
+    window.location.replace("http://localhost:8000/pages/login.html");
 
 async function renderForYouPage() {
     const container = document.querySelector(".cards");
@@ -12,7 +12,7 @@ async function renderForYouPage() {
 
     if (response.status != 200) {
         deleteCookie("token");
-        window.location.replace("http://localhost/purrfect-match/pages/login.html");
+        window.location.replace("http://localhost:8000/pages/login.html");
         return;
     }
 
@@ -28,9 +28,7 @@ async function renderForYouPage() {
 
         container.innerHTML += `
         <article class="card">
-            <a class="card__image" href="/" style="
-                    background-image: url('https://images.ctfassets.net/ub3bwfd53mwy/5WFv6lEUb1e6kWeP06CLXr/acd328417f24786af98b1750d90813de/4_Image.jpg?w=750');
-                "></a>
+            <a class="card__image" href="/pages/cat.html?id=${cat.id}" style="background-image: url('${cat.picture_url}');"></a>
             <button class="card__fav" title="Adicionar aos favoritos">
                 <span class="item__icon material-symbols-outlined ${cat.favorite ? " marked fill" : "" }"
                     id="${cat.id}">favorite</span>
@@ -58,7 +56,7 @@ async function favoriteToggle(target) {
 
     if (!isMarked) {
         let response = await fetchAPI(
-            "content/favorites/add_favorite.php",
+            "content/user/favorites/add.php",
             "POST",
             {
                 cat_id: parseInt(target.id),
@@ -73,7 +71,7 @@ async function favoriteToggle(target) {
     }
     else {
         let response = await fetchAPI(
-            "content/favorites/remove_favorite.php",
+            "content/user/favorites/remove.php",
             "POST",
             {
                 cat_id: parseInt(target.id),

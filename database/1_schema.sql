@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS users (
     role VARCHAR(10) NOT NULL,
     contact_email VARCHAR(50),
     contact_phone CHAR(15) NOT NULL,
+    pfp_url VARCHAR(100) NOT NULL DEFAULT('https://i.pinimg.com/1200x/93/ba/87/93ba871d62b0e2b83acadb45803a4d46.jpg'),
     PRIMARY KEY (id),
     UNIQUE (username)
 ) CHARACTER SET utf8mb4;
@@ -18,6 +19,8 @@ CREATE TABLE IF NOT EXISTS cats (
     name VARCHAR(50) NOT NULL,
     age SMALLINT NOT NULL,
     sex CHAR(1) NOT NULL,
+    physical_description TEXT NOT NULL DEFAULT("Não informado."),
+    picture_url VARCHAR(100) NOT NULL DEFAULT('https://i.pinimg.com/736x/7f/16/a2/7f16a2ed1969e8c64b32801f9c48a066.jpg'),
     PRIMARY KEY (id)
 ) CHARACTER SET utf8mb4;
 
@@ -45,24 +48,24 @@ CREATE TABLE IF NOT EXISTS cat_diseases (
     cat_id INTEGER NOT NULL,
     disease_id INTEGER NOT NULL,
     PRIMARY KEY (cat_id, disease_id),
-    FOREIGN KEY(cat_id) REFERENCES cats (id),
-    FOREIGN KEY(disease_id) REFERENCES diseases (id)
+    FOREIGN KEY(cat_id) REFERENCES cats (id) ON DELETE CASCADE,
+    FOREIGN KEY(disease_id) REFERENCES diseases (id) ON DELETE CASCADE
 ) CHARACTER SET utf8mb4;
 
 CREATE TABLE IF NOT EXISTS cat_colors (
     cat_id INTEGER NOT NULL,
     color_id INTEGER NOT NULL,
     PRIMARY KEY (cat_id, color_id),
-    FOREIGN KEY(cat_id) REFERENCES cats (id),
-    FOREIGN KEY(color_id) REFERENCES colors (id)
+    FOREIGN KEY(cat_id) REFERENCES cats (id) ON DELETE CASCADE,
+    FOREIGN KEY(color_id) REFERENCES colors (id) ON DELETE CASCADE
 ) CHARACTER SET utf8mb4;
 
 CREATE TABLE IF NOT EXISTS cat_personalities (
     cat_id INTEGER NOT NULL,
     personality_id INTEGER NOT NULL,
     PRIMARY KEY (cat_id, personality_id),
-    FOREIGN KEY(cat_id) REFERENCES cats (id),
-    FOREIGN KEY(personality_id) REFERENCES personalities (id)
+    FOREIGN KEY(cat_id) REFERENCES cats (id) ON DELETE CASCADE,
+    FOREIGN KEY(personality_id) REFERENCES personalities (id) ON DELETE CASCADE
 ) CHARACTER SET utf8mb4;
 
 CREATE TABLE IF NOT EXISTS vaccines (
@@ -78,16 +81,16 @@ CREATE TABLE IF NOT EXISTS color_preferences (
     color_id INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
     PRIMARY KEY (color_id, user_id),
-    FOREIGN KEY(color_id) REFERENCES colors (id),
-    FOREIGN KEY(user_id) REFERENCES users (id)
+    FOREIGN KEY(color_id) REFERENCES colors (id) ON DELETE CASCADE,
+    FOREIGN KEY(user_id) REFERENCES users (id) ON DELETE CASCADE
 ) CHARACTER SET utf8mb4;
 
 CREATE TABLE IF NOT EXISTS personality_preferences (
     personality_id INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
     PRIMARY KEY (personality_id, user_id),
-    FOREIGN KEY(personality_id) REFERENCES personalities (id),
-    FOREIGN KEY(user_id) REFERENCES users (id)
+    FOREIGN KEY(personality_id) REFERENCES personalities (id) ON DELETE CASCADE,
+    FOREIGN KEY(user_id) REFERENCES users (id) ON DELETE CASCADE
 ) CHARACTER SET utf8mb4;
 
 CREATE TABLE IF NOT EXISTS rescues (
@@ -112,8 +115,8 @@ CREATE TABLE IF NOT EXISTS adoptions (
     hand_over_datetime DATETIME,
     status VARCHAR(20) NOT NULL,
     PRIMARY KEY (user_id, cat_id),
-    FOREIGN KEY(user_id) REFERENCES users (id),
-    FOREIGN KEY(cat_id) REFERENCES cats (id)
+    FOREIGN KEY(user_id) REFERENCES users (id) ON DELETE CASCADE,
+    FOREIGN KEY(cat_id) REFERENCES cats (id) ON DELETE CASCADE
 ) CHARACTER SET utf8mb4;
 
 CREATE TABLE IF NOT EXISTS favorites (
@@ -121,22 +124,15 @@ CREATE TABLE IF NOT EXISTS favorites (
     cat_id INTEGER NOT NULL,
     choice_datetime DATETIME NOT NULL,
     PRIMARY KEY (user_id, cat_id),
-    FOREIGN KEY(user_id) REFERENCES users (id),
-    FOREIGN KEY(cat_id) REFERENCES cats (id)
-) CHARACTER SET utf8mb4;
-
-CREATE TABLE IF NOT EXISTS physical_descriptions (
-    cat_id INTEGER NOT NULL,
-    description VARCHAR(1024) NOT NULL,
-    PRIMARY KEY (cat_id),
-    FOREIGN KEY(cat_id) REFERENCES cats (id)
+    FOREIGN KEY(user_id) REFERENCES users (id) ON DELETE CASCADE,
+    FOREIGN KEY(cat_id) REFERENCES cats (id) ON DELETE CASCADE
 ) CHARACTER SET utf8mb4;
 
 CREATE TABLE IF NOT EXISTS messages (
     sender_id INTEGER NOT NULL,
     receiver_id INTEGER NOT NULL,
     sent_datetime DATETIME NOT NULL,
-    content VARCHAR(2000) NOT NULL,
+    content TEXT NOT NULL,
     status VARCHAR(20) NOT NULL,
     PRIMARY KEY (sender_id, receiver_id, sent_datetime),
     FOREIGN KEY(sender_id) REFERENCES users (id),

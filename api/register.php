@@ -84,7 +84,7 @@ if (
         $token_expiration = time() + 7 * 24 * 60 * 60;
 
         // Create token payload
-        $payload = createAuthenticationPayload($_POST['username'], $user_id['id'], $token_expiration);
+        $payload = createAuthenticationPayload($_POST['username'], $user_id['id'], $token_expiration, 'regular');
 
         // Create the token
         $token = $jwt_manager->createToken($payload);

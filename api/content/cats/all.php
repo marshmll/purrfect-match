@@ -1,7 +1,7 @@
 <?php
-require_once('../utils/database.php');
-require_once('../utils/jwt.php');
-require_once('../utils/http_responses.php');
+require_once('../../utils/database.php');
+require_once('../../utils/jwt.php');
+require_once('../../utils/http_responses.php');
 
 header('Content-Type: application/json');
 
@@ -22,7 +22,7 @@ if (isset($headers['authorization'])) {
 
     // Query for getting all cats
     $cats = Database::query(
-        "SELECT id, name, age, sex
+        "SELECT id, name, age, sex, picture_url
         FROM cats"
     );
 
