@@ -28,9 +28,7 @@ async function renderForYouPage() {
 
         container.innerHTML += `
         <article class="card">
-            <a class="card__image" href="/" style="
-                    background-image: url('${cat.picture_url}');
-                "></a>
+            <a class="card__image" href="/pages/cat.html?id=${cat.id}" style="background-image: url('${cat.picture_url}');"></a>
             <button class="card__fav" title="Adicionar aos favoritos">
                 <span class="item__icon material-symbols-outlined ${cat.favorite ? " marked fill" : "" }"
                     id="${cat.id}">favorite</span>

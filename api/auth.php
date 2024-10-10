@@ -30,7 +30,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         [$hash]
     );
 
-    if (empty($hash_owner_id))
+    if (empty($hash_owner))
         sendUnauthorizedResponse();
 
     // Create a JSON Web Token manager.
