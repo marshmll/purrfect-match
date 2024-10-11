@@ -41,6 +41,12 @@
                 </a>
             </li>
             <li class="item">
+                <a class="item__link" href="./profile/me.html" title="Chats">
+                    <span class="item__icon material-symbols-outlined">message</span>
+                    <span class="item__text">Chats</span>
+                </a>
+            </li>
+            <li class="item">
                 <a class="item__link active" href="./me.html" title="Perfil">
                     <span class="item__icon material-symbols-outlined fill">person</span>
                     <span class="item__text">Perfil</span>
@@ -64,21 +70,21 @@
         <section class="settings">
             <article class="settings__article settings__personal">
                 <h3 class="settings__title">Dados Pessoais</h3>
-                <form id="personal_data_form" action="">
+                <form id="personal_data_form">
+                    <label for="nome" class="settings__label">URL Foto de Perfil</label>
+                    <input class="settings__input" type="url" name="pfp_url" id="pfp_url" placeholder="https://..."
+                        maxlength="300" />
                     <label for="nome" class="settings__label">Nome Completo</label>
                     <input class="settings__input" type="text" name="name" id="name" placeholder="Nome Completo"
-                        required />
-                    <label for="username" class="settings__label">Nome de Usuário</label>
-                    <input class="settings__input" type="text" name="username" id="username"
-                        placeholder="Nome de Usuário" required />
+                        required maxlength="100" />
                     <label for="date_birth" class="settings__label">Data de Nascimento</label>
                     <input class="settings__input" type="date" name="date_birth" id="date_birth" required />
                     <label for="contact_email" class="settings__label">Email</label>
                     <input class="settings__input" type="email" name="contact_email" id="contact_email"
-                        placeholder="E-mail" />
+                        placeholder="E-mail" maxlength="50" />
                     <label for="contact_phone" class="settings__label">Telefone</label>
                     <input class="settings__input" type="tel" name="contact_phone" id="contact_phone"
-                        placeholder="(99) 99999-9999" />
+                        placeholder="(99) 99999-9999" maxlength="15" />
                     <a class="settings__link" href="./profile.html">Alterar senha</a>
                     <input class="settings__submit" type="submit" value="SALVAR" />
                 </form>

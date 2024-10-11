@@ -30,4 +30,4 @@ if (isset($headers['authorization'])) {
     sendOKResponse(json_encode($user));
 }
 
-sendUnauthorizedResponse();
+sendNotAuthenticatedResponse();

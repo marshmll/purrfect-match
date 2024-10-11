@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS users (
     role VARCHAR(10) NOT NULL,
     contact_email VARCHAR(50),
     contact_phone CHAR(15) NOT NULL,
-    pfp_url VARCHAR(100) NOT NULL DEFAULT('https://i.pinimg.com/1200x/93/ba/87/93ba871d62b0e2b83acadb45803a4d46.jpg'),
+    pfp_url VARCHAR(300) NOT NULL DEFAULT('https://i.pinimg.com/1200x/93/ba/87/93ba871d62b0e2b83acadb45803a4d46.jpg'),
     PRIMARY KEY (id),
     UNIQUE (username)
 ) CHARACTER SET utf8mb4;
