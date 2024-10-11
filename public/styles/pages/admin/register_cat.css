@@ -87,9 +87,10 @@ body {
 
 .form__select {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
+    width: 100%;
 
     input {
         margin-right: 1rem;
@@ -100,6 +101,19 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center;
+    margin-bottom: .8rem;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.form__checkbox .label {
+    font-size: .8rem;
+    font-weight: 600;
+    padding-left: 1.2rem;
+}
+
+.form__checkbox .input {
+    max-width: min-content;
 }
 
 .form__btns {
@@ -136,16 +150,16 @@ body {
 
 .label {
     display: block;
-    font-weight: 600;
+    font-weight: 800;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    margin-bottom: .2rem;
+    margin-bottom: .5rem;
     font-size: 1.1rem;
 }
 
 .input {
     display: block;
     width: 100%;
-    padding: .2rem .3rem
+    padding: .2rem .3rem;
 }
 
 .input:user-invalid {
@@ -157,6 +171,7 @@ body {
     width: 100%;
     padding: .2rem .3rem;
     resize: vertical;
+    margin-bottom: 1rem;
 }
 
 .textarea:user-invalid {

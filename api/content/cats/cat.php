@@ -47,26 +47,45 @@ if (isset($headers['authorization'])) {
     );
 
     $personalities = Database::query(
-        "SELECT name
+        "SELECT name, description
         FROM personalities
         WHERE id IN
         (
             SELECT personality_id
-            FROM cat_personalities WHERE
-            cat_id = %s
+            FROM cat_personalities
+            WHERE cat_id = %s
         )",
         [$cat['id']],
         true
     );
 
-    // Save each personality in an array.
-    $cat_personalities = array();
+    $vaccines = Database::query(
+        "SELECT vaccines.name, vaccines.description, vaccinations.dose
+        FROM vaccines
+        JOIN vaccinations
+        ON vaccines.id = vaccinations.vaccine_id
+        AND vaccinations.cat_id = %d",
+        [$cat['id']],
+        true
+    );
 
-    foreach ($personalities as $personality)
-        array_push($cat_personalities, $personality['name']);
+    $diseases = Database::query(
+        "SELECT name, description
+        FROM diseases
+        WHERE id IN
+        (
+            SELECT disease_id
+            FROM cat_diseases
+            WHERE cat_id = %s
+        )",
+        [$cat['id']],
+        true
+    );
 
     // Add the personality array to the cat row.
-    $cat += ['personalities' => $cat_personalities];
+    $cat += ['personalities' => $personalities];
+    $cat += ['diseases' => $diseases];
+    $cat += ['vaccines' => $vaccines];
 
     $is_favorite = false;
 

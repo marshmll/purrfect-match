@@ -72,9 +72,7 @@ CREATE TABLE IF NOT EXISTS vaccines (
     id INTEGER NOT NULL AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
     description TEXT NOT NULL,
-    disease_id INTEGER NOT NULL,
-    PRIMARY KEY (id),
-    FOREIGN KEY(disease_id) REFERENCES diseases (id)
+    PRIMARY KEY (id)
 ) CHARACTER SET utf8mb4;
 
 CREATE TABLE IF NOT EXISTS color_preferences (
@@ -91,6 +89,14 @@ CREATE TABLE IF NOT EXISTS personality_preferences (
     PRIMARY KEY (personality_id, user_id),
     FOREIGN KEY(personality_id) REFERENCES personalities (id) ON DELETE CASCADE,
     FOREIGN KEY(user_id) REFERENCES users (id) ON DELETE CASCADE
+) CHARACTER SET utf8mb4;
+
+CREATE TABLE IF NOT EXISTS vaccine_prevents_disease (
+    vaccine_id INTEGER NOT NULL,
+    disease_id INTEGER NOT NULL,
+    PRIMARY KEY (vaccine_id, disease_id),
+    FOREIGN KEY (vaccine_id) REFERENCES vaccines (id) ON DELETE CASCADE,
+    FOREIGN KEY (disease_id) REFERENCES diseases (id) ON DELETE CASCADE
 ) CHARACTER SET utf8mb4;
 
 CREATE TABLE IF NOT EXISTS rescues (
@@ -142,9 +148,7 @@ CREATE TABLE IF NOT EXISTS messages (
 CREATE TABLE IF NOT EXISTS vaccinations (
     cat_id INTEGER NOT NULL,
     vaccine_id INTEGER NOT NULL,
-    dose CHAR(3) NOT NULL,
-    appl_date DATE NOT NULL,
-    next_date DATE,
+    dose CHAR(3) NOT NULL DEFAULT("1/1"),
     PRIMARY KEY (cat_id, vaccine_id),
     FOREIGN KEY(cat_id) REFERENCES cats (id),
     FOREIGN KEY(vaccine_id) REFERENCES vaccines (id)
