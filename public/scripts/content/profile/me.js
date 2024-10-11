@@ -18,11 +18,7 @@ async function renderContent() {
 
     title.textContent = `${user.name} (@${user.username})`;
 
-    document.getElementById("name").value = user.name;
-    document.getElementById("username").value = user.username;
-    document.getElementById("date_birth").value = user.date_birth;
-    document.getElementById("contact_email").value = user.contact_email;
-    document.getElementById("contact_phone").value = user.contact_phone;
+    setFormData(user);
 
     document.querySelector(".head__pfp").style.backgroundImage = `url("${user.pfp_url}")`;
 
@@ -85,6 +81,14 @@ async function renderContent() {
                 }
             }
         })
+}
+
+function setFormData(user) {
+    document.getElementById("name").value = user.name;
+    document.getElementById("username").value = user.username;
+    document.getElementById("date_birth").value = user.date_birth;
+    document.getElementById("contact_email").value = user.contact_email;
+    document.getElementById("contact_phone").value = user.contact_phone;
 }
 
 renderContent();
