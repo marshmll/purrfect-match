@@ -1,0 +1,152 @@
+body {
+    position: relative;
+    min-height: 100vh;
+}
+
+.main {
+    margin-left: 4rem;
+    padding: 1rem 2rem;
+}
+
+.main__title {
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+    font-family: "Montserrat", sans-serif;
+    margin-bottom: 2rem;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-auto-rows: auto;
+    gap: 1rem;
+}
+
+.card {
+    min-height: 22rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.card__image {
+    display: block;
+    height: 100%;
+    width: 40%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.card__text {
+    width: 60%;
+    height: 100%;
+    padding: 1rem;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card__title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+}
+
+.card__span {
+    font-style: italic;
+    font-size: 1.1rem;
+    margin-bottom: .5rem;
+}
+
+.card__status {
+
+    .in-progress {
+        font-weight: 700;
+        color: rgb(6, 95, 168);
+    }
+
+    .refused {
+        font-weight: 700;
+        color: #ca0000
+    }
+
+    .concluded {
+        font-weight: 700;
+        color: green
+    }
+
+    .canceled {
+        font-weight: 700;
+        color: #e2a127
+    }
+}
+
+.card__buttons {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.card__button {
+    width: 50%;
+    display: inline-block;
+    height: 1.7rem;
+    border: none;
+    background-color: transparent;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.card__button--cancel {
+    border: 2px solid #ca0000;
+    color: #ca0000;
+    font-weight: bold;
+}
+
+.card__button--cancel:hover {
+    color: white;
+    background-color: #ca0000;
+    transition: all 200ms ease-in-out;
+}
+
+.card__button--chat {
+    border: 2px solid blue;
+    color: blue;
+    font-weight: bold;
+}
+
+.card__button--chat:hover {
+    color: white;
+    background-color: blue;
+    transition: all 200ms ease-in-out;
+}
+
+/* MEDIA QUERIES =========================================================================================================== */
+
+@media screen and (max-width: 768px) {
+    .main {
+        margin: 0;
+    }
+
+    .card {
+        flex-direction: column;
+    }
+
+    .card__image {
+        width: 100%;
+        height: 20rem;
+    }
+
+    .card__text {
+        width: 100%;
+    }
+}
