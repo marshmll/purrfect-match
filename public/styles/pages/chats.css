@@ -32,6 +32,7 @@
     flex-direction: row;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     cursor: pointer;
+    position: relative;
 }
 
 .contacts__item:hover {
@@ -71,6 +72,14 @@
     span {
         margin-right: .3rem;
     }
+}
+
+.contacts__datetime {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-size: .7rem;
+    margin: .5rem;
 }
 
 .seen {
