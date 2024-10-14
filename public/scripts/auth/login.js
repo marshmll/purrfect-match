@@ -1,5 +1,5 @@
 import { fetchAPI } from "../utils/api.js";
-import { deleteCookie, hasCookieSet, setCookie } from "../utils/cookie.js";
+import { hasCookieSet, setCookie } from "../utils/cookie.js";
 
 if (hasCookieSet("token")) {
     document.location.replace("http://localhost:8000/pages/fyp.html");
@@ -28,12 +28,11 @@ loginForm.addEventListener("submit", async (e) => {
     if (res.status == 401) {
         feedbackSpan.textContent = `Usuário ou senha incorretos.`;
     }
-    else if (res.status != 200)
-    {
+    else if (res.status != 200) {
         feedbackSpan.textContent = `Ocorreu um erro no processamento da requisição. Erro: ${res.status}`;
     }
     else {
         setCookie("token", res.data.access_token, 7);
-        document.location.replace("http://localhost:8000/pages/fyp.html");
+        document.location.replace(`http://localhost:8000${res.data.redirect || "/pages/fyp.html"}`);
     }
 });
