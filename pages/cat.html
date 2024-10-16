@@ -1,105 +1,153 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Purrfetch Match</title>
+        <link rel="stylesheet" href="../public/styles/reset.css" />
+        <link
+            rel="stylesheet"
+            href="../public/styles/components/components.css"
+        />
+        <link rel="stylesheet" href="../public/styles/pages/cat.css" />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        />
+        <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    </head>
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Purrfetch Match</title>
-    <link rel="stylesheet" href="../public/styles/reset.css" />
-    <link rel="stylesheet" href="../public/styles/components/components.css" />
-    <link rel="stylesheet" href="../public/styles/pages/cat.css" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
-</head>
-
-<body>
-    <nav class="navbar">
-        <ul class="navbar__list">
-            <li class="item">
-                <a class="item__link" href="./fyp.html" title="Home">
-                    <span class="item__icon material-symbols-outlined">home</span>
-                    <span class="item__text">Home</span>
-                </a>
-            </li>
-            <li class="item">
-                <a class="item__link" href="./favorites.html" title="Favoritos">
-                    <span class="item__icon material-symbols-outlined">favorite</span>
-                    <span class="item__text">Favoritos</span>
-                </a>
-            </li>
-            <li class="item">
-                <a class="item__link" href="./adoptions/" title="Adoção">
-                    <span class="item__icon material-symbols-outlined">search</span>
-                    <span class="item__text">Adoções</span>
-                </a>
-            </li>
-            <li class="item">
-                <a class="item__link" href="/" title="Adoção">
-                    <span class="item__icon material-symbols-outlined">support</span>
-                    <span class="item__text">Resgates</span>
-                </a>
-            </li>
-            <li class="item">
-                <a class="item__link" href="./donations.html" title="Doar">
-                    <span class="item__icon material-symbols-outlined">attach_money</span>
-                    <span class="item__text">Doar</span>
-                </a>
-            </li>
-            <li class="item">
-                <a class="item__link" href="./profile/me.html" title="Chats">
-                    <span class="item__icon material-symbols-outlined">message</span>
-                    <span class="item__text">Chats</span>
-                </a>
-            </li>
-            <li class="item">
-                <a class="item__link" href="./profile/me.html" title="Perfil">
-                    <span class="item__icon material-symbols-outlined">person</span>
-                    <span class="item__text">Perfil</span>
-                </a>
-            </li>
-            <li class="item">
-                <a class="item__link" id="logout" title="Sair">
-                    <span class="item__icon material-symbols-outlined">logout</span>
-                    <span class="item__text">Sair</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-    <main class="main">
-        <div class="heading">
-            <div class="heading__picture"></div>
-            <div class="heading__info">
-                <h2 class="heading__name"></h2>
-                <span class="heading__age"></span>
-                <span class="heading__sex"></span>
+    <body>
+        <nav class="navbar">
+            <ul class="navbar__list">
+                <li class="item">
+                    <a class="item__link" href="./fyp.html" title="Home">
+                        <span class="item__icon material-symbols-outlined"
+                            >home</span
+                        >
+                        <span class="item__text">Home</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <a
+                        class="item__link"
+                        href="./favorites.html"
+                        title="Favoritos"
+                    >
+                        <span class="item__icon material-symbols-outlined"
+                            >favorite</span
+                        >
+                        <span class="item__text">Favoritos</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <a class="item__link" href="./adoptions/" title="Adoção">
+                        <span class="item__icon material-symbols-outlined"
+                            >search</span
+                        >
+                        <span class="item__text">Adoções</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <a class="item__link" href="/" title="Adoção">
+                        <span class="item__icon material-symbols-outlined"
+                            >support</span
+                        >
+                        <span class="item__text">Resgates</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <a class="item__link" href="./donations.html" title="Doar">
+                        <span class="item__icon material-symbols-outlined"
+                            >attach_money</span
+                        >
+                        <span class="item__text">Doar</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <a
+                        class="item__link"
+                        href="./profile/me.html"
+                        title="Chats"
+                    >
+                        <span class="item__icon material-symbols-outlined"
+                            >message</span
+                        >
+                        <span class="item__text">Chats</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <a
+                        class="item__link"
+                        href="./profile/me.html"
+                        title="Perfil"
+                    >
+                        <span class="item__icon material-symbols-outlined"
+                            >person</span
+                        >
+                        <span class="item__text">Perfil</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <a class="item__link" id="logout" title="Sair">
+                        <span class="item__icon material-symbols-outlined"
+                            >logout</span
+                        >
+                        <span class="item__text">Sair</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <main class="main">
+            <div class="heading">
+                <div class="heading__picture"></div>
+                <div class="heading__info">
+                    <h2 class="heading__name"></h2>
+                    <span class="heading__age"></span>
+                    <span class="heading__sex"></span>
+                </div>
+                <div class="heading__buttons">
+                    <button class="heading__button heading__button--adopt">
+                        Adotar
+                    </button>
+                    <button class="heading__button heading__button--favorite">
+                        Favoritar
+                    </button>
+                </div>
+                <div class="heading__personalities"></div>
             </div>
-            <div class="heading__buttons">
-                <button class="heading__button heading__button--adopt">Adotar</button>
-                <button class="heading__button heading__button--favorite">Favoritar</button>
+            <div class="about">
+                <h2 class="about__title"></h2>
+                <div class="about__subsection">
+                    <h2 class="about__subtitle">Descrição Física</h2>
+                    <p class="about__paragraph physical_description">
+                        Não possui.
+                    </p>
+                </div>
+                <div class="about__subsection">
+                    <h3 class="about__subtitle">Personalidades</h3>
+                    <ul class="about__personalities">
+                        Não possui.
+                    </ul>
+                </div>
+                <div class="about__subsection">
+                    <h3 class="about__subtitle">Vacinações</h3>
+                    <ul class="about__vaccines">
+                        Não possui.
+                    </ul>
+                </div>
+                <div class="about__subsection">
+                    <h3 class="about__subtitle">Doenças</h3>
+                    <ul class="about__diseases">
+                        Não possui.
+                    </ul>
+                </div>
             </div>
-            <div class="heading__personalities"></div>
-        </div>
-        <div class="about">
-            <h2 class="about__title"></h2>
-            <div class="about__subsection">
-                <h2 class="about__subtitle">Descrição Física</h2>
-                <p class="about__paragraph physical_description">Não possui.</p>
-            </div>
-            <div class="about__subsection">
-                <h3 class="about__subtitle">Personalidades</h3>
-                <ul class="about__personalities">Não possui.</ul>
-            </div>
-            <div class="about__subsection">
-                <h3 class="about__subtitle">Vacinações</h3>
-                <ul class="about__vaccines">Não possui.</ul>
-            </div>
-            <div class="about__subsection">
-                <h3 class="about__subtitle">Doenças</h3>
-                <ul class="about__diseases">Não possui.</ul>
-            </div>
-        </div>
-    </main>
-    <script type="module" src="../public/scripts/components/navbar.js"></script>
-    <script type="module" src="../public/scripts/content/cat.js"></script>
-</body>
+        </main>
+        <script
+            type="module"
+            src="../public/scripts/components/navbar.js"
+        ></script>
+        <script type="module" src="../public/scripts/content/cat.js"></script>
+    </body>
+</html>
