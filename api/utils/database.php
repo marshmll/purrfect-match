@@ -9,54 +9,62 @@ const PORT     = "3306"; // Docker's database port.
 
 class Database
 {
+    /**
+     * Executes a query on the database.
+     *
+     * @param string $query_format The query with placeholders.
+     * @param array $params Parameters to bind to the query.
+     * @param bool $always_array Whether to always return an array.
+     * @return array|bool The result of the query.
+     * @throws Exception If parameters are not an array or if a query fails.
+     */
     public static function query($query_format, $params = [], $always_array = false)
     {
-        if (gettype($params) != 'array') {
+        // Ensure $params is an array
+        if (!is_array($params)) {
             http_response_code(500);
-            die("[Database]: Argument \$params need to be an array.");
+            throw new Exception("[Database]: Argument \$params must be an array.");
         }
 
-        // MySQLi connection
+        // Create MySQLi connection
         $mysqli = new mysqli(HOSTNAME, USERNAME, PASSWORD, DATABASE, PORT);
 
-        // Check connection
+        // Check for connection errors
         if ($mysqli->connect_error) {
-            die("[Database]: Connection failed: " . $mysqli->connect_error);
+            throw new Exception("[Database]: Connection failed: " . $mysqli->connect_error);
         }
 
-        // Assure utf8 charset.
+        // Set character set to UTF-8
         $mysqli->set_charset("utf8");
 
-        $escaped_params = [];
+        // Escape parameters to prevent SQL injection
+        $escaped_params = array_map(function($param) use ($mysqli) {
+            return is_string($param) ? $mysqli->real_escape_string($param) : $param;
+        }, $params);
 
-        foreach ($params as $param) {
-            if (gettype($param) == "string")
-                array_push($escaped_params, $mysqli->real_escape_string($param));
-            else
-                array_push($escaped_params, $param);
-        }
-
+        // Prepare the query
         $escaped_query = empty($escaped_params) ? $query_format : sprintf($query_format, ...$escaped_params);
 
+        // Execute the query
         $response = $mysqli->query($escaped_query);
 
-        if (gettype($response) == 'boolean') {
+        // Handle boolean response (e.g., for INSERT/UPDATE)
+        if (is_bool($response)) {
             $mysqli->close();
             return $response;
         }
 
-        $data = array();
-
-        if ($response->num_rows == 1) {
-            if ($always_array == false)
-                $data = $response->fetch_assoc();
-            else
-                $data = $response->fetch_all(MYSQLI_ASSOC);
-        } else if ($response->num_rows > 1) {
-            while ($row = $response->fetch_assoc())
+        // Fetch the results
+        $data = [];
+        if ($response->num_rows === 1) {
+            $data = $always_array ? $response->fetch_all(MYSQLI_ASSOC) : $response->fetch_assoc();
+        } elseif ($response->num_rows > 1) {
+            while ($row = $response->fetch_assoc()) {
                 $data[] = $row;
+            }
         }
 
+        // Close the connection
         $mysqli->close();
 
         return $data;
