@@ -20,10 +20,25 @@ if (isset($headers['authorization'])) {
 
     $payload = $jwt->decodeToken($token);
 
-    // Query for getting all cats
+    // Query for getting all cats, ordering by the number of matches of the cat's 
+    // personality and the user preferences.
     $cats = Database::query(
-        "SELECT id, name, age, sex, picture_url
-        FROM cats"
+        "SELECT id, name, age, sex, picture_url,
+        (
+            SELECT COUNT(*)
+            FROM cat_personalities
+            WHERE personality_id IN
+            (
+                SELECT personality_id
+                FROM personality_preferences
+                WHERE user_id = %d
+            )
+            AND cat_id = cats.id
+        ) AS preference_level
+        FROM cats
+        ORDER BY preference_level DESC",
+        [$payload['sub']],
+        true
     );
 
     $user_favorites = Database::query(

@@ -32,7 +32,14 @@ if (isset($headers['authorization'])) {
 
     $payload = $jwt->decodeToken($token);
 
-    $result = null;
+    $result = Database::query(
+        "SELECT id FROM cats
+        WHERE name = '%s'",
+        [$body['name']]
+    );
+
+    if ($result != false)
+        sendConflictResponse();
 
     if (isset($body['picture_url'])) {
         $result = Database::query(
@@ -73,7 +80,6 @@ if (isset($headers['authorization'])) {
         [$body['name']]
     );
 
-    $personalities = array();
     foreach ($body['personalities'] as $personality_id) {
         $result = Database::query(
             "INSERT INTO cat_personalities
@@ -83,6 +89,38 @@ if (isset($headers['authorization'])) {
             [
                 $cat['id'],
                 $personality_id
+            ]
+        );
+
+        if (!$result)
+            sendConflictResponse();
+    }
+
+    foreach ($body['vaccines'] as $vaccine_id) {
+        $result = Database::query(
+            "INSERT INTO vaccinations
+            (cat_id, vaccine_id)
+            VALUES
+            (%d, %d)",
+            [
+                $cat['id'],
+                $vaccine_id
+            ]
+        );
+
+        if (!$result)
+            sendConflictResponse();
+    }
+
+    foreach ($body['diseases'] as $disease_id) {
+        $result = Database::query(
+            "INSERT INTO cat_diseases
+            (cat_id, disease_id)
+            VALUES
+            (%d, %d)",
+            [
+                $cat['id'],
+                $disease_id
             ]
         );
 

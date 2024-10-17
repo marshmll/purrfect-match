@@ -1,11 +1,17 @@
 <?php
 require_once('../../../utils/database.php');
-require_once('../../../utils/http_responses.php');
 require_once('../../../utils/jwt.php');
+require_once('../../../utils/http_responses.php');
 
+// Collect headers and body
 $headers = apache_request_headers();
+$body = json_decode(file_get_contents('php://input'), true);
+
 // If Authorization Bearer is set
 if (isset($headers['authorization'])) {
+
+    if (!isset($body['contact_id']))
+        sendBadRequestResponse();
 
     // Remove 'Bearer ' from the token
     $token = getAuthTokenFromHeaders($headers);
@@ -18,16 +24,14 @@ if (isset($headers['authorization'])) {
 
     $payload = $jwt->decodeToken($token);
 
-    $user = Database::query(
-        "SELECT name, username, date_birth, contact_email, contact_phone, pfp_url
-        FROM users
-        WHERE id = '%s'",
-        [
-            $payload['sub']
-        ]
+    $result = Database::query(
+        "UPDATE messages
+        SET status = 'seen'
+        WHERE sender_id = %d AND receiver_id = %d",
+        [$body['contact_id'], $payload['sub']]
     );
 
-    sendOKResponse(json_encode($user));
+    sendOKResponse(json_encode($result));
 }
 
 sendNotAuthenticatedResponse();

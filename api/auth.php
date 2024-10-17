@@ -55,6 +55,9 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         'access_token' => $token,
     ];
 
+    if ($payload['rol'] == 'root' or $payload['rol'] == 'supervisor' or $payload['rol'] == 'manager')
+        $res += ['redirect' => '/pages/admin/index.html'];
+
     sendOKResponse(json_encode($res));
 }
 

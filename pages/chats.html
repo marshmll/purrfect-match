@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/styles/reset.css" />
+    <link rel="stylesheet" href="../public/styles/components/components.css" />
+    <link rel="stylesheet" href="../public/styles/pages/chats.css" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <title>Chats | Purrfect Match</title>
+
+<body>
+    <header class="header">
+        <button class="header__search" onclick="window.history.back()">
+            <span class="material-symbols-outlined" title="Voltar">arrow_back</span>
+        </button>
+        <div class="header__main">
+            <div class="header__icon"></div>
+            <h1 class="header__title">Purrfect Match</h1>
+        </div>
+        <button class="header__settings">
+            <span class="material-symbols-outlined">tune</span>
+        </button>
+    </header>
+    <nav class="navbar">
+        <ul class="navbar__list">
+            <li class="item">
+                <a class="item__link" href="./fyp.html" title="Home">
+                    <span class="item__icon material-symbols-outlined">home</span>
+                    <span class="item__text">Home</span>
+                </a>
+            </li>
+            <li class="item">
+                <a class="item__link" href="./favorites.html" title="Favoritos">
+                    <span class="item__icon material-symbols-outlined">favorite</span>
+                    <span class="item__text">Favoritos</span>
+                </a>
+            </li>
+            <li class="item">
+                <a class="item__link" href="./adoptions/" title="Adoção">
+                    <span class="item__icon material-symbols-outlined">search</span>
+                    <span class="item__text">Adoções</span>
+                </a>
+            </li>
+            <li class="item">
+                <a class="item__link" href="/" title="Adoção">
+                    <span class="item__icon material-symbols-outlined">support</span>
+                    <span class="item__text">Resgates</span>
+                </a>
+            </li>
+            <li class="item">
+                <a class="item__link" href="./donations.html" title="Doar">
+                    <span class="item__icon material-symbols-outlined">attach_money</span>
+                    <span class="item__text">Doar</span>
+                </a>
+            </li>
+            <li class="item">
+                <a class="item__link active" href="./profile/me.html" title="Chats">
+                    <span class="item__icon material-symbols-outlined fill">message</span>
+                    <span class="item__text">Chats</span>
+                </a>
+            </li>
+            <li class="item">
+                <a class="item__link" href="./profile/me.html" title="Perfil">
+                    <span class="item__icon material-symbols-outlined">person</span>
+                    <span class="item__text">Perfil</span>
+                </a>
+            </li>
+            <li class="item">
+                <a class="item__link" id="logout" title="Sair">
+                    <span class="item__icon material-symbols-outlined">logout</span>
+                    <span class="item__text">Sair</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <main class="main">
+        <aside class="contacts">
+            <h3 class="contacts__title">Chats</h3>
+            <ul class="contacts__list">
+                <li class="contacts__item contacts__item--active">
+                    <div class="contacts__pfp"
+                        style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png');">
+                    </div>
+                    <div class="contacts__text">
+                        <h4 class="contacts__name">Larissa</h4>
+                        <p class="contacts__last">
+                            <span class="item__icon material-symbols-outlined">check</span>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur assumenda sapiente
+                            inventore, corrupti provident maiores quod eius. Quibusdam ab quod dolore. Voluptas soluta
+                            ab adipisci quos deleniti laudantium, sed iusto?
+                        </p>
+                    </div>
+                </li>
+                <li class="contacts__item">
+                    <div class="contacts__pfp"
+                        style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png');">
+                    </div>
+                    <div class="contacts__text">
+                        <h4 class="contacts__name">Gustavo</h4>
+                        <p class="contacts__last">
+                            <span class="material-symbols-outlined seen">done_all</span>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur assumenda sapiente
+                            inventore, corrupti provident maiores quod eius. Quibusdam ab quod dolore. Voluptas soluta
+                            ab adipisci quos deleniti laudantium, sed iusto?
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </aside>
+        <section class="chat">
+            <ul class="chat__messages">
+                <li class="message message--received">
+                    <p class="message__content">Lorem</p>
+                    <span class="message__datetime">24/07/2024, 17:12</span>
+                    <span class="item__icon material-symbols-outlined message__status">check</span>
+                </li>
+                <li class="message message--sent">
+                    <p class="message__content">Lorem</p>
+                    <span class="message__datetime">24/07/2024, 17:12</span>
+                    <span class="item__icon material-symbols-outlined message__status">check</span>
+                </li>
+                <li class="message message--sent">
+                    <p class="message__content">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt molestiae delectus ducimus. Ipsa commodi ut quia animi praesentium id, dignissimos blanditiis pariatur. Omnis architecto voluptas et ullam possimus dignissimos quas!</p>
+                    <span class="message__datetime">24/07/2024, 17:12</span>
+                    <span class="item__icon material-symbols-outlined message__status">check</span>
+                </li>
+                <li class="message message--received">
+                    <p class="message__content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione aliquam esse beatae repellendus aut porro maxime.</p>
+                    <span class="message__datetime">24/07/2024, 17:12</span>
+                    <span class="item__icon material-symbols-outlined message__status">check</span>
+                </li>
+                <li class="message message--received">
+                    <p class="message__content">Lorem</p>
+                    <span class="message__datetime">24/07/2024, 17:12</span>
+                    <span class="item__icon material-symbols-outlined message__status">check</span>
+                </li>
+                <li class="message message--sent">
+                    <p class="message__content">Lorem</p>
+                    <span class="message__datetime">24/07/2024, 17:12</span>
+                    <span class="item__icon material-symbols-outlined message__status">check</span>
+                </li>
+                <li class="message message--sent">
+                    <p class="message__content">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt molestiae delectus ducimus. Ipsa commodi ut quia animi praesentium id, dignissimos blanditiis pariatur. Omnis architecto voluptas et ullam possimus dignissimos quas!</p>
+                    <span class="message__datetime">24/07/2024, 17:12</span>
+                    <span class="item__icon material-symbols-outlined message__status">check</span>
+                </li>
+                <li class="message message--received">
+                    <p class="message__content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione aliquam esse beatae repellendus aut porro maxime.</p>
+                    <span class="message__datetime">24/07/2024, 17:12</span>
+                    <span class="item__icon material-symbols-outlined message__status">check</span>
+                </li>
+            </ul>
+            <form class="chat__form">
+                <textarea class="chat__textarea" name="content" id="content"></textarea>
+                <button type="submit" class="chat__submit chat__submit--disabled" disabled>
+                    <span class="item__icon material-symbols-outlined">send</span>
+                </button>
+            </form>
+        </section>
+    </main>
+    <script type="module" src="../public/scripts/components/navbar.js"></script>
+    <script type="module" src="../public/scripts/content/chats.js"></script>
+</body>
+
+</html>
