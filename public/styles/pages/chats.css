@@ -35,6 +35,10 @@
     position: relative;
 }
 
+.contacts__item--active {
+    background-color: #e8eaf5;
+}
+
 .contacts__item:hover {
     background-color: #e8eaf5;
 }

@@ -24,27 +24,34 @@ if (isset($headers['authorization'])) {
     // sent message in the chat.
     $contacts = Database::query(
         "SELECT users.id,
-        users.name,
-        users.username,
-        users.pfp_url,
-        messages.sender_id,
-        messages.receiver_id,
-        messages.content AS last_message_content,
-        messages.status AS last_message_status,
-        messages.sent_datetime AS last_message_datetime
-        FROM users
-        JOIN messages
-        ON messages.sent_datetime = (
-            SELECT MAX(sent_datetime)
-            FROM messages m
-            WHERE messages.sender_id = m.sender_id
-            AND messages.receiver_id = m.receiver_id
-        )
-        AND users.id != %d",
-        [$payload['sub']],
+            users.name,
+            users.username,
+            users.pfp_url,
+            messages.sender_id,
+            messages.receiver_id,
+            messages.content AS last_message_content,
+            messages.status AS last_message_status,
+            messages.sent_datetime AS last_message_datetime
+         FROM messages
+         JOIN (
+            SELECT 
+                LEAST(sender_id, receiver_id) AS user1,
+                GREATEST(sender_id, receiver_id) AS user2,
+                MAX(sent_datetime) AS last_message_datetime
+            FROM messages
+            WHERE sender_id = %d OR receiver_id = %d
+            GROUP BY user1, user2
+         ) AS latest_messages
+         ON (LEAST(messages.sender_id, messages.receiver_id) = latest_messages.user1
+             AND GREATEST(messages.sender_id, messages.receiver_id) = latest_messages.user2
+             AND messages.sent_datetime = latest_messages.last_message_datetime)
+         JOIN users
+         ON users.id = IF(messages.sender_id = %d, messages.receiver_id, messages.sender_id)
+         ORDER BY messages.sent_datetime DESC",
+        [$payload['sub'], $payload['sub'], $payload['sub']],
         true
-    );
-
+    );    
+    
     sendOKResponse(json_encode($contacts));
 }
 
