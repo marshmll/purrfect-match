@@ -15,8 +15,8 @@
 
 <body>
     <header class="header">
-        <button class="header__search">
-            <span class="material-symbols-outlined">search</span>
+        <button class="header__search" onclick="window.history.back()">
+            <span class="material-symbols-outlined" title="Voltar">arrow_back</span>
         </button>
         <div class="header__main">
             <div class="header__icon"></div>
@@ -41,9 +41,15 @@
                 </a>
             </li>
             <li class="item">
-                <a class="item__link" href="/" title="Adoção">
+                <a class="item__link" href="./adoptions/" title="Adoção">
                     <span class="item__icon material-symbols-outlined">search</span>
-                    <span class="item__text">Adoção</span>
+                    <span class="item__text">Adoções</span>
+                </a>
+            </li>
+            <li class="item">
+                <a class="item__link" href="/" title="Adoção">
+                    <span class="item__icon material-symbols-outlined">support</span>
+                    <span class="item__text">Resgates</span>
                 </a>
             </li>
             <li class="item">
@@ -53,7 +59,7 @@
                 </a>
             </li>
             <li class="item">
-                <a class="item__link" href="./profile/me.html" title="Chats">
+                <a class="item__link" href="./chats.html" title="Chats">
                     <span class="item__icon material-symbols-outlined">message</span>
                     <span class="item__text">Chats</span>
                 </a>

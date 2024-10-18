@@ -145,12 +145,6 @@ p {
 }
 
 .about__personality {
-
-    strong {
-        font-weight: bold;
-        display: inline;
-    }
-    
     span {
         font-size: 14px;
     }
@@ -163,12 +157,6 @@ p {
 }
 
 .about__vaccine {
-
-    strong {
-        font-weight: bold;
-        display: inline;
-    }
-    
     span {
         font-size: 14px;
     }
@@ -178,6 +166,11 @@ p {
         font-size: 1.1rem;
         margin-top: 1rem;
     }
+}
+
+strong {
+    font-weight: bold;
+    display: inline;
 }
 
 /* MEDIA QUERIES =========================================================================================================== */
