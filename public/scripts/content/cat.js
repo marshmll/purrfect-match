@@ -43,6 +43,8 @@ function setCatPersonalities(personalities) {
     const headingPersonalities = document.querySelector(".heading__personalities");
     const aboutPersonalities = document.querySelector(".about__personalities");
 
+    aboutPersonalities.innerHTML = "";
+
     personalities.forEach(({ name, description }) => {
         headingPersonalities.innerHTML += `<div class="heading__personality">${name}</div>`;
         aboutPersonalities.innerHTML += `
@@ -58,10 +60,12 @@ function setCatPersonalities(personalities) {
 function setCatVaccines(vaccines) {
     const aboutVaccines = document.querySelector(".about__vaccines");
 
+    aboutVaccines.innerHTML = "";
+
     vaccines.forEach(({ name, description }) => {
         aboutVaccines.innerHTML += `
             <li class="about__vaccine">
-                <p><strong><span class="item__icon material-symbols-outlined fill">syringe</span> Vacinado contra ${name}:
+                <p><strong><span class="item__icon material-symbols-outlined fill">syringe</span> ${name}:
                 </strong>${description}</p>
             </li>
         `;
