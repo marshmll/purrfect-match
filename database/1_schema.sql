@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS users (
     name VARCHAR(100) NOT NULL,
     username VARCHAR(20) NOT NULL,
     date_birth DATE NOT NULL,
-    datetime_register DATETIME NOT NULL,
+    datetime_register DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP),
     pass_salt CHAR(32) NOT NULL,
     pass_hash CHAR(64) NOT NULL,
     role VARCHAR(10) NOT NULL,
@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS vaccine_prevents_disease (
 
 CREATE TABLE IF NOT EXISTS rescues (
     user_id INTEGER NOT NULL,
-    request_datetime DATETIME NOT NULL,
+    request_datetime DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP),
     status VARCHAR(50) NOT NULL,
     closure_datetime SMALLINT,
     description TEXT NOT NULL,
@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS rescues (
 CREATE TABLE IF NOT EXISTS adoptions (
     user_id INTEGER NOT NULL,
     cat_id INTEGER NOT NULL,
-    request_datetime DATETIME NOT NULL,
+    request_datetime DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP),
     hand_over_datetime DATETIME,
     status VARCHAR(20) NOT NULL,
     PRIMARY KEY (user_id, cat_id),
@@ -128,7 +128,7 @@ CREATE TABLE IF NOT EXISTS adoptions (
 CREATE TABLE IF NOT EXISTS favorites (
     user_id INTEGER NOT NULL,
     cat_id INTEGER NOT NULL,
-    choice_datetime DATETIME NOT NULL,
+    choice_datetime DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP),
     PRIMARY KEY (user_id, cat_id),
     FOREIGN KEY(user_id) REFERENCES users (id) ON DELETE CASCADE,
     FOREIGN KEY(cat_id) REFERENCES cats (id) ON DELETE CASCADE
@@ -137,7 +137,7 @@ CREATE TABLE IF NOT EXISTS favorites (
 CREATE TABLE IF NOT EXISTS messages (
     sender_id INTEGER NOT NULL,
     receiver_id INTEGER NOT NULL,
-    sent_datetime DATETIME NOT NULL,
+    sent_datetime DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP),
     content TEXT NOT NULL,
     status VARCHAR(20) NOT NULL,
     PRIMARY KEY (sender_id, receiver_id, sent_datetime),
