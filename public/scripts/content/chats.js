@@ -1,6 +1,9 @@
 import { hasCookieSet, getCookie } from "../utils/cookie.js";
 import { fetchAPI } from "../utils/api.js";
 
+let currentTimeoutId;
+let contacts = [];
+
 // Redirects to login page if authentication cookie is not set
 if (!hasCookieSet("token")) {
     window.location.replace("http://localhost:8000/pages/login.html");
@@ -27,7 +30,7 @@ async function renderChatContacts(contactId = "") {
         window.location.replace("http://localhost:8000/pages/fyp.html");
     }
 
-    const contacts = res.data;
+    contacts = res.data;
     const contactsContainer = document.querySelector(".contacts__list");
 
     contactsContainer.innerHTML = contacts.map(contact => createContactItem(contact, contactId)).join("");
@@ -68,13 +71,22 @@ async function handleContactClick(contactId) {
     });
 
     document.getElementById(contactId).classList.add("contacts__item--active");
-    await renderChatMessages(contactId);
-    await renderChatContacts(contactId);
+
+    clearTimeout(currentTimeoutId);
+
+    await renderChatMessages(contactId, true);
 }
 
 // Renders messages for a selected contact
 async function renderChatMessages(contactId) {
     const body = { contact_id: contactId };
+
+    const contact = contacts.filter(contact => contact.id == contactId)[0];
+
+    document.querySelector(".chat__head").innerHTML = `
+        <div class="chat__pfp" style="background-image: url('${contact.pfp_url}');"></div>
+        <h3 class="chat__name">${contact.name}</h3>
+    `;
 
     // Mark all messages as seen
     await fetchAPI("/content/user/chats/set_all_seen.php", "POST", body);
@@ -87,13 +99,12 @@ async function renderChatMessages(contactId) {
     } else {
         const messages = res.data;
         document.querySelector(".chat__messages").innerHTML = messages.map(createMessageItem).join("");
-    }
 
-    // Refresh messages every 2 seconds
-    setTimeout(() => {
-        renderChatContacts(contactId);
-        renderChatMessages(contactId);
-    }, 2000);
+        currentTimeoutId = setTimeout(async () => {
+            await renderChatContacts(contactId);
+            await renderChatMessages(contactId);
+        }, 5000);
+    }
 }
 
 // Creates HTML for a single message item
@@ -142,6 +153,7 @@ document.querySelector(".chat__form").addEventListener("submit", async (e) => {
         document.getElementById("content").value = "";
         await renderChatContacts(contactId);
         await renderChatMessages(contactId);
+        scrollToLatestMessage();
     }
 });
 

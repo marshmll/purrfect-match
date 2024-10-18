@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS cats (
     age SMALLINT NOT NULL,
     sex CHAR(1) NOT NULL,
     physical_description TEXT NOT NULL DEFAULT("Não informado."),
-    picture_url VARCHAR(100) NOT NULL DEFAULT('https://i.pinimg.com/736x/7f/16/a2/7f16a2ed1969e8c64b32801f9c48a066.jpg'),
+    picture_url TEXT NOT NULL DEFAULT('https://i.pinimg.com/736x/7f/16/a2/7f16a2ed1969e8c64b32801f9c48a066.jpg'),
     PRIMARY KEY (id)
 ) CHARACTER SET utf8mb4;
 

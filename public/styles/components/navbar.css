@@ -55,6 +55,7 @@
         left: 0;
         border: none;
         border-top: 1px solid #b5b5b5;
+        z-index: 999999;
     }
 
     .navbar__list {

@@ -6,11 +6,7 @@ require_once('../../../utils/check_authentication.php');
 
 // Collect headers and body
 $headers = apache_request_headers();
-$body = json_decode(file_get_contents('php://input'), true);
 checkUserAuthentication($headers);
-
-if (!isset($body['cat_id']))
-    sendBadRequestResponse();
 
 // Remove 'Bearer ' from the token
 $token = getAuthTokenFromHeaders($headers);
@@ -23,17 +19,20 @@ if (!$jwt->isTokenValid($token) or $jwt->isTokenExpired($token))
 
 $payload = $jwt->decodeToken($token);
 
-$result = Database::query(
-    "DELETE FROM favorites
-        WHERE user_id = %d
-        AND cat_id = %d",
-    [
-        $payload['sub'],
-        $body['cat_id']
-    ]
+$adoptions = Database::query(
+    "SELECT cats.id AS cat_id,
+        cats.name AS cat_name,
+        cats.picture_url AS cat_picture_url,
+        adoptions.request_datetime,
+        adoptions.hand_over_datetime,
+        adoptions.status
+    FROM cats
+    JOIN adoptions
+    ON cats.id = adoptions.cat_id
+    AND adoptions.user_id = %d
+    ORDER BY request_datetime ASC, hand_over_datetime ASC",
+    [$payload['sub']],
+    true
 );
 
-if ($result)
-    sendOKResponse(json_encode(['deleted' => $body['cat_id']]));
-else
-    sendBadRequestResponse();
+sendOKResponse(json_encode($adoptions));

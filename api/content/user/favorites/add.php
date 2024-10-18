@@ -2,45 +2,41 @@
 require_once('../../../utils/database.php');
 require_once('../../../utils/jwt.php');
 require_once('../../../utils/http_responses.php');
+require_once('../../../utils/check_authentication.php');
 
 // Collect headers and body
 $headers = apache_request_headers();
 $body = json_decode(file_get_contents('php://input'), true);
 
-// If Authorization Bearer is set
-if (isset($headers['authorization'])) {
+checkUserAuthentication($headers);
 
-    if (!isset($body['cat_id']) || !isset($body['choice_datetime']))
-        sendBadRequestResponse();
 
-    // Remove 'Bearer ' from the token
-    $token = getAuthTokenFromHeaders($headers);
+if (!isset($body['cat_id']))
+    sendBadRequestResponse();
 
-    $jwt = new JWTManager(SECRET_KEY);
+// Remove 'Bearer ' from the token
+$token = getAuthTokenFromHeaders($headers);
 
-    // Check if the token has the expected signature
-    if (!$jwt->isTokenValid($token) or $jwt->isTokenExpired($token))
-        sendNotAuthenticatedResponse();
+$jwt = new JWTManager(SECRET_KEY);
 
-    $payload = $jwt->decodeToken($token);
+// Check if the token has the expected signature
+if (!$jwt->isTokenValid($token) or $jwt->isTokenExpired($token))
+    sendNotAuthenticatedResponse();
 
-    $result = Database::query(
-        "INSERT INTO favorites
+$payload = $jwt->decodeToken($token);
+
+$result = Database::query(
+    "INSERT INTO favorites
         (user_id, cat_id, choice_datetime)
         VALUES
-        (%d, %d, '%s')",
-        [
-            $payload['sub'],
-            $body['cat_id'],
-            $body['choice_datetime']
-        ]
-    );
+        (%d, %d, CURRENT_TIMESTAMP)",
+    [
+        $payload['sub'],
+        $body['cat_id']
+    ]
+);
 
-    if (!$result)
-        sendConflictResponse();
+if (!$result)
+    sendConflictResponse();
 
-    sendResponse(json_encode(['added' => $body['cat_id']]), 201);
-}
-
-// If reaches here, it means no Bearer token was received, send unauthorized.
-sendBadRequestResponse();
+sendResponse(json_encode(['added' => $body['cat_id']]), 201);

@@ -2,11 +2,13 @@
 require_once('../../utils/database.php');
 require_once('../../utils/jwt.php');
 require_once('../../utils/http_responses.php');
+require_once('../../utils/check_authentication.php');
 
 header('Content-Type: application/json');
 
 $headers = apache_request_headers();
 $body = json_decode(file_get_contents('php://input'), true);
+checkUserAuthentication($headers);
 
 // If Authorization Bearer is set
 if (isset($headers['authorization'])) {

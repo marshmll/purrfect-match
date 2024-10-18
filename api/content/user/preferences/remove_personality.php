@@ -1,7 +1,5 @@
 <?php
 require_once('../../../utils/database.php');
-require_once('../../../utils/jwt.php');
-require_once('../../../utils/http_responses.php');
 
 // Collect headers and body
 $headers = apache_request_headers();

@@ -28,6 +28,15 @@ function setCatData(cat) {
     setCatDiseases(cat.diseases);
     document.querySelector(".physical_description").textContent = cat.physical_description;
     document.querySelector(".about__title").textContent = `Conheça ${cat.sex === "M" ? "o" : "a"} ${cat.name}`;
+
+    if (cat.favorite === true) {
+        document.querySelector(".heading__button--favorite").textContent = "Favorito";
+        document.querySelector(".heading__button--favorite").classList.add("favorite");
+    }
+    else {
+        document.querySelector(".heading__button--favorite").textContent = "Favoritar";
+        document.querySelector(".heading__button--favorite").classList.remove("favorited");
+    }
 }
 
 // Define o cabeçalho do gato
@@ -43,7 +52,7 @@ function setCatPersonalities(personalities) {
     const headingPersonalities = document.querySelector(".heading__personalities");
     const aboutPersonalities = document.querySelector(".about__personalities");
 
-    aboutPersonalities.innerHTML = "";
+    if (personalities.length !== 0) aboutPersonalities.innerHTML = "";
 
     personalities.forEach(({ name, description }) => {
         headingPersonalities.innerHTML += `<div class="heading__personality">${name}</div>`;
@@ -60,7 +69,7 @@ function setCatPersonalities(personalities) {
 function setCatVaccines(vaccines) {
     const aboutVaccines = document.querySelector(".about__vaccines");
 
-    aboutVaccines.innerHTML = "";
+    if (vaccines.length !== 0) aboutVaccines.innerHTML = "";
 
     vaccines.forEach(({ name, description }) => {
         aboutVaccines.innerHTML += `
@@ -76,6 +85,8 @@ function setCatVaccines(vaccines) {
 function setCatDiseases(diseases) {
     const aboutDiseases = document.querySelector(".about__diseases");
 
+    if (diseases.length !== 0) aboutDiseases.innerHTML = "";
+
     diseases.forEach(({ name, description }) => {
         aboutDiseases.innerHTML += `
             <li class="about__vaccine">
@@ -85,6 +96,72 @@ function setCatDiseases(diseases) {
         `;
     });
 }
+
+function showAdoptionModal() {
+    document.querySelector(".modal").classList.remove("modal--hidden");
+}
+
+function hideAdoptionModal() {
+    document.querySelector(".modal").classList.add("modal--hidden");
+}
+
+document.querySelector(".heading__button--adopt").addEventListener("click", (e) => {
+    e.preventDefault();
+
+    showAdoptionModal();
+});
+
+document.querySelector(".container__button--request").addEventListener("click", async (e) => {
+    e.preventDefault();
+
+    const urlParams = Object.fromEntries(new URLSearchParams(window.location.search).entries());
+
+    const body = {
+        cat_id: urlParams.id
+    };
+
+    const res = await fetchAPI('/content/adoptions/request.php', 'POST', body);
+
+    if (res.status !== 201) {
+        alert(`Erro: ${res.data.detail}`);
+        return;
+    }
+
+    window.location.replace(`http://localhost:8000/pages/adoptions/`);
+});
+
+document.querySelector(".container__button--cancel").addEventListener("click", (e) => {
+    e.preventDefault();
+
+    hideAdoptionModal();
+});
+
+document.querySelector(".heading__button--favorite").addEventListener("click", async (e) => {
+    e.preventDefault();
+
+    const urlParams = Object.fromEntries(new URLSearchParams(window.location.search).entries());
+
+    const body = {
+        cat_id: parseInt(urlParams.id)
+    };
+
+    if (e.currentTarget.classList.contains("favorited")) {
+        const res = await fetchAPI("/content/user/favorites/remove.php", "POST", body);
+
+        if (res.status === 200) {
+            document.querySelector(".heading__button--favorite").textContent = "Favoritar";
+            document.querySelector(".heading__button--favorite").classList.remove("favorite");
+        }
+
+    } else {
+        const res = await fetchAPI("/content/user/favorites/add.php", "POST", body);
+
+        if (res.status === 201) {
+            document.querySelector(".heading__button--favorite").textContent = "Favorito";
+            document.querySelector(".heading__button--favorite").classList.add("favorite");
+        }
+    }
+})
 
 // Inicializa a página
 renderCatPage();

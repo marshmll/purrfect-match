@@ -65,7 +65,6 @@ async function favoriteToggle(target) {
             "POST",
             {
                 cat_id: parseInt(target.id),
-                choice_datetime: toMySQLDatetime(new Date())
             }
         );
 

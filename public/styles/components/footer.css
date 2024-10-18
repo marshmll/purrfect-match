@@ -1,0 +1,16 @@
+.footer {
+    width: 100%;
+    background-color: #ffffff;
+    color: black;
+    text-align: center;
+    height: 4rem;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
