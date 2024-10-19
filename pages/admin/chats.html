@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/styles/reset.css" />
+    <link rel="stylesheet" href="/public/styles/components/components.css" />
+    <link rel="stylesheet" href="/public/styles/pages/admin/chats.css" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <title>Chats | Admin Purrfect Match</title>
+</head>
+
+<body>
+    <header class="header">
+        <button class="header__search" onclick="window.history.back()">
+            <span class="material-symbols-outlined" title="Voltar">arrow_back</span>
+        </button>
+        <div class="header__main">
+            <div class="header__icon"></div>
+            <h1 class="header__title">Purrfect Match</h1>
+        </div>
+        <button class="header__settings">
+            <span class="material-symbols-outlined">tune</span>
+        </button>
+    </header>
+    <nav class="navbar">
+        <ul class="navbar__list">
+            <li class="item">
+                <a class="item__link" href="./index.html" title="Gatos">
+                    <span class="item__icon material-symbols-outlined">pets</span>
+                    <span class="item__text">Gatos</span>
+                </a>
+            </li>
+            <li class="item">
+                <a class="item__link" href="./index.html" title="Adoções">
+                    <span class="item__icon material-symbols-outlined">cardio_load</span>
+                    <span class="item__text">Adoções</span>
+                </a>
+            </li>
+            <li class="item">
+                <a class="item__link" href="./index.html" title="Resgates">
+                    <span class="item__icon material-symbols-outlined">support</span>
+                    <span class="item__text">Resgates</span>
+                </a>
+            </li>
+            <li class="item">
+                <a class="item__link" href="./users.html" title="Usuários">
+                    <span class="item__icon material-symbols-outlined">manage_accounts</span>
+                    <span class="item__text">Usuários</span>
+                </a>
+            </li>
+            <li class="item">
+                <a class="item__link active" href="./chats.html" title="Chats">
+                    <span class="item__icon material-symbols-outlined fill">chat</span>
+                    <span class="item__text">Chats</span>
+                </a>
+            </li>
+            <li class="item">
+                <a class="item__link" id="logout" title="Sair">
+                    <span class="item__icon material-symbols-outlined">logout</span>
+                    <span class="item__text">Sair</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <div class="modal modal--hidden">
+        <article class="container">
+            <button class="container__close">
+                <span class="item__icon material-symbols-outlined">close</span>
+            </button>
+            <h3 class="container__title">Nova Conversa</h3>
+            <ul class="users"></ul>
+        </article>
+    </div>
+    <main class="main">
+        <aside class="contacts">
+            <h3 class="contacts__title">Chats</h3>
+            <button class="contacts__add" title="Nova Conversa">
+                <span class="item__icon material-symbols-outlined fill">add_comment</span>
+            </button>
+            <ul class="contacts__list"></ul>
+        </aside>
+        <section class="chat">
+            <div class="chat__head"></div>
+            <ul class="chat__messages"></ul>
+            <form class="chat__form">
+                <textarea class="chat__textarea" name="content" id="content"></textarea>
+                <button type="submit" class="chat__submit chat__submit--disabled" disabled>
+                    <span class="item__icon material-symbols-outlined">send</span>
+                </button>
+            </form>
+        </section>
+    </main>
+    <script type="module" src="/public/scripts/components/navbar.js"></script>
+    <script type="module" src="/public/scripts/admin/chats.js"></script>
+</body>
+
+</html>

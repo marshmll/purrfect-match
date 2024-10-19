@@ -8,7 +8,7 @@ if (!hasCookieSet("token")) {
 
 // Função principal para renderizar a página do gato
 async function renderAdoptionsPage() {
-    const res = await fetchAPI("/content/user/adoptions/all.php");
+    const res = await fetchAPI("/content/users/adoptions/all.php");
 
     if (res.status === 401)
         window.location.replace("http://localhost:8000/pages/login.html");

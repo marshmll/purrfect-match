@@ -146,7 +146,7 @@ document.querySelector(".heading__button--favorite").addEventListener("click", a
     };
 
     if (e.currentTarget.classList.contains("favorited")) {
-        const res = await fetchAPI("/content/user/favorites/remove.php", "POST", body);
+        const res = await fetchAPI("/content/users/favorites/remove.php", "POST", body);
 
         if (res.status === 200) {
             document.querySelector(".heading__button--favorite").textContent = "Favoritar";
@@ -154,7 +154,7 @@ document.querySelector(".heading__button--favorite").addEventListener("click", a
         }
 
     } else {
-        const res = await fetchAPI("/content/user/favorites/add.php", "POST", body);
+        const res = await fetchAPI("/content/users/favorites/add.php", "POST", body);
 
         if (res.status === 201) {
             document.querySelector(".heading__button--favorite").textContent = "Favorito";

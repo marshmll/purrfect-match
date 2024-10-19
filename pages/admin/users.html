@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/styles/reset.css" />
+    <link rel="stylesheet" href="/public/styles/components/components.css" />
+    <link rel="stylesheet" href="/public/styles/pages/admin/chats.css" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <title>Chats | Admin Purrfect Match</title>
+</head>
+
+<body>
+    <header class="header">
+        <button class="header__search" onclick="window.history.back()">
+            <span class="material-symbols-outlined" title="Voltar">arrow_back</span>
+        </button>
+        <div class="header__main">
+            <div class="header__icon"></div>
+            <h1 class="header__title">Purrfect Match</h1>
+        </div>
+        <button class="header__settings">
+            <span class="material-symbols-outlined">tune</span>
+        </button>
+    </header>
+    <nav class="navbar">
+        <ul class="navbar__list">
+            <li class="item">
+                <a class="item__link" href="./index.html" title="Home">
+                    <span class="item__icon material-symbols-outlined">pets</span>
+                    <span class="item__text">Gatos</span>
+                </a>
+            </li>
+            <li class="item">
+                <a class="item__link" href="./index.html" title="Adoções">
+                    <span class="item__icon material-symbols-outlined">cardio_load</span>
+                    <span class="item__text">Adoções</span>
+                </a>
+            </li>
+            <li class="item">
+                <a class="item__link" href="./index.html" title="Resgates">
+                    <span class="item__icon material-symbols-outlined">support</span>
+                    <span class="item__text">Resgates</span>
+                </a>
+            </li>
+            <li class="item">
+                <a class="item__link active" href="./users.html" title="Usuários">
+                    <span class="item__icon material-symbols-outlined fill">manage_accounts</span>
+                    <span class="item__text">Usuários</span>
+                </a>
+            </li>
+            <li class="item">
+                <a class="item__link" href="./chats.html" title="Chats">
+                    <span class="item__icon material-symbols-outlined ">chat</span>
+                    <span class="item__text">Chats</span>
+                </a>
+            </li>
+            <li class="item">
+                <a class="item__link" id="logout" title="Sair">
+                    <span class="item__icon material-symbols-outlined">logout</span>
+                    <span class="item__text">Sair</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</body>
+
+</html>

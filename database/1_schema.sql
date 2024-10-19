@@ -151,6 +151,6 @@ CREATE TABLE IF NOT EXISTS vaccinations (
     vaccine_id INTEGER NOT NULL,
     dose CHAR(3) NOT NULL DEFAULT("1/1"),
     PRIMARY KEY (cat_id, vaccine_id),
-    FOREIGN KEY(cat_id) REFERENCES cats (id),
-    FOREIGN KEY(vaccine_id) REFERENCES vaccines (id)
+    FOREIGN KEY(cat_id) REFERENCES cats (id) ON DELETE CASCADE,
+    FOREIGN KEY(vaccine_id) REFERENCES vaccines (id) ON DELETE CASCADE
 ) CHARACTER SET utf8mb4;

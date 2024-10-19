@@ -10,31 +10,28 @@ $headers = apache_request_headers();
 $body = json_decode(file_get_contents('php://input'), true);
 checkUserAuthentication($headers);
 
-// If Authorization Bearer is set
-if (isset($headers['authorization'])) {
+if (!isset($body['id']))
+    sendBadRequestResponse();
 
-    if (!isset($body['id']))
-        sendBadRequestResponse();
+// Remove 'Bearer ' from the token
+$token = getAuthTokenFromHeaders($headers);
 
-    // Remove 'Bearer ' from the token
-    $token = getAuthTokenFromHeaders($headers);
+$jwt = new JWTManager(SECRET_KEY);
 
-    $jwt = new JWTManager(SECRET_KEY);
+if (!$jwt->isTokenValid($token) or $jwt->isTokenExpired($token))
+    sendNotAuthenticatedResponse();
 
-    if (!$jwt->isTokenValid($token) or $jwt->isTokenExpired($token))
-        sendNotAuthenticatedResponse();
+$payload = $jwt->decodeToken($token);
 
-    $payload = $jwt->decodeToken($token);
-
-    $cat = Database::query(
-        "SELECT *
+$cat = Database::query(
+    "SELECT *
         FROM cats
         WHERE id = %s",
-        [$body['id']]
-    );
+    [$body['id']]
+);
 
-    $user_favorites = Database::query(
-        "SELECT id
+$user_favorites = Database::query(
+    "SELECT id
         FROM cats
         WHERE id IN
         (
@@ -42,14 +39,14 @@ if (isset($headers['authorization'])) {
             FROM favorites
             WHERE user_id = %d
         )",
-        [
-            $payload['sub']
-        ],
-        true
-    );
+    [
+        $payload['sub']
+    ],
+    true
+);
 
-    $personalities = Database::query(
-        "SELECT name, description
+$personalities = Database::query(
+    "SELECT name, description
         FROM personalities
         WHERE id IN
         (
@@ -57,22 +54,22 @@ if (isset($headers['authorization'])) {
             FROM cat_personalities
             WHERE cat_id = %s
         )",
-        [$cat['id']],
-        true
-    );
+    [$cat['id']],
+    true
+);
 
-    $vaccines = Database::query(
-        "SELECT vaccines.name, vaccines.description, vaccinations.dose
+$vaccines = Database::query(
+    "SELECT vaccines.name, vaccines.description, vaccinations.dose
         FROM vaccines
         JOIN vaccinations
         ON vaccines.id = vaccinations.vaccine_id
         AND vaccinations.cat_id = %d",
-        [$cat['id']],
-        true
-    );
+    [$cat['id']],
+    true
+);
 
-    $diseases = Database::query(
-        "SELECT name, description
+$diseases = Database::query(
+    "SELECT name, description
         FROM diseases
         WHERE id IN
         (
@@ -80,30 +77,27 @@ if (isset($headers['authorization'])) {
             FROM cat_diseases
             WHERE cat_id = %s
         )",
-        [$cat['id']],
-        true
-    );
+    [$cat['id']],
+    true
+);
 
-    // Add the personality array to the cat row.
-    $cat += ['personalities' => $personalities];
-    $cat += ['diseases' => $diseases];
-    $cat += ['vaccines' => $vaccines];
+// Add the personality array to the cat row.
+$cat += ['personalities' => $personalities];
+$cat += ['diseases' => $diseases];
+$cat += ['vaccines' => $vaccines];
 
-    $is_favorite = false;
+$is_favorite = false;
 
-    foreach ($user_favorites as $favorite) {
-        if ($favorite['id'] == $cat['id']) {
-            $is_favorite = true;
-            break;
-        }
+foreach ($user_favorites as $favorite) {
+    if ($favorite['id'] == $cat['id']) {
+        $is_favorite = true;
+        break;
     }
-
-    $cat += ['favorite' => $is_favorite];
-
-    // Add the cat row in a array.
-    $data[] = $cat;
-
-    sendOKResponse(json_encode($data));
 }
 
-sendNotAuthenticatedResponse();
+$cat += ['favorite' => $is_favorite];
+
+// Add the cat row in a array.
+$data[] = $cat;
+
+sendOKResponse(json_encode($data));

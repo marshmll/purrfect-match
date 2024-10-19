@@ -1,118 +1,105 @@
+import { hasCookieSet } from "../utils/cookie.js";
 import { fetchAPI } from "../utils/api.js";
+
+// Verifica o cookie de autenticação
+if (!hasCookieSet("token")) {
+    window.location.replace("http://localhost:8000/pages/login.html");
+}
 
 const picturePreviewContainer = document.querySelector(".registration__picture");
 const refreshBtn = document.querySelector(".registration__picture-refresh");
 const pictureInput = document.getElementById("picture_url");
-
 const form = document.querySelector(".form");
 
-refreshBtn.addEventListener("click", (e) => {
-    e.preventDefault();
+refreshBtn.addEventListener("click", updatePicturePreview);
+form.addEventListener("submit", handleFormSubmit);
 
-    console.log("aa")
-
-    picturePreviewContainer.style.backgroundImage = `url('${pictureInput.value || "https://i.pinimg.com/736x/7f/16/a2/7f16a2ed1969e8c64b32801f9c48a066.jpg"}')`;
-});
-
-form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    await registerCat();
-})
 
 async function renderRegisterCatPage() {
-    let personalities = await fetchAPI("content/personalities/all.php");
-    let vaccines = await fetchAPI("content/vaccines/all.php");
-    let diseases = await fetchAPI("content/diseases/all.php");
+    try {
+        const [personalities, vaccines, diseases] = await Promise.all([
+            fetchAPI("content/personalities/all.php"),
+            fetchAPI("content/vaccines/all.php"),
+            fetchAPI("content/diseases/all.php"),
+        ]);
 
-    if (personalities.status != 200) {
-        alert("Ocorreu um erro ao carregar a página: " + personalities.data.detail);
-        return;
+        handleAPIError(personalities, "personalities");
+        handleAPIError(vaccines, "vaccines");
+        handleAPIError(diseases, "diseases");
+
+        populateFormOptions(personalities.data, "personalities", "personality");
+        populateFormOptions(vaccines.data, "vaccines", "vaccine");
+        populateFormOptions(diseases.data, "diseases", "disease");
+
+    } catch (error) {
+        alert("Ocorreu um erro ao carregar a página: " + error.message);
     }
-    else if (vaccines.status != 200) {
-        alert("Ocorreu um erro ao carregar a página: " + vaccines.data.detail);
-        return;
-    }
-    else if (diseases.status != 200) {
-        alert("Ocorreu um erro ao carregar a página: " + diseases.data.detail);
-        return;
-    }
+}
 
-    console.log(personalities.data);
-    console.log(vaccines.data);
-    console.log(diseases.data);
+function updatePicturePreview(event) {
+    event.preventDefault();
+    const defaultImage = "https://i.pinimg.com/736x/7f/16/a2/7f16a2ed1969e8c64b32801f9c48a066.jpg";
+    picturePreviewContainer.style.backgroundImage = `url('${pictureInput.value || defaultImage}')`;
+}
 
-    for (let i = 0; i < personalities.data.length; i++) {
-        let personality = personalities.data[i];
-
-        document.getElementById("personalities").innerHTML += `
-            <div class="form__checkbox">
-                <label class="label" for="personality_${i}">${personality.name}</label>
-                <input class="input" type="checkbox" name="personality_${i}" value="${personality.id}">
-            </div>
-        `;
-    }
-
-    for (let i = 0; i < vaccines.data.length; i++) {
-        let vaccine = vaccines.data[i];
-
-        document.getElementById("vaccines").innerHTML += `
-            <div class="form__checkbox">
-                <label class="label" for="vaccine_${i}">${vaccine.name}</label>
-                <input class="input" type="checkbox" name="vaccine_${i}" value="${vaccine.id}">
-            </div>
-        `;
-    }
-
-    for (let i = 0; i < diseases.data.length; i++) {
-        let disease = diseases.data[i];
-
-        document.getElementById("diseases").innerHTML += `
-            <div class="form__checkbox">
-                <label class="label" for="disease_${i}">${disease.name}</label>
-                <input class="input" type="checkbox" name="disease_${i}" value="${disease.id}">
-            </div>
-        `;
-    }
+async function handleFormSubmit(event) {
+    event.preventDefault();
+    const submitButton = document.querySelector(".form__btn--submit");
+    submitButton.innerHTML = '<span class="loader"></span>';
+    submitButton.setAttribute("disabled", true);
+    submitButton.style.backgroundColor = "black";
+    await registerCat();
 }
 
 async function registerCat() {
     const formData = new FormData(form);
     const formObject = Object.fromEntries(formData.entries());
 
-    let personalities = [];
-    let vaccines = [];
-    let diseases = [];
-
-    // Filter personalities and vaccines into an array.
-    for (const [key, value] of Object.entries(formObject)) {
-        if (key.includes("personality_")) personalities.push(parseInt(value));
-        if (key.includes("vaccine_")) vaccines.push(parseInt(value));
-        if (key.includes("disease_")) diseases.push(parseInt(value));
-    }
-
     const catData = {
         name: formObject.name,
         age: formObject.age,
         sex: formObject.sex,
         physical_description: formObject.physical_description,
-        personalities: personalities,
-        vaccines: vaccines,
-        diseases: diseases,
+        personalities: extractSelectedOptions(formObject, "personality_"),
+        vaccines: extractSelectedOptions(formObject, "vaccine_"),
+        diseases: extractSelectedOptions(formObject, "disease_"),
         picture_url: formObject.picture_url || null,
     };
 
     console.log(catData);
 
-    let res = await fetchAPI("content/cats/register.php", "POST", catData);
+    try {
+        const res = await fetchAPI("content/cats/register.php", "POST", catData);
+        handleAPIError(res, "registration");
 
-    if (res.status != 200) {
-        alert("Ocorreu um erro ao tentar criar o registro: " + res.data.detail);
-        return;
+        alert("Gato registrado com sucesso!");
+        window.location.replace("http://localhost:8000/pages/admin");
+
+    } catch (error) {
+        alert("Ocorreu um erro ao tentar criar o registro: " + error.message);
     }
+}
 
-    console.log(res.data);
-    alert("Gato registrado com sucesso!");
+function handleAPIError(response, context) {
+    if (response.status !== 200) {
+        throw new Error(`Erro ao carregar ${context}: ${response.data.detail}`);
+    }
+}
+
+function populateFormOptions(data, elementId, namePrefix) {
+    const container = document.getElementById(elementId);
+    container.innerHTML = data.map((item, index) =>
+        `<div class="form__checkbox">
+            <label class="label" for="${namePrefix}_${index}">${item.name}</label>
+            <input class="input" type="checkbox" name="${namePrefix}_${index}" value="${item.id}">
+        </div>`
+    ).join('');
+}
+
+function extractSelectedOptions(formObject, prefix) {
+    return Object.entries(formObject)
+        .filter(([key]) => key.startsWith(prefix))
+        .map(([_, value]) => parseInt(value));
 }
 
 renderRegisterCatPage();

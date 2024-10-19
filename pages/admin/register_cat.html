@@ -15,8 +15,8 @@
 
 <body>
     <header class="header">
-        <button class="header__search">
-            <span class="material-symbols-outlined">arrow_back</span>
+        <button class="header__search" onclick="window.history.back()">
+            <span class="material-symbols-outlined" title="Voltar">arrow_back</span>
         </button>
         <div class="header__main">
             <div class="header__icon"></div>
@@ -29,31 +29,31 @@
     <nav class="navbar">
         <ul class="navbar__list">
             <li class="item">
-                <a class="item__link active" href="../fyp.html" title="Home">
+                <a class="item__link active" href="./index.html" title="Home">
                     <span class="item__icon material-symbols-outlined fill">pets</span>
                     <span class="item__text">Gatos</span>
                 </a>
             </li>
             <li class="item">
-                <a class="item__link" href="../fyp.html" title="Adoções">
+                <a class="item__link" href="./index.html" title="Adoções">
                     <span class="item__icon material-symbols-outlined">cardio_load</span>
                     <span class="item__text">Adoções</span>
                 </a>
             </li>
             <li class="item">
-                <a class="item__link" href="../fyp.html" title="Resgates">
+                <a class="item__link" href="./index.html" title="Resgates">
                     <span class="item__icon material-symbols-outlined">support</span>
                     <span class="item__text">Resgates</span>
                 </a>
             </li>
             <li class="item">
-                <a class="item__link" href="../fyp.html" title="Usuários">
+                <a class="item__link" href="./users.html" title="Usuários">
                     <span class="item__icon material-symbols-outlined">manage_accounts</span>
                     <span class="item__text">Usuários</span>
                 </a>
             </li>
             <li class="item">
-                <a class="item__link" href="../fyp.html" title="Chats">
+                <a class="item__link" href="./chats.html" title="Chats">
                     <span class="item__icon material-symbols-outlined">chat</span>
                     <span class="item__text">Chats</span>
                 </a>
@@ -121,8 +121,8 @@
                     </div>
                 </div>
                 <div class="form__btns">
-                    <a class="form__btn form__btn--cancel" href="/pages/admin/cats.html">Cancelar</a>
-                    <input class="form__btn form__btn--submit" type="submit" value="Registrar">
+                    <a class="form__btn form__btn--cancel" href="./">Cancelar</a>
+                    <button class="form__btn form__btn--submit" type="submit">Registrar</button>
                 </div>
             </form>
         </article>

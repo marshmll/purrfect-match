@@ -1,6 +1,5 @@
 import { fetchAPI } from "../utils/api.js";
 import { setCookie } from "../utils/cookie.js";
-import { toMySQLDatetime } from "../utils/mySQLDatetime.js";
 
 // Selectors for form and feedback elements
 const registerForm = document.getElementById("form");
@@ -12,7 +11,6 @@ registerForm.addEventListener("submit", async (e) => {
 
     // Gather form data and add registration datetime
     const formData = new FormData(registerForm);
-    formData.append("datetime_register", toMySQLDatetime(new Date()));
 
     // Convert form data to URL-encoded string
     const formURLEncoded = new URLSearchParams(formData).toString();

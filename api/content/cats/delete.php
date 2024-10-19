@@ -7,7 +7,11 @@ require_once('../../utils/check_authentication.php');
 header('Content-Type: application/json');
 
 $headers = apache_request_headers();
+$body = json_decode(file_get_contents('php://input'), true);
 checkUserAuthentication($headers);
+
+if (!isset($body['cat_id']))
+    sendBadRequestResponse();
 
 // Remove 'Bearer ' from the token
 $token = getAuthTokenFromHeaders($headers);
@@ -22,6 +26,9 @@ $payload = $jwt->decodeToken($token);
 if (!in_array($payload['rol'], ['root', 'supervisor', 'manager']))
     sendResponse(json_encode(['detail' => 'O usuário não tem permissões suficientes.']), 401);
 
-$personalities = Database::query("SELECT * FROM diseases");
+$result = Database::query(
+    "DELETE FROM cats WHERE id = %s",
+    [$body['cat_id']]
+);
 
-sendOKResponse(json_encode($personalities));
+sendOKResponse(json_encode($result));
