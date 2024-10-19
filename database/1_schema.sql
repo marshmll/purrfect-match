@@ -104,12 +104,13 @@ CREATE TABLE IF NOT EXISTS rescues (
     request_datetime DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP),
     status VARCHAR(50) NOT NULL,
     closure_datetime SMALLINT,
-    description TEXT NOT NULL,
     addr_city VARCHAR(50) NOT NULL,
     addr_state VARCHAR(100) NOT NULL,
     addr_street VARCHAR(100) NOT NULL,
     addr_number INTEGER NOT NULL,
     addr_zipcode CHAR(8) NOT NULL,
+    cat_caracteristcs TEXT NOT NULL,
+    description TEXT,
     PRIMARY KEY (user_id, request_datetime),
     FOREIGN KEY(user_id) REFERENCES users (id)
 ) CHARACTER SET utf8mb4;

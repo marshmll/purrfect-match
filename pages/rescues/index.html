@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Formulário de Resgate</title>
+        <link
+            rel="stylesheet"
+            href="../../public/styles/pages/rescues/rescue.css"
+        />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="botao">
+                <h1>Formulário de Resgate</h1>
+                <button
+                    class="btn-tooltip"
+                    aria-label="Formulário para solicitar um resgate, complete os dados solicitados corretamente para recebemos a sua solicitação!"
+                >
+                    ?
+                </button>
+            </div>
+
+            <form id="rescue-form" method="post" action="/api/rescueRequests">
+                <label for="nome">Nome:</label>
+                <input
+                    type="text"
+                    id="nome"
+                    name="name"
+                    required
+                    placeholder="Exemplo: João da Silva"
+                />
+
+                <label for="email">E-mail:</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Exemplo: joao.silva80@gmail.com"
+                />
+
+                <label for="telefone">Telefone:</label>
+                <input
+                    type="tel"
+                    id="telefone"
+                    name="phone"
+                    pattern="\(\d{2}\) \d{5}-\d{4}"
+                    placeholder="Exemplo: (41) 99929-9921"
+                />
+
+                <label for="endereco">Endereço:</label>
+                <input
+                    type="text"
+                    id="endereco"
+                    name="address"
+                    required
+                    placeholder="Rua, Número - Bairro - Cidade/Estado - CEP"
+                />
+
+                <label for="caracteristicas">Características do Gato:</label>
+                <textarea
+                    id="caracteristicas"
+                    name="characteristics"
+                    rows="4"
+                    required
+                    placeholder="Exemplo: Gato amarelo, macho e filhote"
+                ></textarea>
+
+                <label for="observacoes">Observações:</label>
+                <textarea
+                    id="observacoes"
+                    name="observations"
+                    rows="4"
+                    required
+                    placeholder="Exemplo: Gato muito magro e com algumas feridas no corpo"
+                ></textarea>
+                <iframe
+                    id="mapa"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d230483.6122621548!2d-49.45209435109254!3d-25.494824579221138!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94dce3f5fc090ff1%3A0x3c7a83b0092bb747!2sCuritiba%20-%20PR!5e0!3m2!1spt-BR!2sbr!4v1717609266903!5m2!1spt-BR!2sbr"
+                    width="400"
+                    height="150"
+                    style="border: 0"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                ></iframe>
+                <br />
+                <br />
+                <input type="submit" value="RESGATAR" />
+            </form>
+        </div>
+
+        <script>
+            function formatarTelefone(input) {
+                var numeros = input.value.replace(/\D/g, "");
+                var formatado = "";
+
+                if (numeros.length > 0) {
+                    formatado = "(" + numeros.substring(0, 2);
+
+                    if (numeros.length > 2) {
+                        formatado += ") " + numeros.substring(2, 7);
+                    }
+
+                    if (numeros.length > 7) {
+                        formatado += "-" + numeros.substring(7, 11);
+                    }
+                }
+
+                input.value = formatado;
+            }
+
+            let campoTelefone = document.getElementById("telefone");
+            campoTelefone.addEventListener("input", function () {
+                formatarTelefone(this);
+            });
+
+            document
+                .getElementById("rescue-form")
+                .addEventListener("submit", (e) => {
+                    const submitButton = e.target.querySelector(
+                        'input[type="submit"]'
+                    );
+                    submitButton.disabled = true;
+
+                    const rescueFormData = new FormData(this);
+                    const jsonData = JSON.stringify(
+                        Object.fromEntries(rescueFormData)
+                    );
+
+                    fetch("/api/rescueRequests", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: jsonData,
+                    })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            console.log(data);
+                            alert("Formulário enviado com sucesso!");
+                            submitButton.disabled = false; // Re-enable after successful submission
+                        })
+                        .catch((error) => {
+                            console.error(
+                                "Erro ao enviar o formulário:",
+                                error
+                            );
+                            alert(
+                                "Houve um problema ao enviar o formulário. Tente novamente mais tarde."
+                            );
+                            submitButton.disabled = false; // Re-enable after error
+                        });
+                });
+        </script>
+    </body>
+</html>
