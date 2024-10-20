@@ -32,68 +32,87 @@ if (!$jwt->isTokenValid($token) or $jwt->isTokenExpired($token))
 
 $payload = $jwt->decodeToken($token);
 
-// Check if cat already exists
-$result = Database::query(
-    "SELECT id FROM cats WHERE name = '%s'",
-    [$body['name']]
-);
+if (!in_array($payload['rol'], ['root', 'supervisor', 'manager']))
+    sendResponse(json_encode(['detail' => 'O usuário não tem permissões suficientes.']), 401);
 
-if ($result != false)
-    sendConflictResponse();
+try {
+    // Start transaction
+    Database::beginTransaction();
 
-// Insert cat data into the 'cats' table
-$insertQuery = isset($body['picture_url']) ?
-    "INSERT INTO cats (name, age, sex, physical_description, picture_url) VALUES ('%s', %d, '%s', '%s', '%s')" :
-    "INSERT INTO cats (name, age, sex, physical_description) VALUES ('%s', %d, '%s', '%s')";
+    // Check if cat already exists
+    $result = Database::query(
+        "SELECT id FROM cats WHERE name = '%s'",
+        [$body['name']]
+    );
 
-$result = Database::query(
-    $insertQuery,
-    [
-        $body['name'],
-        $body['age'],
-        $body['sex'],
-        $body['physical_description'],
-        isset($body['picture_url']) ? $body['picture_url'] : null
-    ]
-);
+    if ($result != false)
+        throw new Exception("Conflict: Cat with this name already exists.");
 
-if (!$result)
-    sendConflictResponse();
+    // Insert cat data into the 'cats' table
+    $insertQuery = isset($body['picture_url']) ?
+        "INSERT INTO cats (name, age, sex, physical_description, picture_url) VALUES ('%s', %d, '%s', '%s', '%s')" :
+        "INSERT INTO cats (name, age, sex, physical_description) VALUES ('%s', %d, '%s', '%s')";
 
-// Get the cat ID of the newly inserted cat
-$cat = Database::query(
-    "SELECT * FROM cats WHERE name = '%s'",
-    [$body['name']]
-);
+    $result = Database::query(
+        $insertQuery,
+        [
+            $body['name'],
+            $body['age'],
+            $body['sex'],
+            $body['physical_description'],
+            isset($body['picture_url']) ? $body['picture_url'] : null
+        ]
+    );
 
-$cat_id = $cat['id'];
+    if (!$result)
+        throw new Exception("Error inserting cat.");
 
-// Batch insert for personalities, vaccines, and diseases
-if (!empty($body['personalities'])) {
-    $personalityValues = [];
-    foreach ($body['personalities'] as $personality_id) {
-        $personalityValues[] = sprintf("(%d, %d)", $cat_id, $personality_id);
+    // Get the cat ID of the newly inserted cat
+    $cat = Database::query(
+        "SELECT * FROM cats WHERE name = '%s'",
+        [$body['name']]
+    );
+
+    $cat_id = $cat['id'];
+
+    // Batch insert for personalities
+    if (!empty($body['personalities'])) {
+        $personalityValues = [];
+        foreach ($body['personalities'] as $personality_id) {
+            $personalityValues[] = sprintf("(%d, %d)", $cat_id, $personality_id);
+        }
+        $personalityQuery = "INSERT INTO cat_personalities (cat_id, personality_id) VALUES " . implode(', ', $personalityValues);
+        Database::query($personalityQuery);
     }
-    $personalityQuery = "INSERT INTO cat_personalities (cat_id, personality_id) VALUES " . implode(', ', $personalityValues);
-    Database::query($personalityQuery);
-}
 
-if (!empty($body['vaccines'])) {
-    $vaccineValues = [];
-    foreach ($body['vaccines'] as $vaccine_id) {
-        $vaccineValues[] = sprintf("(%d, %d)", $cat_id, $vaccine_id);
+    // Batch insert for vaccines
+    if (!empty($body['vaccines'])) {
+        $vaccineValues = [];
+        foreach ($body['vaccines'] as $vaccine_id) {
+            $vaccineValues[] = sprintf("(%d, %d)", $cat_id, $vaccine_id);
+        }
+        $vaccineQuery = "INSERT INTO vaccinations (cat_id, vaccine_id) VALUES " . implode(', ', $vaccineValues);
+        Database::query($vaccineQuery);
     }
-    $vaccineQuery = "INSERT INTO vaccinations (cat_id, vaccine_id) VALUES " . implode(', ', $vaccineValues);
-    Database::query($vaccineQuery);
-}
 
-if (!empty($body['diseases'])) {
-    $diseaseValues = [];
-    foreach ($body['diseases'] as $disease_id) {
-        $diseaseValues[] = sprintf("(%d, %d)", $cat_id, $disease_id);
+    // Batch insert for diseases
+    if (!empty($body['diseases'])) {
+        $diseaseValues = [];
+        foreach ($body['diseases'] as $disease_id) {
+            $diseaseValues[] = sprintf("(%d, %d)", $cat_id, $disease_id);
+        }
+        $diseaseQuery = "INSERT INTO cat_diseases (cat_id, disease_id) VALUES " . implode(', ', $diseaseValues);
+        Database::query($diseaseQuery);
     }
-    $diseaseQuery = "INSERT INTO cat_diseases (cat_id, disease_id) VALUES " . implode(', ', $diseaseValues);
-    Database::query($diseaseQuery);
-}
 
-sendOKResponse(json_encode($cat));
+    // Commit the transaction
+    Database::commitTransaction();
+
+    // Send OK response with the inserted cat data
+    sendOKResponse(json_encode($cat));
+} catch (Exception $e) {
+    // Rollback the transaction in case of error
+    Database::rollbackTransaction();
+    // Send appropriate error response
+    sendConflictResponse(json_encode(['detail' => $e->getMessage()]));
+}

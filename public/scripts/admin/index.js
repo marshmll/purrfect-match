@@ -34,8 +34,17 @@ async function renderIndexPage() {
 
     document.querySelector(".cards").innerHTML = catCards;
 
-    const allDeleteButtons = document.querySelectorAll(".card__delete");
+    const allEditButtons = document.querySelectorAll(".card__edit");
+    allEditButtons.forEach(button => {
+        button.addEventListener("click", (e) => {
+            const cat_id = e.currentTarget.value;
 
+            e.preventDefault();
+            window.location = `http://localhost:8000/pages/admin/cat.html?id=${cat_id}`;
+        });
+    });
+
+    const allDeleteButtons = document.querySelectorAll(".card__delete");
     allDeleteButtons.forEach(button => {
         button.addEventListener("click", async (e) => {
             e.preventDefault();

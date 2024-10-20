@@ -24,6 +24,8 @@ if (!$jwt->isTokenValid($token) or $jwt->isTokenExpired($token))
 
 $payload = $jwt->decodeToken($token);
 
+Database::beginTransaction();
+
 $result = Database::query(
     "INSERT INTO messages (
             sender_id,
@@ -45,5 +47,12 @@ $result = Database::query(
         $body['content'],
     ]
 );
+
+if (!$result) {
+    Database::rollbackTransaction();
+    sendBadRequestResponse();
+}
+
+Database::commitTransaction();
 
 sendOKResponse(json_encode($result));

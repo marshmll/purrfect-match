@@ -14,7 +14,6 @@ const form = document.querySelector(".form");
 refreshBtn.addEventListener("click", updatePicturePreview);
 form.addEventListener("submit", handleFormSubmit);
 
-
 async function renderRegisterCatPage() {
     try {
         const [personalities, vaccines, diseases] = await Promise.all([
@@ -31,7 +30,58 @@ async function renderRegisterCatPage() {
         populateFormOptions(vaccines.data, "vaccines", "vaccine");
         populateFormOptions(diseases.data, "diseases", "disease");
 
+        const urlParams = Object.fromEntries(new URLSearchParams(window.location.search).entries());
+
+        if (urlParams.id)
+            await setCatFormData(urlParams.id);
+
     } catch (error) {
+        alert("Ocorreu um erro ao carregar a página: " + error.message);
+    }
+}
+
+async function setCatFormData(cat_id) {
+    try {
+        const body = { id: parseInt(cat_id) };
+        const res = await fetchAPI("/content/cats/raw.php", "POST", body)
+        const cat = res.data;
+
+        console.log(cat);
+
+        document.querySelector(".registration__title").textContent = `Atualizar registro de ${cat.name}`;
+        document.querySelector(".registration__picture").style.backgroundImage = `url('${cat.picture_url}')`;
+        document.getElementById("picture_url").value = cat.picture_url;
+        document.getElementById("name").value = cat.name;
+        document.getElementById("age").value = parseInt(cat.age);
+        document.getElementById("sex").value = cat.sex;
+        document.getElementById("physical_description").value = cat.physical_description;
+
+        const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
+
+        allCheckboxes.forEach(checkbox => {
+            if (checkbox.name.includes("personality_")) {
+                const id = parseInt(checkbox.value);
+
+                if (cat.personalities.includes(id))
+                    checkbox.setAttribute("checked", true);
+            }
+            else if (checkbox.name.includes("vaccine_")) {
+                const id = parseInt(checkbox.value);
+
+                if (cat.vaccines.includes(id))
+                    checkbox.setAttribute("checked", true);
+            }
+            else if (checkbox.name.includes("disease_")) {
+                const id = parseInt(checkbox.value);
+
+                if (cat.diseases.includes(id))
+                    checkbox.setAttribute("checked", true);
+            }
+        });
+
+        document.querySelector(".form__btn--submit").textContent = "Atualizar";
+    }
+    catch (error) {
         alert("Ocorreu um erro ao carregar a página: " + error.message);
     }
 }
@@ -48,7 +98,13 @@ async function handleFormSubmit(event) {
     submitButton.innerHTML = '<span class="loader"></span>';
     submitButton.setAttribute("disabled", true);
     submitButton.style.backgroundColor = "black";
-    await registerCat();
+
+    const urlParams = Object.fromEntries(new URLSearchParams(window.location.search).entries());
+
+    if (!urlParams.id)
+        await registerCat();
+    else
+        await updateCat(urlParams.id);
 }
 
 async function registerCat() {
@@ -80,6 +136,36 @@ async function registerCat() {
     }
 }
 
+async function updateCat(cat_id) {
+    const formData = new FormData(form);
+    const formObject = Object.fromEntries(formData.entries());
+
+    const catData = {
+        id: cat_id,
+        name: formObject.name,
+        age: formObject.age,
+        sex: formObject.sex,
+        physical_description: formObject.physical_description,
+        personalities: extractSelectedOptions(formObject, "personality_"),
+        vaccines: extractSelectedOptions(formObject, "vaccine_"),
+        diseases: extractSelectedOptions(formObject, "disease_"),
+        picture_url: formObject.picture_url || null,
+    };
+
+    console.log(catData);
+
+    try {
+        const res = await fetchAPI("content/cats/update.php", "POST", catData);
+        handleAPIError(res, "update");
+
+        alert("Gato atualizado com sucesso!");
+        window.location.replace("http://localhost:8000/pages/admin");
+
+    } catch (error) {
+        alert("Ocorreu um erro ao tentar atualizar o registro: " + error.message);
+    }
+}
+
 function handleAPIError(response, context) {
     if (response.status !== 200) {
         throw new Error(`Erro ao carregar ${context}: ${response.data.detail}`);
@@ -88,10 +174,10 @@ function handleAPIError(response, context) {
 
 function populateFormOptions(data, elementId, namePrefix) {
     const container = document.getElementById(elementId);
-    container.innerHTML = data.map((item, index) =>
+    container.innerHTML = data.map((item) =>
         `<div class="form__checkbox">
-            <label class="label" for="${namePrefix}_${index}">${item.name}</label>
-            <input class="input" type="checkbox" name="${namePrefix}_${index}" value="${item.id}">
+            <label class="label" for="${namePrefix}_${item.id}">${item.name}</label>
+            <input class="input" type="checkbox" name="${namePrefix}_${item.id}" id="${namePrefix}_${item.id}" value="${item.id}">
         </div>`
     ).join('');
 }

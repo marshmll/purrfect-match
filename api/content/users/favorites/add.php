@@ -10,7 +10,6 @@ $body = json_decode(file_get_contents('php://input'), true);
 
 checkUserAuthentication($headers);
 
-
 if (!isset($body['cat_id']))
     sendBadRequestResponse();
 
@@ -25,6 +24,8 @@ if (!$jwt->isTokenValid($token) or $jwt->isTokenExpired($token))
 
 $payload = $jwt->decodeToken($token);
 
+Database::beginTransaction();
+
 $result = Database::query(
     "INSERT INTO favorites
         (user_id, cat_id, choice_datetime)
@@ -36,7 +37,11 @@ $result = Database::query(
     ]
 );
 
-if (!$result)
+if (!$result) {
+    Database::rollbackTransaction();
     sendConflictResponse();
+}
+
+Database::commitTransaction();
 
 sendResponse(json_encode(['added' => $body['cat_id']]), 201);

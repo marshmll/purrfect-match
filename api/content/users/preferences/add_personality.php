@@ -23,6 +23,8 @@ if (!$jwt->isTokenValid($token) or $jwt->isTokenExpired($token))
 
 $payload = $jwt->decodeToken($token);
 
+Database::beginTransaction();
+
 $result = Database::query(
     "INSERT INTO personality_preferences
         (personality_id, user_id)
@@ -34,7 +36,11 @@ $result = Database::query(
     ]
 );
 
-if (!$result)
+if (!$result) {
+    Database::rollbackTransaction();
     sendConflictResponse();
+}
+
+Database::commitTransaction();
 
 sendResponse(json_encode(['added' => $body['personality_id']]), 201);

@@ -8,7 +8,6 @@ require_once('../../../utils/check_authentication.php');
 $headers = apache_request_headers();
 $body = json_decode(file_get_contents('php://input'), true);
 
-
 if (!isset($body['contact_id']))
     sendBadRequestResponse();
 
@@ -23,11 +22,20 @@ if (!$jwt->isTokenValid($token) or $jwt->isTokenExpired($token))
 
 $payload = $jwt->decodeToken($token);
 
+Database::beginTransaction();
+
 $result = Database::query(
     "UPDATE messages
         SET status = 'seen'
         WHERE sender_id = %d AND receiver_id = %d",
     [$body['contact_id'], $payload['sub']]
 );
+
+if (!$result) {
+    Database::rollbackTransaction();
+    sendBadRequestResponse();
+}
+
+Database::commitTransaction();
 
 sendOKResponse(json_encode($result));

@@ -42,6 +42,8 @@ if (!empty($email))
 $salt = generatePasswordSalt();
 $pass_hash = hashPassword($_POST['password'], $salt);
 
+Database::beginTransaction();
+
 $result = Database::query(
     "INSERT INTO users
         (
@@ -71,35 +73,37 @@ $result = Database::query(
     ]
 );
 
-// If the creation was sucessfull
-if ($result != false) {
-    $user_id = Database::query(
-        "SELECT id
-            FROM users
-            WHERE name = '%s'",
-        [$_POST['name']]
-    );
-
-    // Create a JSON Web Token Manager
-    $jwt_manager = new JWTManager(SECRET_KEY);
-    $token_expiration = time() + 7 * 24 * 60 * 60;
-
-    // Create token payload
-    $payload = createAuthenticationPayload($_POST['username'], $user_id['id'], $token_expiration, 'regular');
-
-    // Create the token
-    $token = $jwt_manager->createToken($payload);
-
-    sendResponse(
-        json_encode(
-            [
-                'type' => 'jwt',
-                'access_token' => $token,
-            ]
-        ),
-        201
-    );
+// If the user creation was not sucessfull, inform user.
+if (!$result) {
+    Database::rollbackTransaction();
+    sendResponse($user_creation_error_json, 202);
 }
 
-// If the user creation was not sucessfull, inform user.
-sendResponse($user_creation_error_json, 202);
+$user_id = Database::query(
+    "SELECT id
+            FROM users
+            WHERE name = '%s'",
+    [$_POST['name']]
+);
+
+// Create a JSON Web Token Manager
+$jwt_manager = new JWTManager(SECRET_KEY);
+$token_expiration = time() + 7 * 24 * 60 * 60;
+
+// Create token payload
+$payload = createAuthenticationPayload($_POST['username'], $user_id['id'], $token_expiration, 'regular');
+
+// Create the token
+$token = $jwt_manager->createToken($payload);
+
+Database::commitTransaction();
+
+sendResponse(
+    json_encode(
+        [
+            'type' => 'jwt',
+            'access_token' => $token,
+        ]
+    ),
+    201
+);

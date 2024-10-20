@@ -23,6 +23,8 @@ if (!$jwt->isTokenValid($token) or $jwt->isTokenExpired($token))
 
 $payload = $jwt->decodeToken($token);
 
+Database::beginTransaction();
+
 $result = Database::query(
     "DELETE FROM favorites
         WHERE user_id = %d
@@ -33,7 +35,11 @@ $result = Database::query(
     ]
 );
 
-if ($result)
-    sendOKResponse(json_encode(['deleted' => $body['cat_id']]));
-else
+if (!$result) {
+    Database::rollbackTransaction();
     sendBadRequestResponse();
+}
+
+Database::commitTransaction();
+
+sendOKResponse(json_encode(['deleted' => $body['cat_id']]));
