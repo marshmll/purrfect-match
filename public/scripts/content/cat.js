@@ -26,6 +26,7 @@ function setCatData(cat) {
     setCatPersonalities(cat.personalities);
     setCatVaccines(cat.vaccines);
     setCatDiseases(cat.diseases);
+    document.querySelector('.container__title').textContent = `Deseja solicitar a adoção de ${cat.name}?`;
     document.querySelector(".physical_description").textContent = cat.physical_description;
     document.querySelector(".about__title").textContent = `Conheça ${cat.sex === "M" ? "o" : "a"} ${cat.name}`;
 

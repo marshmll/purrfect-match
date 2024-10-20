@@ -17,7 +17,7 @@
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.3);
   width: 40%;
-  height: 72%;
+  height: 80dvh;
   min-height: 32rem;
   padding: 4rem 2rem;
   border-radius: 10px;
@@ -74,7 +74,7 @@
   outline-color: rgb(255, 0, 0);
 }
 
-.login__input:placeholder-shown + .login__label {
+.login__input:placeholder-shown+.login__label {
   opacity: 0;
   visibility: hidden;
   -webkit-transform: translateY(4rem);
@@ -126,4 +126,25 @@
 
 .register:hover {
   color: #000000;
+}
+
+@media screen and (max-width: 768px) {
+  .login {
+    width: 85dvw;
+    height: min(80dvh, 40rem);
+    padding: 2rem;
+  }
+
+  .login__title {
+    font-size: 1.5rem;
+  }
+
+  .login__input {
+    padding: 1rem 1.6rem;
+  }
+
+  .login__bottom {
+    flex-direction: column;
+    align-items: center;
+  }
 }

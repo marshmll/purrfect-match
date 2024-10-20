@@ -364,9 +364,29 @@ span.message__status {
         height: min-content;
     }
 
+    .contacts__item {
+        padding-bottom: 1.4rem;
+    }
+
+    .contacts__name {
+        font-size: .9rem;
+    }
+
     .chat {
         width: 100%;
         margin-bottom: 4rem;
+    }
+
+    .chat__head {
+        padding: .7rem 1rem;
+    }
+
+    .chat__pfp {
+        display: block;
+    }
+
+    .chat__name {
+        font-size: .9rem;
     }
 
     .message {

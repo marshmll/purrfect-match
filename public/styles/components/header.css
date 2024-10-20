@@ -74,3 +74,13 @@ Created by: Renan Andrade, 2024/09/01 */
         padding: 0 1rem;
     }
 }
+
+@media screen and (max-width: 375px) {
+    .header {
+        justify-content: space-between;
+    }
+
+    .header__main {
+        display: none;
+    }
+}

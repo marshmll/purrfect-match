@@ -229,6 +229,7 @@ body {
 @media screen and (max-width: 768px) {
     .main {
         margin: 0;
+        padding: 1rem 1.4rem;
     }
 
     .registration__picture {
@@ -242,5 +243,13 @@ body {
 
     .form__item {
         width: 100%;
+    }
+
+    .form__btns {
+        width: 100%;
+    }
+
+    .form__btn {
+        width: 50%;
     }
 }

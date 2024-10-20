@@ -138,6 +138,10 @@ body {
         margin: 0;
     }
 
+    .cards {
+        grid-template-columns: repeat(auto-fill, minmax(85dvw, 1fr));
+    }
+
     .card {
         flex-direction: column;
     }
