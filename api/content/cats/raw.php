@@ -58,10 +58,20 @@ $diseases = Database::query(
 );
 
 $personalities_ids = array();
-foreach ($personalities as $key )
+foreach ($personalities as $personality)
+    array_push($personalities_ids, intval($personality['personality_id']));
 
-$cat += ['personalities' => $personalities];
-$cat += ['vaccines' => $vaccines];
-$cat += ['diseases' => $diseases];
+$vaccines_ids = array();
+foreach ($vaccines as $vaccine)
+    array_push($vaccines_ids, intval($vaccine['vaccine_id']));
+
+$diseases_ids = array();
+foreach ($diseases as $disease)
+    array_push($diseases_ids, intval($disease['disease_id']));
+
+
+$cat += ['personalities' => $personalities_ids];
+$cat += ['vaccines' => $vaccines_ids];
+$cat += ['diseases' => $diseases_ids];
 
 sendOKResponse(json_encode($cat));
