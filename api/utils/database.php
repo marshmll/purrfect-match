@@ -7,6 +7,11 @@ const PASSWORD = "bancodedados";
 const DATABASE = "purrfect_db";
 const PORT     = "3306"; // Docker's database port.
 
+/** 
+ * Database utilitary class.
+ * 
+ * By: Renan Andrade, 15/09/2024.
+ */
 class Database
 {
     // Holds the mysqli connection for transactions
