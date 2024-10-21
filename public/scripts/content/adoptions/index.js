@@ -26,14 +26,14 @@ async function renderAdoptionsPage() {
             case "pending":
                 status = "Pendente";
                 break;
-            case "refused":
+            case "rejected":
                 status = "Recusado";
                 break;
             case "concluded":
                 status = "Concluído";
                 break;
-            case "cancelled":
-                status = "Cancelado";
+            case "approved":
+                status = "Aprovado";
                 break;
         }
 
@@ -49,7 +49,7 @@ async function renderAdoptionsPage() {
                 <span class="card__span card__date">Data de solicitação: ${new Date(adoption.request_datetime).toLocaleString()}</span>
                 <span class="card__span card__date">Data de conclusão: ${adoption.hand_over_datetime ? new Date(adoption.hand_over_datetime).toLocaleDateString() : "--/--/----"}</span>
                 <div class="card__buttons">
-                    <button class="card__button card__button--cancel" value="${adoption.cat_id}">CANCELAR</button>
+                    ${adoption.status === 'pending' ? `<button class="card__button card__button--cancel" value="${adoption.cat_id}">CANCELAR</button>` : ""}
                     <button class="card__button card__button--chat">VER NO CHAT</button>
                 </div>
             </div>
