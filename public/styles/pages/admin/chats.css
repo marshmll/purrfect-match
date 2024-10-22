@@ -147,12 +147,13 @@
     margin-top: 1rem;
     margin-right: 1rem;
     cursor: pointer;
+    color: white;
 
     span {
         margin: 0;
         padding: 0;
         color: white;
-        font-size: 1.3rem;
+        font-size: 1.1rem;
     }
 }
 

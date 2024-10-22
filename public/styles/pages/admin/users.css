@@ -93,7 +93,7 @@ body {
     font-weight: bold;
 }
 
-.card__button--cancel:hover {
+.card__button--ban:hover {
     color: white;
     background-color: #ca0000;
     transition: all 200ms ease-in-out;
