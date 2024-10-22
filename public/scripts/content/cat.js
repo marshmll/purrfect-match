@@ -151,7 +151,7 @@ document.querySelector(".heading__button--favorite").addEventListener("click", a
 
         if (res.status === 200) {
             document.querySelector(".heading__button--favorite").textContent = "Favoritar";
-            document.querySelector(".heading__button--favorite").classList.remove("favorite");
+            document.querySelector(".heading__button--favorite").classList.remove("favorited");
         }
 
     } else {
@@ -159,7 +159,7 @@ document.querySelector(".heading__button--favorite").addEventListener("click", a
 
         if (res.status === 201) {
             document.querySelector(".heading__button--favorite").textContent = "Favorito";
-            document.querySelector(".heading__button--favorite").classList.add("favorite");
+            document.querySelector(".heading__button--favorite").classList.add("favorited");
         }
     }
 })
