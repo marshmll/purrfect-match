@@ -9,8 +9,8 @@ CREATE TABLE IF NOT EXISTS users (
     role VARCHAR(10) NOT NULL,
     contact_email VARCHAR(50),
     contact_phone CHAR(15) NOT NULL,
+    pfp_url TEXT NOT NULL DEFAULT('https://i.pinimg.com/1200x/93/ba/87/93ba871d62b0e2b83acadb45803a4d46.jpg'),
     status VARCHAR(10) NOT NULL DEFAULT('active'),
-    pfp_url VARCHAR(300) NOT NULL DEFAULT('https://i.pinimg.com/1200x/93/ba/87/93ba871d62b0e2b83acadb45803a4d46.jpg'),
     PRIMARY KEY (id),
     UNIQUE (username)
 ) CHARACTER SET utf8mb4;
@@ -21,8 +21,8 @@ CREATE TABLE IF NOT EXISTS cats (
     age SMALLINT NOT NULL,
     sex CHAR(1) NOT NULL,
     physical_description TEXT NOT NULL DEFAULT("Não informado."),
-    status VARCHAR(10) NOT NULL DEFAULT('available'),
     picture_url TEXT NOT NULL DEFAULT('https://i.pinimg.com/736x/7f/16/a2/7f16a2ed1969e8c64b32801f9c48a066.jpg'),
+    status VARCHAR(10) NOT NULL DEFAULT('available'),
     PRIMARY KEY (id)
 ) CHARACTER SET utf8mb4;
 
