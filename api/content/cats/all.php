@@ -35,6 +35,7 @@ $cats = Database::query(
         AND cat_id = cats.id
     ) AS preference_level
     FROM cats
+    WHERE cats.status = 'available'
     ORDER BY preference_level DESC",
     [$payload['sub']],
     true
