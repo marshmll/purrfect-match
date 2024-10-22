@@ -69,27 +69,24 @@ body {
     word-break: normal;
 }
 
-.card__status {
+.pending {
+    font-weight: 700;
+    color: rgb(6, 95, 168);
+}
 
-    .pending {
-        font-weight: 700;
-        color: rgb(6, 95, 168);
-    }
+.rejected {
+    font-weight: 700;
+    color: #ca0000
+}
 
-    .rejected {
-        font-weight: 700;
-        color: #ca0000
-    }
+.concluded {
+    font-weight: 700;
+    color: green
+}
 
-    .concluded {
-        font-weight: 700;
-        color: green
-    }
-
-    .approved {
-        font-weight: 700;
-        color: #e2a127
-    }
+.approved {
+    font-weight: 700;
+    color: #e2a127
 }
 
 .card__buttons {
