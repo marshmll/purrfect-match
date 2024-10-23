@@ -195,7 +195,7 @@ function createUserItem(user) {
             <div class="users__pfp" style="background-image: url('${user.pfp_url}');"></div>
             <div class="users__text">
                 <h4 class="users__name">${user.name} (@${user.username})</h4>
-                <p class="users__datetime">Joined on ${formatDatetime(user.datetime_register)}</p>
+                <p class="users__datetime">Entrou em ${formatDatetime(user.datetime_register)}</p>
             </div>
         </li>
     `;
