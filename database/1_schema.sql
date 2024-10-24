@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS cats (
     id INTEGER NOT NULL AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
-    age SMALLINT NOT NULL,
+    age TINYINT NOT NULL,
     sex CHAR(1) NOT NULL,
     physical_description TEXT NOT NULL DEFAULT("Não informado."),
     picture_url TEXT NOT NULL DEFAULT('https://i.pinimg.com/736x/7f/16/a2/7f16a2ed1969e8c64b32801f9c48a066.jpg'),
@@ -35,14 +35,14 @@ CREATE TABLE IF NOT EXISTS diseases (
 
 CREATE TABLE IF NOT EXISTS personalities (
     id INTEGER NOT NULL AUTO_INCREMENT,
-    name VARCHAR(30) NOT NULL,
+    name VARCHAR(50) NOT NULL,
     description TEXT NOT NULL,
     PRIMARY KEY (id)
 ) CHARACTER SET utf8mb4;
 
 CREATE TABLE IF NOT EXISTS colors (
     id INTEGER NOT NULL AUTO_INCREMENT,
-    name VARCHAR(10) NOT NULL,
+    name VARCHAR(20) NOT NULL,
     PRIMARY KEY (id)
 ) CHARACTER SET utf8mb4;
 
@@ -105,14 +105,14 @@ CREATE TABLE IF NOT EXISTS rescues (
     user_id INTEGER NOT NULL,
     request_datetime DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP),
     status VARCHAR(50) NOT NULL,
-    closure_datetime SMALLINT,
+    closure_datetime DATETIME,
     addr_city VARCHAR(50) NOT NULL,
     addr_state VARCHAR(100) NOT NULL,
     addr_street VARCHAR(100) NOT NULL,
-    addr_number INTEGER NOT NULL,
+    addr_number INT UNSIGNED NOT NULL,
     addr_zipcode CHAR(8) NOT NULL,
     characteristcs TEXT NOT NULL,
-    description TEXT,
+    description TEXT NOT NULL,
     PRIMARY KEY (user_id, request_datetime),
     FOREIGN KEY(user_id) REFERENCES users (id)
 ) CHARACTER SET utf8mb4;
