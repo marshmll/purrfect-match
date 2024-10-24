@@ -111,7 +111,7 @@ CREATE TABLE IF NOT EXISTS rescues (
     addr_street VARCHAR(100) NOT NULL,
     addr_number INTEGER NOT NULL,
     addr_zipcode CHAR(8) NOT NULL,
-    cat_caracteristcs TEXT NOT NULL,
+    characteristcs TEXT NOT NULL,
     description TEXT,
     PRIMARY KEY (user_id, request_datetime),
     FOREIGN KEY(user_id) REFERENCES users (id)

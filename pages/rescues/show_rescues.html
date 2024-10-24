@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Lista de Resgates</title>
+        <link
+            rel="stylesheet"
+            href="../../public/styles/pages/rescues/rescue_list.css"
+        />
+        <style>
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            table,
+            th,
+            td {
+                border: 1px solid black;
+            }
+
+            th,
+            td {
+                padding: 8px;
+                text-align: left;
+            }
+
+            th {
+                background-color: #f2f2f2;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>Lista de Resgates</h1>
+
+        <table id="rescue-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Telefone</th>
+                    <th>CEP</th>
+                    <th>Estado</th>
+                    <th>Cidade</th>
+                    <th>Bairro</th>
+                    <th>Rua</th>
+                    <th>Características</th>
+                    <th>Observações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rescues will be dynamically inserted here -->
+            </tbody>
+        </table>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                axios
+                    .get("/api/fetch_rescues.php")
+                    .then(function (response) {
+                        const rescues = response.data;
+                        const tableBody = document.querySelector(
+                            "#rescue-table tbody"
+                        );
+                        tableBody.innerHTML = "";
+
+                        // Populate table with rescue data
+                        rescues.forEach((rescue) => {
+                            const row = document.createElement("tr");
+                            row.innerHTML = `
+                                <td>${rescue.id}</td>
+                                <td>${rescue.name}</td>
+                                <td>${rescue.email}</td>
+                                <td>${rescue.phone ? rescue.phone : "N/A"}</td>
+                                <td>${rescue.cep}</td>
+                                <td>${rescue.state}</td>
+                                <td>${rescue.city}</td>
+                                <td>${rescue.neighborhood}</td>
+                                <td>${rescue.street}</td>
+                                <td>${rescue.characteristics}</td>
+                                <td>${
+                                    rescue.observations
+                                        ? rescue.observations
+                                        : "N/A"
+                                }</td>
+                            `;
+                            tableBody.appendChild(row);
+                        });
+                    })
+                    .catch(function (error) {
+                        console.error("Erro ao carregar os resgates:", error);
+                    });
+            });
+        </script>
+    </body>
+</html>
