@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS rescues (
     addr_state VARCHAR(100) NOT NULL,
     addr_street VARCHAR(100) NOT NULL,
     addr_number INT UNSIGNED NOT NULL,
-    addr_zipcode CHAR(8) NOT NULL,
+    addr_zipcode CHAR(9) NOT NULL,
     characteristcs TEXT NOT NULL,
     description TEXT NOT NULL,
     PRIMARY KEY (user_id, request_datetime),
