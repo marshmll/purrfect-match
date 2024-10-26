@@ -227,23 +227,17 @@ VALUES
 (15, 15);
 
 -- Inserções na tabela rescues
-INSERT INTO rescues (user_id, status, closure_datetime, addr_city, addr_state, addr_street, addr_number, addr_zipcode, characteristcs, description)
-VALUES
-(2, 'Em andamento', NULL, 'São Paulo', 'São Paulo', 'Rua das Flores', 123, '01000-000', 'Cão de porte grande, cor preta', 'Cão encontrado abandonado em uma praça.'),
-(3, 'Concluído', '2024-10-23 14:30:00', 'Rio de Janeiro', 'Rio de Janeiro', 'Avenida Atlântica', 456, '22041-001', 'Gato de pequeno porte, cor branca', 'Gato preso em uma árvore.'),
-(4, 'Cancelado', NULL, 'Belo Horizonte', 'Minas Gerais', 'Rua da Bahia', 789, '30160-011', 'Cachorro de médio porte, cor marrom', 'Cachorro visto ferido, mas fugiu antes da chegada.'),
-(5, 'Em andamento', NULL, 'Curitiba', 'Paraná', 'Rua XV de Novembro', 101, '80020-310', 'Cão de porte grande, cor preta e branca', 'Cão abandonado perto de um shopping.'),
-(6, 'Concluído', '2024-10-20 10:00:00', 'Fortaleza', 'Ceará', 'Rua dos Navegantes', 202, '60125-010', 'Papagaio, verde com amarelo', 'Papagaio ferido encontrado em uma calçada.'),
-(7, 'Em andamento', NULL, 'Salvador', 'Bahia', 'Avenida Sete de Setembro', 303, '40060-001', 'Cachorro de pequeno porte, cor caramelo', 'Cachorro perdido próximo ao centro da cidade.'),
-(8, 'Concluído', '2024-10-22 16:45:00', 'Brasília', 'Distrito Federal', 'Eixo Monumental', 404, '70040-010', 'Cão de grande porte, cor preta', 'Cão encontrado em estacionamento de supermercado.'),
-(9, 'Em andamento', NULL, 'Porto Alegre', 'Rio Grande do Sul', 'Rua da República', 505, '90050-320', 'Cachorro de pequeno porte, cor branca e marrom', 'Cachorro avistado preso em uma varanda.'),
-(10, 'Concluído', '2024-10-21 12:15:00', 'Recife', 'Pernambuco', 'Avenida Boa Viagem', 606, '51011-000', 'Gato de médio porte, cor cinza', 'Gato atropelado, levado para clínica veterinária.'),
-(11, 'Cancelado', NULL, 'Manaus', 'Amazonas', 'Rua Rio Negro', 707, '69010-020', 'Cão de porte médio, cor marrom', 'Cão avistado, mas não foi possível capturar.'),
-(12, 'Em andamento', NULL, 'Florianópolis', 'Santa Catarina', 'Rua das Palmeiras', 808, '88010-100', 'Cachorro de porte grande, cor preta', 'Cachorro vagando próximo à praia.'),
-(13, 'Concluído', '2024-10-18 09:00:00', 'Goiânia', 'Goiás', 'Avenida Goiás', 909, '74015-020', 'Cão de médio porte, cor bege', 'Cão com pata quebrada levado ao abrigo.'),
-(14, 'Em andamento', NULL, 'Natal', 'Rio Grande do Norte', 'Rua das Dunas', 1010, '59010-200', 'Gato de pequeno porte, cor preta', 'Gato encontrado dentro de uma lixeira.'),
-(15, 'Concluído', '2024-10-22 18:20:00', 'Belém', 'Pará', 'Avenida Presidente Vargas', 1111, '66010-000', 'Papagaio de médio porte, verde', 'Papagaio resgatado de uma área de risco.'),
-(3, 'Em andamento', NULL, 'São Luís', 'Maranhão', 'Rua da Paz', 1122, '65000-000', 'Cachorro de porte pequeno, cor cinza', 'Cachorro abandonado em uma rua movimentada.');
+INSERT INTO rescues (user_id, request_datetime, status, closure_datetime, addr_city, addr_state, addr_street, addr_number, addr_zipcode, characteristcs, description) VALUES
+(1, '2024-10-01 08:30:00', 'Pendente', NULL, 'São Paulo', 'SP', 'Avenida Paulista', 1000, '01310-100', 'Gato, grande, pelagem preta', 'Gato encontrado perambulando na avenida.'),
+(2, '2024-10-02 09:00:00', 'Em andamento', NULL, 'Rio de Janeiro', 'RJ', 'Rua da Praia', 200, '22050-001', 'Gato, pequeno, olhos verdes', 'Gato preso em árvore.'),
+(3, '2024-10-03 10:15:00', 'Fechado', '2024-10-05 15:00:00', 'Belo Horizonte', 'MG', 'Rua dos Inconfidentes', 150, '30130-000', 'Gato, médio, pelagem marrom', 'Gato resgatado e entregue a abrigo.'),
+(4, '2024-10-04 11:45:00', 'Pendente', NULL, 'Curitiba', 'PR', 'Avenida Sete de Setembro', 500, '80010-000', 'Gato, pelagem cinza', 'Gato encontrado na calçada.'),
+(5, '2024-10-05 14:00:00', 'Em andamento', NULL, 'Salvador', 'BA', 'Rua do Passeio', 300, '40060-000', 'Gato, pequeno, muito agitado', 'Gato solto em área movimentada.'),
+(6, '2024-10-06 16:30:00', 'Pendente', NULL, 'Fortaleza', 'CE', 'Avenida Beira Mar', 750, '60165-000', 'Gato, filhote, pelagem branca', 'Filhote encontrado na praia.'),
+(7, '2024-10-07 17:00:00', 'Fechado', '2024-10-08 12:00:00', 'Porto Alegre', 'RS', 'Rua dos Andradas', 1234, '90010-000', 'Gato, pelagem tigrada', 'Gato resgatado e adotado.'),
+(8, '2024-10-08 18:15:00', 'Pendente', NULL, 'Manaus', 'AM', 'Rua 10 de Julho', 80, '69000-000', 'Gato, grande, muito amigável', 'Gato encontrado no centro da cidade.'),
+(9, '2024-10-09 19:30:00', 'Em andamento', NULL, 'Brasília', 'DF', 'Setor Comercial Sul', 150, '70070-000', 'Gato, pelagem preta com manchas brancas', 'Gato perdido em prédio comercial.'),
+(10, '2024-10-10 20:45:00', 'Pendente', NULL, 'Recife', 'PE', 'Avenida Boa Viagem', 400, '51011-000', 'Gato, médio, pelagem dourada', 'Gato avistado na praia.'); 
 
 -- Inserções na tabela adoptions
 INSERT INTO adoptions (user_id, cat_id, request_datetime, hand_over_datetime, status)
