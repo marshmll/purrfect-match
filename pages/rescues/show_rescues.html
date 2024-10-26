@@ -6,92 +6,54 @@
         <title>Lista de Resgates</title>
         <link
             rel="stylesheet"
-            href="../../public/styles/pages/rescues/rescue_list.css"
+            href="../../public/styles/pages/rescues/rescue.css"
         />
-        <style>
-            table {
-                width: 100%;
-                border-collapse: collapse;
-            }
-
-            table,
-            th,
-            td {
-                border: 1px solid black;
-            }
-
-            th,
-            td {
-                padding: 8px;
-                text-align: left;
-            }
-
-            th {
-                background-color: #f2f2f2;
-            }
-        </style>
     </head>
-
     <body>
-        <h1>Lista de Resgates</h1>
-
-        <table id="rescue-table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Email</th>
-                    <th>Telefone</th>
-                    <th>CEP</th>
-                    <th>Estado</th>
-                    <th>Cidade</th>
-                    <th>Bairro</th>
-                    <th>Rua</th>
-                    <th>Características</th>
-                    <th>Observações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Rescues will be dynamically inserted here -->
-            </tbody>
-        </table>
+        <div class="container">
+            <h1>Lista de Resgates</h1>
+            <div id="rescues-list">
+                <!-- Rescues will be displayed here -->
+            </div>
+        </div>
 
         <script>
             document.addEventListener("DOMContentLoaded", function () {
-                axios
-                    .get("/api/fetch_rescues.php")
-                    .then(function (response) {
-                        const rescues = response.data;
-                        const tableBody = document.querySelector(
-                            "#rescue-table tbody"
-                        );
-                        tableBody.innerHTML = "";
-
-                        // Populate table with rescue data
-                        rescues.forEach((rescue) => {
-                            const row = document.createElement("tr");
-                            row.innerHTML = `
-                                <td>${rescue.id}</td>
-                                <td>${rescue.name}</td>
-                                <td>${rescue.email}</td>
-                                <td>${rescue.phone ? rescue.phone : "N/A"}</td>
-                                <td>${rescue.cep}</td>
-                                <td>${rescue.state}</td>
-                                <td>${rescue.city}</td>
-                                <td>${rescue.neighborhood}</td>
-                                <td>${rescue.street}</td>
-                                <td>${rescue.characteristics}</td>
-                                <td>${
-                                    rescue.observations
-                                        ? rescue.observations
-                                        : "N/A"
-                                }</td>
+                fetch("/api/content/rescues/show_rescues.php")
+                    .then((response) => response.json())
+                    .then((data) => {
+                        const rescuesList =
+                            document.getElementById("rescues-list");
+                        if (data.length > 0) {
+                            data.forEach((rescue) => {
+                                const rescueItem =
+                                    document.createElement("div");
+                                rescueItem.classList.add("rescue-item");
+                                rescueItem.innerHTML = `
+                                <h2>${rescue.name}</h2>
+                                <p><strong>Email:</strong> ${rescue.email}</p>
+                                <p><strong>Telefone:</strong> ${rescue.phone}</p>
+                                <p><strong>CEP:</strong> ${rescue.cep}</p>
+                                <p><strong>Estado:</strong> ${rescue.state}</p>
+                                <p><strong>Cidade:</strong> ${rescue.city}</p>
+                                <p><strong>Bairro:</strong> ${rescue.neighborhood}</p>
+                                <p><strong>Rua:</strong> ${rescue.street}</p>
+                                <p><strong>Características:</strong> ${rescue.characteristics}</p>
+                                <p><strong>Observações:</strong> ${rescue.observations}</p>
                             `;
-                            tableBody.appendChild(row);
-                        });
+                                rescuesList.appendChild(rescueItem);
+                            });
+                        } else {
+                            rescuesList.innerHTML =
+                                "<p>Nenhum resgate encontrado.</p>";
+                        }
                     })
-                    .catch(function (error) {
-                        console.error("Erro ao carregar os resgates:", error);
+                    .catch((error) => {
+                        console.error("Erro ao buscar resgates:", error);
+                        const rescuesList =
+                            document.getElementById("rescues-list");
+                        rescuesList.innerHTML =
+                            "<p>Erro ao carregar resgates. Tente novamente mais tarde.</p>";
                     });
             });
         </script>

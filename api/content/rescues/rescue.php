@@ -1,6 +1,6 @@
 <?php
-require_once('../utils/database.php');
-require_once('../utils/http_responses.php');
+require_once('../../utils/database.php');
+require_once('../../utils/http_responses.php');
 
 header('Content-Type: application/json');
 
@@ -47,20 +47,13 @@ try {
         throw new Exception("Error inserting rescue.");
     }
 
-    $rescue = Database::query(
-        "SELECT * FROM rescues WHERE name = '%s' AND email = '%s' ORDER BY id DESC LIMIT 1",
-        [$body['name'], $body['email']]
-    );
-
-    $rescue_id = $rescue['id'];
-
-
     Database::commitTransaction();
 
-    sendOKResponse(json_encode($rescue));
+    sendOKResponse(json_encode($result));
     
 } catch (Exception $e) {
     Database::rollbackTransaction();
 
     sendConflictResponse(json_encode(['detail' => $e->getMessage()]));
 }
+?>
