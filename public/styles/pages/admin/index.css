@@ -1,0 +1,135 @@
+/* index.html specific styling
+
+Created by: Renan Andrade, 2024/09/01 */
+
+body {
+    position: relative;
+    min-height: 100vh;
+}
+
+.main {
+    margin-left: 4rem;
+    padding: 1rem 2rem;
+    position: relative;
+}
+
+.main__title {
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+    font-family: "Montserrat", sans-serif;
+    margin-bottom: 2rem;
+}
+
+.main__add {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    border-radius: 50px;
+    position: absolute;
+    right: 20%;
+    top: 0;
+    margin-top: 1rem;
+    z-index: 9;
+    background-color: black;
+    border: none;
+    cursor: pointer;
+    color: white;
+
+    span {
+        font-size: 2rem;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-auto-rows: auto;
+    gap: 1rem;
+    padding-bottom: 4rem;
+}
+
+.card {
+    min-height: 15rem;
+    max-height: max-content;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.card:hover {
+    transform: scale(1.02);
+    transition: cubic-bezier(0.645, 0.045, 0.355, 1) 100ms;
+}
+
+.card__image {
+    display: block;
+    height: 80%;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.card__button {
+    position: absolute;
+    z-index: 9;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.card__edit {
+    right: 0;
+}
+
+.card__edit:hover {
+    color: #8d8d8d;
+}
+
+.card__edit:active {
+    color: rgb(0, 102, 255);
+}
+
+.card__delete {
+    right: 2rem;
+}
+
+
+.card__delete:hover {
+    color: #8d8d8d;
+}
+
+
+.card__delete:active {
+    color: red;
+}
+
+.card__name {
+    font-weight: 700;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 1.2rem;
+    margin-bottom: 0.6rem;
+}
+
+.card__age {
+    font-weight: 300;
+}
+
+/* MEDIA QUERIES =========================================================================================================== */
+
+@media screen and (max-width: 768px) {
+    .main {
+        margin: 0;
+    }
+
+    .main__add {
+        right: 0;
+        margin-right: 1rem;
+    }
+}

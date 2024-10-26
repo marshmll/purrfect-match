@@ -17,7 +17,7 @@
     background-color: #52525242;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.3);
-    width: 40%;
+    width: 40dvw;
     padding: 3rem 2rem;
     border-radius: 10px;
     text-align: left;
@@ -103,4 +103,10 @@
 
 .login:hover {
     color: #000000;
+}
+
+@media screen and (max-width: 768px) {
+    .register {
+        width: 80dvw;
+    }
 }

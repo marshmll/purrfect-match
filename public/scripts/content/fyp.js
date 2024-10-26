@@ -56,7 +56,7 @@ async function favoriteToggle(target) {
 
     if (!isMarked) {
         let response = await fetchAPI(
-            "content/user/favorites/add.php",
+            "content/users/favorites/add.php",
             "POST",
             {
                 cat_id: parseInt(target.id),
@@ -71,7 +71,7 @@ async function favoriteToggle(target) {
     }
     else {
         let response = await fetchAPI(
-            "content/user/favorites/remove.php",
+            "content/users/favorites/remove.php",
             "POST",
             {
                 cat_id: parseInt(target.id),

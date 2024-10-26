@@ -19,7 +19,7 @@ form.addEventListener("submit", async (e) => {
     console.log(formURLEncoded);
 
     const res = await fetchAPI(
-        'content/user/profile/update.php',
+        'content/users/profile/update.php',
         'POST',
         formURLEncoded,
         new Headers({
@@ -38,7 +38,7 @@ form.addEventListener("submit", async (e) => {
 })
 
 async function renderContent() {
-    const profile = await fetchAPI("content/user/profile/me.php");
+    const profile = await fetchAPI("content/users/profile/me.php");
 
     if (profile.status == 401) {
         deleteCookie('token');
@@ -49,7 +49,7 @@ async function renderContent() {
 
     setUserPersonalData(user);
 
-    const preferences = await fetchAPI("content/user/preferences/all.php");
+    const preferences = await fetchAPI("content/users/preferences/all.php");
 
     if (profile.status == 401) {
         deleteCookie('token');
@@ -76,7 +76,7 @@ async function renderContent() {
             if (!button.classList.contains("preferences__option--selected")) {
 
                 let res = await fetchAPI(
-                    "content/user/preferences/add_personality.php",
+                    "content/users/preferences/add_personality.php",
                     "POST",
                     {
                         personality_id: button.id
@@ -93,7 +93,7 @@ async function renderContent() {
             }
             else {
                 let res = await fetchAPI(
-                    "content/user/preferences/remove_personality.php",
+                    "content/users/preferences/remove_personality.php",
                     "POST",
                     {
                         personality_id: button.id

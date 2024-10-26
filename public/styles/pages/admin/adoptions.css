@@ -1,0 +1,173 @@
+body {
+    position: relative;
+    min-height: 100vh;
+}
+
+.main {
+    margin-left: 4rem;
+    padding: 1rem 2rem;
+}
+
+.main__title {
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+    font-family: "Montserrat", sans-serif;
+    margin-bottom: 2rem;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-auto-rows: auto;
+    gap: 1rem;
+    padding-bottom: 4rem;
+}
+
+.card {
+    min-height: 30rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.card__image {
+    display: block;
+    height: 40%;
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.card__text {
+    width: 100%;
+    height: 60%;
+    padding: 1rem;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card__title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.card__span {
+    word-break: break-all;
+    font-size: .9rem;
+}
+
+.card__date {
+    word-break: normal;
+}
+
+.pending {
+    font-weight: 700;
+    color: rgb(6, 95, 168);
+}
+
+.rejected {
+    font-weight: 700;
+    color: #ca0000
+}
+
+.concluded {
+    font-weight: 700;
+    color: green
+}
+
+.approved {
+    font-weight: 700;
+    color: #e2a127
+}
+
+.card__buttons {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.card__button {
+    width: 50%;
+    height: 1.7rem;
+    border: none;
+    background-color: transparent;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: .9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card__button--reject {
+    border: 2px solid #ca0000;
+    color: #ca0000;
+    font-weight: bold;
+}
+
+.card__button--reject:hover {
+    color: white;
+    background-color: #ca0000;
+    transition: all 200ms ease-in-out;
+}
+
+.card__button--approve {
+    border: 2px solid blue;
+    color: blue;
+    font-weight: bold;
+}
+
+.card__button--approve:hover {
+    color: white;
+    background-color: blue;
+    transition: all 200ms ease-in-out;
+}
+
+.card__button--conclude {
+    border: 2px solid green;
+    color: green;
+    font-weight: bold;
+}
+
+.card__button--conclude:hover {
+    color: white;
+    background-color: green;
+    transition: all 200ms ease-in-out;
+}
+
+/* MEDIA QUERIES =========================================================================================================== */
+
+@media screen and (max-width: 768px) {
+    .main {
+        margin: 0;
+    }
+
+    .cards {
+        grid-template-columns: repeat(auto-fill, minmax(85dvw, 1fr));
+    }
+
+    .card {
+        flex-direction: column;
+    }
+
+    .card__image {
+        width: 100%;
+        height: 20rem;
+    }
+
+    .card__text {
+        width: 100%;
+    }
+}

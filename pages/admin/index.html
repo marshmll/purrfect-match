@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/public/styles/reset.css" />
     <link rel="stylesheet" href="/public/styles/components/components.css" />
+    <link rel="stylesheet" href="/public/styles/pages/admin/index.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
@@ -14,8 +15,8 @@
 
 <body>
     <header class="header">
-        <button class="header__search">
-            <span class="material-symbols-outlined">arrow_back</span>
+        <button class="header__search" onclick="window.history.back()">
+            <span class="material-symbols-outlined" title="Voltar">arrow_back</span>
         </button>
         <div class="header__main">
             <div class="header__icon"></div>
@@ -28,31 +29,31 @@
     <nav class="navbar">
         <ul class="navbar__list">
             <li class="item">
-                <a class="item__link active" href="../fyp.html" title="Home">
+                <a class="item__link active" href="./index.html" title="Home">
                     <span class="item__icon material-symbols-outlined fill">pets</span>
                     <span class="item__text">Gatos</span>
                 </a>
             </li>
             <li class="item">
-                <a class="item__link" href="../fyp.html" title="Adoções">
+                <a class="item__link" href="./adoptions.html" title="Adoções">
                     <span class="item__icon material-symbols-outlined">cardio_load</span>
                     <span class="item__text">Adoções</span>
                 </a>
             </li>
             <li class="item">
-                <a class="item__link" href="../fyp.html" title="Resgates">
+                <a class="item__link" href="./rescues.html" title="Resgates">
                     <span class="item__icon material-symbols-outlined">support</span>
                     <span class="item__text">Resgates</span>
                 </a>
             </li>
             <li class="item">
-                <a class="item__link" href="../fyp.html" title="Usuários">
+                <a class="item__link" href="./users.html" title="Usuários">
                     <span class="item__icon material-symbols-outlined">manage_accounts</span>
                     <span class="item__text">Usuários</span>
                 </a>
             </li>
             <li class="item">
-                <a class="item__link" href="../fyp.html" title="Chats">
+                <a class="item__link" href="./chats.html" title="Chats">
                     <span class="item__icon material-symbols-outlined">chat</span>
                     <span class="item__text">Chats</span>
                 </a>
@@ -65,7 +66,59 @@
             </li>
         </ul>
     </nav>
+    <main class="main">
+        <h2 class="main__title">Gatos Registrados</h2>
+        <a class="main__add" title="Cadastrar novo gato" href="./cat.html">
+            <span class="item__icon material-symbols-outlined">add</span>
+        </a>
+        <section class="cards">
+            <article class="card">
+                <a class="card__image image-skeleton"></a>
+                <button class="card__button text-skeleton" title="Adicionar aos favoritos"></button>
+                <div class="card__text">
+                    <h3 class="card__name text-skeleton"></h3>
+                    <span class="card__age text-skeleton"></span>
+                </div>
+            </article>
+            <article class="card">
+                <a class="card__image image-skeleton"></a>
+                <button class="card__button text-skeleton" title="Adicionar aos favoritos"></button>
+                <div class="card__text">
+                    <h3 class="card__name text-skeleton"></h3>
+                    <span class="card__age text-skeleton"></span>
+                </div>
+            </article>
+            <article class="card">
+                <a class="card__image image-skeleton"></a>
+                <button class="card__button text-skeleton" title="Adicionar aos favoritos"></button>
+                <div class="card__text">
+                    <h3 class="card__name text-skeleton"></h3>
+                    <span class="card__age text-skeleton"></span>
+                </div>
+            </article>
+            <article class="card">
+                <a class="card__image image-skeleton"></a>
+                <button class="card__button text-skeleton" title="Adicionar aos favoritos"></button>
+                <div class="card__text">
+                    <h3 class="card__name text-skeleton"></h3>
+                    <span class="card__age text-skeleton"></span>
+                </div>
+            </article>
+            <article class="card">
+                <a class="card__image image-skeleton"></a>
+                <button class="card__button text-skeleton" title="Adicionar aos favoritos"></button>
+                <div class="card__text">
+                    <h3 class="card__name text-skeleton"></h3>
+                    <span class="card__age text-skeleton"></span>
+                </div>
+            </article>
+        </section>
+    </main>
+    <footer class="footer">
+        Purrfect Match © 2024
+    </footer>
     <script type="module" src="/public/scripts/components/navbar.js"></script>
+    <script type="module" src="/public/scripts/admin/index.js"></script>
 </body>
 
 </html>

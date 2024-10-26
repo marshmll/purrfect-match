@@ -15,7 +15,9 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 
     // Fetch user data from the database
     $user = Database::query(
-        "SELECT pass_salt, pass_hash FROM users WHERE username='%s'",
+        "SELECT pass_salt, pass_hash, status
+        FROM users
+        WHERE username='%s'",
         [$username]
     );
 
@@ -37,6 +39,9 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     if (empty($hash_owner)) {
         sendUnauthorizedResponse();
     }
+
+    if ($user['status'] == 'banned')
+        sendResponse(json_encode(['detail' => "O usuário foi banido por tempo indeterminado."]), 401);
 
     // Create a JSON Web Token manager
     $jwt_manager = new JWTManager(SECRET_KEY);

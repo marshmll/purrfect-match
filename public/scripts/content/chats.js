@@ -1,8 +1,16 @@
 import { hasCookieSet, getCookie } from "../utils/cookie.js";
 import { fetchAPI } from "../utils/api.js";
 
+let currentTimeoutId;
+let contacts = [];
+
 // Redirects to login page if authentication cookie is not set
 if (!hasCookieSet("token")) {
+    redirectToLogin();
+}
+
+// Redirects to login page
+function redirectToLogin() {
     window.location.replace("http://localhost:8000/pages/login.html");
 }
 
@@ -20,26 +28,27 @@ async function renderChatsPage() {
 
 // Renders the list of chat contacts
 async function renderChatContacts(contactId = "") {
-    const res = await fetchAPI("/content/user/chats/contacts.php");
+    try {
+        const res = await fetchAPI("/content/users/chats/contacts.php");
 
-    // Redirect if the request fails
-    if (res.status !== 200) {
-        window.location.replace("http://localhost:8000/pages/fyp.html");
-    }
+        if (res.status !== 200) throw new Error("Failed to fetch contacts");
 
-    const contacts = res.data;
-    const contactsContainer = document.querySelector(".contacts__list");
+        contacts = res.data;
+        const contactsContainer = document.querySelector(".contacts__list");
 
-    contactsContainer.innerHTML = contacts.map(contact => createContactItem(contact, contactId)).join("");
+        contactsContainer.innerHTML = contacts.map(contact => createContactItem(contact, contactId)).join("");
 
-    // Add event listeners to contact items
-    document.querySelectorAll(".contacts__item").forEach(contact => {
-        contact.addEventListener("click", async (e) => {
-            e.preventDefault();
-            const selectedContactId = e.currentTarget.id;
-            await handleContactClick(selectedContactId);
+        // Add event listeners to contact items
+        document.querySelectorAll(".contacts__item").forEach(contact => {
+            contact.addEventListener("click", async (e) => {
+                e.preventDefault();
+                const selectedContactId = e.currentTarget.id;
+                await handleContactClick(selectedContactId);
+            });
         });
-    });
+    } catch (error) {
+        redirectToLogin();
+    }
 }
 
 // Creates HTML for a single contact item
@@ -68,32 +77,53 @@ async function handleContactClick(contactId) {
     });
 
     document.getElementById(contactId).classList.add("contacts__item--active");
+
+    clearTimeout(currentTimeoutId);
+
     await renderChatMessages(contactId);
-    await renderChatContacts(contactId);
 }
 
 // Renders messages for a selected contact
 async function renderChatMessages(contactId) {
     const body = { contact_id: contactId };
 
+    const contact = contacts.find(contact => contact.id == contactId);
+
+    updateChatHeader(contact);
+
     // Mark all messages as seen
-    await fetchAPI("/content/user/chats/set_all_seen.php", "POST", body);
+    await fetchAPI("/content/users/chats/set_all_seen.php", "POST", body);
 
-    const res = await fetchAPI("/content/user/chats/messages.php", "POST", body);
+    try {
+        const res = await fetchAPI("/content/users/chats/messages.php", "POST", body);
 
-    // Redirect if the request fails
-    if (res.status !== 200) {
-        window.location.replace("http://localhost:8000/pages/login.html");
-    } else {
+        if (res.status !== 200) throw new Error("Failed to fetch messages");
+
         const messages = res.data;
-        document.querySelector(".chat__messages").innerHTML = messages.map(createMessageItem).join("");
-    }
+        displayMessages(messages);
 
-    // Refresh messages every 2 seconds
-    setTimeout(() => {
-        renderChatContacts(contactId);
-        renderChatMessages(contactId);
-    }, 2000);
+        // Set a timeout to refresh messages
+        currentTimeoutId = setTimeout(async () => {
+            await renderChatContacts(contactId);
+            await renderChatMessages(contactId);
+        }, 5000);
+    } catch (error) {
+        redirectToLogin();
+    }
+}
+
+// Updates the chat header with the selected contact's details
+function updateChatHeader(contact) {
+    document.querySelector(".chat__head").innerHTML = `
+        <div class="chat__pfp" style="background-image: url('${contact.pfp_url}');"></div>
+        <h3 class="chat__name">${contact.name}</h3>
+    `;
+}
+
+// Displays the chat messages
+function displayMessages(messages) {
+    document.querySelector(".chat__messages").innerHTML = messages.map(createMessageItem).join("");
+    scrollToLatestMessage();
 }
 
 // Creates HTML for a single message item
@@ -127,6 +157,8 @@ document.getElementById("content").addEventListener("keyup", (e) => {
 document.querySelector(".chat__form").addEventListener("submit", async (e) => {
     e.preventDefault();
 
+    document.querySelector(".chat__submit").classList.add("chat__submit--disabled");
+
     const contactId = document.querySelector(".contacts__item--active").id;
     const formData = new FormData(e.currentTarget);
     formData.append("contact_id", parseInt(contactId));
@@ -134,14 +166,17 @@ document.querySelector(".chat__form").addEventListener("submit", async (e) => {
 
     const body = Object.fromEntries(formData.entries());
 
-    const res = await fetchAPI("/content/user/chats/send.php", "POST", body);
+    try {
+        const res = await fetchAPI("/content/users/chats/send.php", "POST", body);
 
-    if (res.status !== 200) {
-        alert("Algo deu errado no envio da mensagem!");
-    } else {
+        if (res.status !== 200) throw new Error("Message sending failed");
+
         document.getElementById("content").value = "";
         await renderChatContacts(contactId);
         await renderChatMessages(contactId);
+        scrollToLatestMessage();
+    } catch (error) {
+        alert("An error occurred while sending the message!");
     }
 });
 

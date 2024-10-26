@@ -2,30 +2,26 @@
 require_once('../../utils/database.php');
 require_once('../../utils/jwt.php');
 require_once('../../utils/http_responses.php');
+require_once('../../utils/check_authentication.php');
 
 header('Content-Type: application/json');
 
 $headers = apache_request_headers();
+checkUserAuthentication($headers);
 
-// If Authorization Bearer is set
-if (isset($headers['authorization'])) {
+// Remove 'Bearer ' from the token
+$token = getAuthTokenFromHeaders($headers);
 
-    // Remove 'Bearer ' from the token
-    $token = getAuthTokenFromHeaders($headers);
+$jwt = new JWTManager(SECRET_KEY);
 
-    $jwt = new JWTManager(SECRET_KEY);
+if (!$jwt->isTokenValid($token) or $jwt->isTokenExpired($token))
+    sendNotAuthenticatedResponse();
 
-    if (!$jwt->isTokenValid($token) or $jwt->isTokenExpired($token))
-        sendNotAuthenticatedResponse();
+$payload = $jwt->decodeToken($token);
 
-    $payload = $jwt->decodeToken($token);
+if (!in_array($payload['rol'], ['root', 'supervisor', 'manager']))
+    sendResponse(json_encode(['detail' => 'O usuário não tem permissões suficientes.']), 401);
 
-    if ($payload['rol'] != 'supervisor' and $payload['rol'] != 'root')
-        sendResponse(json_encode(['detail' => 'O usuário não tem permissões suficientes.']), 401);
+$personalities = Database::query("SELECT * FROM diseases");
 
-    $personalities = Database::query("SELECT * FROM diseases");
-
-    sendOKResponse(json_encode($personalities));
-}
-
-sendNotAuthenticatedResponse();
+sendOKResponse(json_encode($personalities));

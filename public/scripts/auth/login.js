@@ -26,7 +26,7 @@ loginForm.addEventListener("submit", async (e) => {
     const res = await fetchAPI("auth.php", "POST", formURLEncoded, headers);
 
     if (res.status == 401) {
-        feedbackSpan.textContent = `Usuário ou senha incorretos.`;
+        feedbackSpan.textContent = res.data.detail;
     }
     else if (res.status != 200) {
         feedbackSpan.textContent = `Ocorreu um erro no processamento da requisição. Erro: ${res.status}`;

@@ -197,4 +197,15 @@
     .head__user {
         width: 70%;
     }
+
+    .head__username {
+        font-size: 1.3rem;
+    }
+
+    .settings {
+        padding: 0 1rem;
+        grid-template-columns: repeat(auto-fill, minmax(95dvw, 1fr));
+        gap: 2rem;
+        padding-bottom: 4rem;
+    }
 }

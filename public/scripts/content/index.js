@@ -1,10 +1,39 @@
+import { fetchAPI } from "../utils/api.js";
+
 const carousel = document.querySelector(".carousel");
 const arrowButtons = document.querySelectorAll(".wrapper i");
 const firstCardWidth = carousel.querySelector(".card").offsetWidth;
 
-arrowButtons.forEach( btn => {
+async function renderIndexPage() {
+    const res = await fetchAPI("/content/index.php", "POST", {}, { accept: "application/json" });
+
+    const cats = res.data;
+
+    const catsCards = cats.map(cat => {
+        return `
+            <li class="card">
+                <div class="img">
+                    <img
+                        id="img1"
+                        src="${cat.picture_url}"
+                        alt="cat"
+                        draggable="false"
+                    />
+
+                    <h2 class="cat-name">${cat.name}</h2>
+                    <span>${cat.age} ano(s)</span>
+                </div>
+            </li>
+        `;
+    }).join("");
+
+    document.querySelector(".carousel").innerHTML = catsCards;
+
+}
+
+arrowButtons.forEach(btn => {
     btn.addEventListener("click", () => {
-        carousel.scrollLeft += btn.id == "left" ? -(firstCardWidth + 12) : firstCardWidth + 12; 
+        carousel.scrollLeft += btn.id == "left" ? -(firstCardWidth + 12) : firstCardWidth + 12;
     })
 });
 
@@ -44,3 +73,5 @@ document.addEventListener("mouseup", dragEnded);
 carousel.addEventListener("touchstart", dragStarted);
 carousel.addEventListener("touchmove", dragging);
 carousel.addEventListener("touchend", dragEnded);
+
+renderIndexPage();

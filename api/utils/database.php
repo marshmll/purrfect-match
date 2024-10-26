@@ -7,8 +7,77 @@ const PASSWORD = "bancodedados";
 const DATABASE = "purrfect_db";
 const PORT     = "3306"; // Docker's database port.
 
+/** 
+ * Database utilitary class.
+ * 
+ * By: Renan Andrade, 15/09/2024.
+ */
 class Database
 {
+    // Holds the mysqli connection for transactions
+    private static $mysqli = null;
+
+    /**
+     * Begins a transaction.
+     * 
+     * @throws Exception if a transaction is already started.
+     */
+    public static function beginTransaction()
+    {
+        if (self::$mysqli !== null) {
+            throw new Exception("[Database]: Transaction already started.");
+        }
+
+        // Create MySQLi connection
+        self::$mysqli = new mysqli(HOSTNAME, USERNAME, PASSWORD, DATABASE, PORT);
+
+        // Check for connection errors
+        if (self::$mysqli->connect_error) {
+            throw new Exception("[Database]: Connection failed: " . self::$mysqli->connect_error);
+        }
+
+        // Set character set to UTF-8
+        self::$mysqli->set_charset("utf8");
+
+        // Disable autocommit
+        self::$mysqli->autocommit(false);
+
+        // Begin the transaction
+        self::$mysqli->begin_transaction();
+    }
+
+    /**
+     * Commits the current transaction.
+     * 
+     * @throws Exception if no transaction was started.
+     */
+    public static function commitTransaction()
+    {
+        if (self::$mysqli === null) {
+            throw new Exception("[Database]: No transaction started.");
+        }
+
+        self::$mysqli->commit();
+        self::$mysqli->autocommit(true);
+        self::closeTransactionConnection();
+    }
+
+    /**
+     * Rolls back the current transaction.
+     * 
+     * @throws Exception if no transaction was started.
+     */
+    public static function rollbackTransaction()
+    {
+        if (self::$mysqli === null) {
+            throw new Exception("[Database]: No transaction started.");
+        }
+
+        self::$mysqli->rollback();
+        self::$mysqli->autocommit(true);
+        self::closeTransactionConnection();
+    }
+
     /**
      * Executes a query on the database.
      *
@@ -26,19 +95,21 @@ class Database
             throw new Exception("[Database]: Argument \$params must be an array.");
         }
 
-        // Create MySQLi connection
-        $mysqli = new mysqli(HOSTNAME, USERNAME, PASSWORD, DATABASE, PORT);
+        // Use transaction connection if available, otherwise create a new connection
+        $mysqli = self::$mysqli ?? new mysqli(HOSTNAME, USERNAME, PASSWORD, DATABASE, PORT);
 
         // Check for connection errors
         if ($mysqli->connect_error) {
             throw new Exception("[Database]: Connection failed: " . $mysqli->connect_error);
         }
 
-        // Set character set to UTF-8
-        $mysqli->set_charset("utf8");
+        // Set character set to UTF-8 (only if not using an active transaction)
+        if (self::$mysqli === null) {
+            $mysqli->set_charset("utf8");
+        }
 
         // Escape parameters to prevent SQL injection
-        $escaped_params = array_map(function($param) use ($mysqli) {
+        $escaped_params = array_map(function ($param) use ($mysqli) {
             return is_string($param) ? $mysqli->real_escape_string($param) : $param;
         }, $params);
 
@@ -50,7 +121,7 @@ class Database
 
         // Handle boolean response (e.g., for INSERT/UPDATE)
         if (is_bool($response)) {
-            $mysqli->close();
+            if (self::$mysqli === null) $mysqli->close(); // Only close if not in transaction
             return $response;
         }
 
@@ -64,9 +135,22 @@ class Database
             }
         }
 
-        // Close the connection
-        $mysqli->close();
+        // Close the connection if no transaction
+        if (self::$mysqli === null) {
+            $mysqli->close();
+        }
 
         return $data;
+    }
+
+    /**
+     * Closes the current transaction connection.
+     */
+    private static function closeTransactionConnection()
+    {
+        if (self::$mysqli !== null) {
+            self::$mysqli->close();
+            self::$mysqli = null;
+        }
     }
 }

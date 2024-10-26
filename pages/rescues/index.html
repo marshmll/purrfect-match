@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Formulário de Resgate</title>
+        <link
+            rel="stylesheet"
+            href="../../public/styles/pages/rescues/rescue.css"
+        />
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="botao">
+                <h1>Formulário de Resgate</h1>
+                <button
+                    class="btn-tooltip"
+                    aria-label="Formulário para solicitar um resgate, complete os dados solicitados corretamente para recebemos a sua solicitação!"
+                >
+                    ?
+                </button>
+            </div>
+
+            <form id="rescue-form" method="post" action="/api/rescueRequests">
+                <label for="name">Nome:</label>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    placeholder="Exemplo: João da Silva"
+                />
+
+                <label for="email">E-mail:</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Exemplo: joao.silva80@gmail.com"
+                />
+
+                <label for="phone">Telefone:</label>
+                <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    pattern="\(\d{2}\) \d{5}-\d{4}"
+                    placeholder="Exemplo: (41) 99929-9921"
+                />
+
+                <label for="cep">CEP:</label>
+                <input
+                    type="text"
+                    id="cep"
+                    name="cep"
+                    required
+                    placeholder="Exemplo: 12345-678"
+                />
+
+                <label for="state">Estado:</label>
+                <select id="state" name="state" required>
+                    <option value="">Selecione o estado</option>
+                    <option value="pr">Paraná</option>
+                    <option value="sp">São Paulo</option>
+                    <option value="rj">Rio de Janeiro</option>
+                </select>
+
+                <label for="city">Cidade:</label>
+                <select id="city" name="city" required>
+                    <option value="">Selecione a cidade</option>
+                </select>
+
+                <label for="neighborhood">Bairro:</label>
+                <input
+                    type="text"
+                    id="neighborhood"
+                    name="neighborhood"
+                    required
+                    placeholder="Exemplo: Centro"
+                />
+
+                <label for="street">Rua:</label>
+                <input
+                    type="text"
+                    id="street"
+                    name="street"
+                    required
+                    placeholder="Exemplo: Rua das Flores"
+                />
+
+                <label for="characteristics">Características do Gato:</label>
+                <textarea
+                    id="characteristics"
+                    name="characteristics"
+                    rows="4"
+                    required
+                    placeholder="Exemplo: Gato amarelo, macho e filhote"
+                ></textarea>
+
+                <label for="observations">Observações:</label>
+                <textarea
+                    id="observations"
+                    name="observations"
+                    rows="4"
+                    placeholder="Exemplo: Gato muito magro e com algumas feridas no corpo"
+                ></textarea>
+                <br />
+                <br />
+                <input type="submit" value="RESGATAR" />
+            </form>
+        </div>
+
+        <script>
+            const cidadesPorEstado = {
+                pr: [
+                    { value: "curitiba", label: "Curitiba" },
+                    { value: "londrina", label: "Londrina" },
+                    { value: "maringa", label: "Maringá" },
+                ],
+                sp: [
+                    { value: "sao-paulo", label: "São Paulo" },
+                    { value: "campinas", label: "Campinas" },
+                    { value: "santos", label: "Santos" },
+                ],
+                rj: [
+                    { value: "rio-de-janeiro", label: "Rio de Janeiro" },
+                    { value: "niteroi", label: "Niterói" },
+                    { value: "petropolis", label: "Petrópolis" },
+                ],
+            };
+
+            const estadoSelect = document.getElementById("state");
+            const cidadeSelect = document.getElementById("city");
+
+            estadoSelect.addEventListener("change", function () {
+                const estadoSelecionado = this.value;
+                const cidades = cidadesPorEstado[estadoSelecionado] || [];
+
+                // Limpar as opções atuais
+                cidadeSelect.innerHTML =
+                    '<option value="">Selecione a cidade</option>';
+
+                // Adicionar novas opções de cidade
+                cidades.forEach((cidade) => {
+                    const option = document.createElement("option");
+                    option.value = cidade.value;
+                    option.textContent = cidade.label;
+                    cidadeSelect.appendChild(option);
+                });
+
+                // Habilitar ou desabilitar o campo de cidade
+                cidadeSelect.disabled = cidades.length === 0;
+            });
+        </script>
+    </body>
+</html>
