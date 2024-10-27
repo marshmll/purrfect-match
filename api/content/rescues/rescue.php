@@ -28,7 +28,8 @@ try {
     ";
 
     $result = Database::query(
-        $insertQuery,
+        "INSERT INTO rescues (user_id, status, closure_datetime, addr_city, addr_state, addr_street, addr_number, addr_zipcode, characteristics, description)
+        VALUES ('%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
         [
             $body['name'],
             $body['email'],
