@@ -1,10 +1,16 @@
 <?php
 require_once('../../utils/database.php');
 require_once('../../utils/http_responses.php');
+require_once('../../utils/check_authentication.php');
 
 header('Content-Type: application/json');
 
 $headers = apache_request_headers();
+
+// Sempre verificar se o usuário está autenticado, usa essa funçao de 
+// check_authentication.php
+checkUserAuthentication($headers);
+
 if (
     !isset($body['cep']) or
     !isset($body['state']) or
@@ -19,6 +25,7 @@ if (
 try {
     Database::beginTransaction();
 
+<<<<<<< HEAD
     $rescue = Database::query(
         "SELECT * FROM rescues WHERE name = '%s'",
         [$body['name']]
@@ -33,6 +40,28 @@ try {
             $rescue_id,
             "pendente",
             $body['city'],
+=======
+    $result = Database::query(
+        "INSERT INTO rescues (
+            user_id,
+            status,
+            closure_datetime,
+            addr_city,
+            addr_state,
+            addr_street,
+            addr_number,
+            addr_zipcode,
+            characteristics,
+            description
+        )
+        VALUES (%d, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+        [
+            // @renan: Não vai funcionar pois os argumentos não são os valores certos :P
+            $body['name'],
+            $body['email'],
+            $body['phone'],
+            $body['cep'],
+>>>>>>> refs/remotes/origin/dev
             $body['state'],
             $body['street'],
             $body['city'],
@@ -44,16 +73,19 @@ try {
     );
 
     if (!$result) {
-        throw new Exception("Error inserting rescue.");
+        // @renan: Rollback quando teve erro.
+        Database::rollbackTransaction();
+
+        // @renan Conflict é pra quando um recurso já foi crado, código 409.
+        sendConflictResponse(json_encode(['detail' => 'Resgate já registrado.']));
     }
 
     Database::commitTransaction();
 
     sendOKResponse(json_encode($result));
-    
 } catch (Exception $e) {
     Database::rollbackTransaction();
 
-    sendConflictResponse(json_encode(['detail' => $e->getMessage()]));
+    // @renan Erro interno no servidor, erro 500, quando teve uma exceção não tratada.
+    sendResponse(json_encode(['detail' => $e->getMessage()]), 500);
 }
-?>
