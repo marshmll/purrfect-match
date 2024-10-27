@@ -42,4 +42,4 @@ if (!$result) {
 
 Database::commitTransaction();
 
-sendResponse(json_encode(['removed' => $body['personality_id']]), 200);
+sendOkResponse(json_encode(['removed' => $body['personality_id']]));

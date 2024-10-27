@@ -21,7 +21,7 @@ $payload = $jwt->decodeToken($token);
 
 // Check user role and add redirect if necessary
 if (!in_array($payload['rol'], ['root', 'supervisor', 'manager']))
-    sendResponse(json_encode(['detail' => 'O usuário não tem permissões suficientes.']), 401);
+    sendResponse(json_encode(['detail' => 'O usuário não tem permissões suficientes.']), HttpStatus::Unauthorized->value);
 
 $personalities = Database::query("SELECT * FROM vaccines");
 

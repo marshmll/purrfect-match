@@ -25,7 +25,7 @@ if (
 try {
     Database::beginTransaction();
 
-<<<<<<< HEAD
+
     $rescue = Database::query(
         "SELECT * FROM rescues WHERE name = '%s'",
         [$body['name']]
@@ -33,14 +33,6 @@ try {
 
     $rescue_id = $rescue['id'];
 
-    $result = Database::query(
-        "INSERT INTO rescues (user_id, status, addr_city, addr_state, addr_street, addr_number, addr_zipcode, characteristics, description)
-        VALUES ('%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
-        [
-            $rescue_id,
-            "pendente",
-            $body['city'],
-=======
     $result = Database::query(
         "INSERT INTO rescues (
             user_id,
@@ -61,7 +53,6 @@ try {
             $body['email'],
             $body['phone'],
             $body['cep'],
->>>>>>> refs/remotes/origin/dev
             $body['state'],
             $body['street'],
             $body['city'],
@@ -87,5 +78,5 @@ try {
     Database::rollbackTransaction();
 
     // @renan Erro interno no servidor, erro 500, quando teve uma exceção não tratada.
-    sendResponse(json_encode(['detail' => $e->getMessage()]), 500);
+    sendResponse(json_encode(['detail' => $e->getMessage()]), HttpStatus::InternalServerError->value);
 }

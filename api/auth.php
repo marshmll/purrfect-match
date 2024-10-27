@@ -41,7 +41,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     }
 
     if ($user['status'] == 'banned')
-        sendResponse(json_encode(['detail' => "O usuário foi banido por tempo indeterminado."]), 401);
+        sendResponse(json_encode(['detail' => "O usuário foi banido por tempo indeterminado."]), HttpStatus::Unauthorized->value);
 
     // Create a JSON Web Token manager
     $jwt_manager = new JWTManager(SECRET_KEY);
