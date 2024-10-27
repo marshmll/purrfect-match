@@ -6,7 +6,7 @@ require_once('../../utils/check_authentication.php');
 
 header('Content-Type: application/json');
 
-$headers = apache_request_headers();
+$headers = apache_request_headers();    
 $body = json_decode(file_get_contents('php://input'), true);
 checkUserAuthentication($headers);
 
