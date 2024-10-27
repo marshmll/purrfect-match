@@ -27,7 +27,7 @@ $user = Database::query(
 );
 
 if (!empty($user))
-    sendResponse($user_already_registered_json, 409);
+    sendConflictResponse(json_encode(['detail' => "Nome de usuário em uso."]));
 
 // Check if the email exists in the database.
 $email = Database::query(
@@ -36,7 +36,7 @@ $email = Database::query(
 );
 
 if (!empty($email))
-    sendResponse($email_already_registered_json, 409);
+    sendConflictResponse(json_encode(['detail' => "Endereço de e-mail em uso."]));
 
 // Create the user
 $salt = generatePasswordSalt();
@@ -76,13 +76,15 @@ $result = Database::query(
 // If the user creation was not sucessfull, inform user.
 if (!$result) {
     Database::rollbackTransaction();
-    sendResponse($user_creation_error_json, 202);
+    sendResponse(json_encode(['detail' => 'Ocorreu um erro durante a criação de usuário. Se o erro persistir, entre em contato com os responsáveis pelo site.']), 202);
 }
+
+Database::commitTransaction();
 
 $user_id = Database::query(
     "SELECT id
-            FROM users
-            WHERE name = '%s'",
+    FROM users
+    WHERE name = '%s'",
     [$_POST['name']]
 );
 
@@ -96,8 +98,7 @@ $payload = createAuthenticationPayload($_POST['username'], $user_id['id'], $toke
 // Create the token
 $token = $jwt_manager->createToken($payload);
 
-Database::commitTransaction();
-
+// Send encapsulated authentication token.
 sendResponse(
     json_encode(
         [
