@@ -72,5 +72,5 @@ try {
     Database::rollbackTransaction();
 
     // @renan Erro interno no servidor, erro 500, quando teve uma exceção não tratada.
-    sendResponse(json_encode(['detail' => $e->getMessage()]), 500);
+    sendResponse(json_encode(['detail' => $e->getMessage()]), HttpStatus::InternalServerError->value);
 }

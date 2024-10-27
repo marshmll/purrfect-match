@@ -14,5 +14,5 @@ try {
 
     sendOKResponse(json_encode($rescues));
 } catch (Exception $e) {
-    sendResponse(json_encode(['detail' => $e->getMessage()]), 500);
+    sendResponse(json_encode(['detail' => $e->getMessage()]), HttpStatus::InternalServerError->value);
 }

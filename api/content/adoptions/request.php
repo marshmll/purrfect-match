@@ -30,7 +30,7 @@ $cat_has_adoptions = Database::query(
 );
 
 if (!empty($cat_has_adoptions))
-    sendResponse(json_encode(['detail' => 'Este gato já está em um processo de adoção.']));
+    sendConflictResponse(json_encode(['detail' => 'Este gato já está em um processo de adoção.']));
 
 $result = Database::query(
     "INSERT INTO adoptions (
@@ -43,11 +43,11 @@ $result = Database::query(
 );
 
 if (!$result)
-    sendResponse(json_encode(['detail' => "Algo deu errado na criação da solicitação."]));
+    sendResponse(json_encode(['detail' => "Algo deu errado na criação da solicitação."]), HttpStatus::Accepted->value);
 
 $request = Database::query(
     "SELECT * FROM adoptions WHERE cat_id = %s AND user_id = %d",
     [$body['cat_id'], $payload['sub']]
 );
 
-sendResponse(json_encode($request), 201);
+sendResponse(json_encode($request), HttpStatus::Created->value);

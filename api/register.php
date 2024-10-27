@@ -76,7 +76,7 @@ $result = Database::query(
 // If the user creation was not sucessfull, inform user.
 if (!$result) {
     Database::rollbackTransaction();
-    sendResponse(json_encode(['detail' => 'Ocorreu um erro durante a criação de usuário. Se o erro persistir, entre em contato com os responsáveis pelo site.']), 202);
+    sendResponse(json_encode(['detail' => 'Ocorreu um erro durante a criação de usuário. Se o erro persistir, entre em contato com os responsáveis pelo site.']), HttpStatus::Accepted->value);
 }
 
 Database::commitTransaction();
@@ -106,5 +106,5 @@ sendResponse(
             'access_token' => $token,
         ]
     ),
-    201
+    HttpStatus::Created->value
 );
