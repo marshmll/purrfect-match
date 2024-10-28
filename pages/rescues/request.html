@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulário de Resgate</title>
+    <link rel="stylesheet" href="../../public/styles/pages/rescues/request.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="botao">
+            <h1>Formulário de Resgate</h1>
+            <button class="btn-tooltip"
+                aria-label="Formulário para solicitar um resgate, complete os dados solicitados corretamente para recebemos a sua solicitação!">
+                ?
+            </button>
+        </div>
+
+        <form id="rescue-form">
+            <label for="name">Nome:</label>
+            <input type="text" id="name" name="name" required placeholder="Exemplo: João da Silva" />
+
+            <label for="zipcode">CEP:</label>
+            <input type="text" id="zipcode" name="zipcode" required placeholder="Exemplo: 12345-678" maxlength="9" />
+
+            <label for="state">Estado:</label>
+            <select id="state" name="state" required>
+                <option value="">Selecione o estado</option>
+                <option value="pr">Paraná</option>
+                <option value="sp">São Paulo</option>
+                <option value="rj">Rio de Janeiro</option>
+            </select>
+            <br>
+            <br>
+
+            <label for="city">Cidade:</label>
+            <select id="city" name="city" required>
+                <option value="">Selecione a cidade</option>
+            </select>
+            <br>
+            <br>
+
+            <label for="street">Rua:</label>
+            <input type="text" id="street" name="street" required placeholder="Exemplo: Rua das Flores" />
+
+            <label for="number">Número:</label>
+            <input type="number" id="number" name="number" required placeholder="Exemplo: 230" />
+
+            <label for="characteristics">Características do Gato:</label>
+            <textarea id="characteristics" name="characteristics" rows="4" required
+                placeholder="Exemplo: Gato amarelo, macho e filhote"></textarea>
+
+            <label for="description">Descrição:</label>
+            <textarea id="description" name="description" rows="4"
+                placeholder="Exemplo: Gato muito magro e com algumas feridas no corpo"></textarea>
+            <br />
+            <br />
+            <input type="submit" value="RESGATAR" />
+        </form>
+    </div>
+
+    <script>
+        const cidadesPorEstado = {
+            pr: [
+                { value: "Curitiba", label: "Curitiba" },
+                { value: "Londrina", label: "Londrina" },
+                { value: "Maringá", label: "Maringá" },
+            ],
+            sp: [
+                { value: "São Paulo", label: "São Paulo" },
+                { value: "Campinas", label: "Campinas" },
+                { value: "Santos", label: "Santos" },
+            ],
+            rj: [
+                { value: "Rio de Janeiro", label: "Rio de Janeiro" },
+                { value: "Niterói", label: "Niterói" },
+                { value: "Petrópolis", label: "Petrópolis" },
+            ],
+        };
+
+        const estadoSelect = document.getElementById("state");
+        const cidadeSelect = document.getElementById("city");
+
+        estadoSelect.addEventListener("change", function () {
+            const estadoSelecionado = this.value;
+            const cidades = cidadesPorEstado[estadoSelecionado] || [];
+
+            // Limpar as opções atuais
+            cidadeSelect.innerHTML =
+                '<option value="">Selecione a cidade</option>';
+
+            // Adicionar novas opções de cidade
+            cidades.forEach((cidade) => {
+                const option = document.createElement("option");
+                option.value = cidade.value;
+                option.textContent = cidade.label;
+                cidadeSelect.appendChild(option);
+            });
+
+            // Habilitar ou desabilitar o campo de cidade
+            cidadeSelect.disabled = cidades.length === 0;
+        });
+
+        document.getElementById("zipcode").addEventListener("input", (e) => {
+            if (e.currentTarget.value.length > 4 && !e.currentTarget.value.includes('-')) {
+                e.currentTarget.value += "-";
+            }
+        })
+    </script>
+    <script type="module" src="/public/scripts/content/rescue/request.js"></script>
+</body>
+
+</html>

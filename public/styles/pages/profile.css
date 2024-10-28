@@ -5,7 +5,7 @@
 
 .head {
     width: 100%;
-    background: linear-gradient(270deg, #241b5e, #000000);
+    background: linear-gradient(270deg, #091f68, #210736);
     background-size: 400% 400%;
     -webkit-animation: AnimatedGradient 30s ease infinite;
     -moz-animation: AnimatedGradient 30s ease infinite;
