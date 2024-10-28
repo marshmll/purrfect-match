@@ -1,5 +1,6 @@
 <?php
 require_once('../../utils/database.php');
+require_once('../../utils/jwt.php');
 require_once('../../utils/http_responses.php');
 require_once('../../utils/check_authentication.php');
 
@@ -11,22 +12,23 @@ $headers = apache_request_headers();
 // check_authentication.php
 checkUserAuthentication($headers);
 
-if (
-    !isset($body['name']) or
-    !isset($body['email']) or
-    !isset($body['phone']) or
-    !isset($body['cep']) or
-    !isset($body['state']) or
-    !isset($body['city']) or
-    !isset($body['neighborhood']) or
-    !isset($body['street']) or
-    !isset($body['characteristics'])
-) {
-    sendBadRequestResponse();
-}
+$token = getAuthTokenFromHeaders($headers);
+$jwt = new JWTManager(SECRET_KEY);
+
+if (!$jwt->isTokenValid($token) or $jwt->isTokenExpired($token))
+    sendNotAuthenticatedResponse();
+
+$payload = $jwt->decodeToken($token);
 
 try {
     Database::beginTransaction();
+
+    $user = Database::query(
+        "SELECT * FROM users WHERE name = '%s'",
+        [$body['name']]
+    );
+
+    $user_id = $user['id'];
 
     $result = Database::query(
         "INSERT INTO rescues (
@@ -41,17 +43,15 @@ try {
             characteristics,
             description
         )
-        VALUES (%d, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+        VALUES ('%d, '%s, '%s, '%s', '%s', '%d', '%s', '%s', '%s')",
         [
-            // @renan: Não vai funcionar pois os argumentos não são os valores certos :P
-            $body['name'],
-            $body['email'],
-            $body['phone'],
-            $body['cep'],
-            $body['state'],
+            $payload['sub'],
+            "pending",
             $body['city'],
-            $body['neighborhood'],
+            $body['state'],
             $body['street'],
+            $body['number'],
+            $body['cep'],
             $body['characteristics'],
             isset($body['observations']) ? $body['observations'] : null
         ]

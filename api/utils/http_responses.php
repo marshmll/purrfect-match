@@ -10,7 +10,7 @@ enum HttpStatus: int
     case NotFound            = 404;
     case Conflict            = 409;
     case ImATeapot           = 418;
-    case InternalServerError = 418;
+    case InternalServerError = 500;
 };
 
 function sendResponse($json_response, $status = HttpStatus::Ok->value)
