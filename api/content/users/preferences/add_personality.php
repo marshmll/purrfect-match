@@ -43,4 +43,4 @@ if (!$result) {
 
 Database::commitTransaction();
 
-sendResponse(json_encode(['added' => $body['personality_id']]), 201);
+sendResponse(json_encode(['added' => $body['personality_id']]), HttpStatus::Created->value);

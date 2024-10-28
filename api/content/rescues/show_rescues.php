@@ -1,18 +1,18 @@
 <?php
-require_once('../utils/database.php');
-require_once('../utils/http_responses.php');
+require_once('../../utils/database.php');
+require_once('../../utils/http_responses.php');
+require_once('../../utils/check_authentication.php');
 
 header('Content-Type: application/json');
 
-try {
-    // Query to fetch all rescues
-    $rescues = Database::query("SELECT * FROM rescues ORDER BY id DESC");
+$headers = apache_request_headers();
+checkUserAuthentication($headers);
 
-    if ($rescues) {
-        sendOKResponse(json_encode($rescues));
-    } else {
-        sendNotFoundResponse(json_encode(['message' => 'No rescues found.']));
-    }
+try {
+    // Fetch rescues from the database
+    $rescues = Database::query("SELECT * FROM rescues");
+
+    sendOKResponse(json_encode($rescues));
 } catch (Exception $e) {
-    sendConflictResponse(json_encode(['detail' => $e->getMessage()]));
+    sendResponse(json_encode(['detail' => $e->getMessage()]), HttpStatus::InternalServerError->value);
 }

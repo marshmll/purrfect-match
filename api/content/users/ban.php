@@ -23,7 +23,7 @@ if (!$jwt->isTokenValid($token) or $jwt->isTokenExpired($token))
 $payload = $jwt->decodeToken($token);
 
 if (!in_array($payload['rol'], ['root', 'supervisor', 'manager']))
-    sendResponse(json_encode(['detail' => 'O usuário não tem permissões suficientes.']), 401);
+    sendResponse(json_encode(['detail' => 'O usuário não tem permissões suficientes.']), HttpStatus::Unauthorized->value);
 
 Database::beginTransaction();
 

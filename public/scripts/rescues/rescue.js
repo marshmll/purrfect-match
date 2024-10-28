@@ -23,10 +23,11 @@ rescueForm.addEventListener("submit", async (e) => {
     const headers = new Headers({
         accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded",
-    });
+        Authorization: `Bearer ${getCookie("token")}`,
+    })
 
     // Make the API call to rescue
-    const res = await fetchAPI("rescue.php", "POST", formURLEncoded, headers);
+    const res = await fetchAPI("rescues/rescue.php", "POST", formURLEncoded, headers);
 
     // Handle response
     if (res.status !== 201) {
