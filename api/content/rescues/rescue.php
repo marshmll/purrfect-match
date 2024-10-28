@@ -23,7 +23,6 @@ $payload = $jwt->decodeToken($token);
 try {
     Database::beginTransaction();
 
-
     $user = Database::query(
         "SELECT * FROM users WHERE name = '%s'",
         [$body['name']]
