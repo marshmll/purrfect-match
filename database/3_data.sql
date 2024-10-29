@@ -227,7 +227,7 @@ VALUES
 (15, 15);
 
 -- Inserções na tabela rescues
-INSERT INTO rescues (user_id, request_datetime, status, closure_datetime, addr_city, addr_state, addr_street, addr_number, addr_zipcode, characteristcs, description) VALUES
+INSERT INTO rescues (user_id, request_datetime, status, closure_datetime, addr_city, addr_state, addr_street, addr_number, addr_zipcode, characteristics, description) VALUES
 (1, '2024-10-01 08:30:00', 'Pendente', NULL, 'São Paulo', 'SP', 'Avenida Paulista', 1000, '01310-100', 'Gato, grande, pelagem preta', 'Gato encontrado perambulando na avenida.'),
 (2, '2024-10-02 09:00:00', 'Em andamento', NULL, 'Rio de Janeiro', 'RJ', 'Rua da Praia', 200, '22050-001', 'Gato, pequeno, olhos verdes', 'Gato preso em árvore.'),
 (3, '2024-10-03 10:15:00', 'Fechado', '2024-10-05 15:00:00', 'Belo Horizonte', 'MG', 'Rua dos Inconfidentes', 150, '30130-000', 'Gato, médio, pelagem marrom', 'Gato resgatado e entregue a abrigo.'),
