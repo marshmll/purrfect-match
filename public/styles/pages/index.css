@@ -26,6 +26,10 @@
     font-family: 'Plus Jakarta Sans', sans-serif;
 }   
 
+.footer {
+    z-index: -1;
+}
+
 .partnership {
     display: flex;
     flex-direction: column;
@@ -47,7 +51,7 @@
 .buttons {
     display: flex;
     justify-content: center;
-    margin-top: 2rem;
+    margin-top: 10rem;
 }
 
 .buttons__container {
@@ -94,7 +98,6 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    user-select: none;
 }
 
 .wrapper i:first-child {
@@ -129,12 +132,12 @@
 
 .carousel.dragging .card{
     cursor: grab;
-    user-select: none;
 }
 
 .carousel .card {
     scroll-snap-align: start;
-    height: 15rem;
+    height: 30rem;
+    padding-bottom: 50px;
     list-style: none;
     border-radius: 8px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
@@ -144,12 +147,19 @@
     justify-content: center;
     flex-direction: column;
 }
-
-.card .img img {
-    width: 140px;
-    height: 140px;
+.card {
     object-fit: cover;
-    border-radius: 10px;
+
+}
+
+.img {
+    width: 90%;
+    height: 90%;
+}
+.img img {
+    border-radius: 8px;
+    width: 100%;
+    height: 75%;
 }
 
 .card h2 {

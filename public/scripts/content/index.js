@@ -12,17 +12,15 @@ async function renderIndexPage() {
     const catsCards = cats.map(cat => {
         return `
             <li class="card">
-                <div class="img">
-                    <img
-                        id="img1"
-                        src="${cat.picture_url}"
-                        alt="cat"
-                        draggable="false"
-                    />
-
-                    <h2 class="cat-name">${cat.name}</h2>
-                    <span>${cat.age} ano(s)</span>
+                <article class="card">
+                <a class="card__image image-skeleton"></a>
+                <button class="card__fav text-skeleton" title="Adicionar aos favoritos"></button>
+                <div class="card__text">
+                    <h3 class="card__name text-skeleton"></h3>
+                    <span class="card__age text-skeleton"></span>
                 </div>
+                <div class="card__personalities text-skeleton"></div>
+            </article>
             </li>
         `;
     }).join("");
