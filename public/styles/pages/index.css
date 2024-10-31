@@ -24,7 +24,11 @@
     text-align: center;
     font-weight: 800;
     font-family: 'Plus Jakarta Sans', sans-serif;
-}   
+}
+
+.footer {
+    z-index: -1;
+}
 
 .partnership {
     display: flex;
@@ -47,7 +51,7 @@
 .buttons {
     display: flex;
     justify-content: center;
-    margin-top: 2rem;
+    margin-top: 10rem;
 }
 
 .buttons__container {
@@ -86,7 +90,7 @@
     position: relative;
 }
 
-.wrapper i{
+.wrapper i {
     padding: 10px 15px;
     border-radius: 100%;
     background: rgba(120, 120, 120, 0.4);
@@ -94,7 +98,6 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    user-select: none;
 }
 
 .wrapper i:first-child {
@@ -127,14 +130,14 @@
     scroll-snap-type: none;
 }
 
-.carousel.dragging .card{
+.carousel.dragging .card {
     cursor: grab;
-    user-select: none;
 }
 
 .carousel .card {
     scroll-snap-align: start;
-    height: 15rem;
+    height: 30rem;
+    padding-bottom: 50px;
     list-style: none;
     border-radius: 8px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
@@ -145,11 +148,29 @@
     flex-direction: column;
 }
 
-.card .img img {
-    width: 140px;
-    height: 140px;
+.card {
     object-fit: cover;
-    border-radius: 10px;
+
+}
+
+.img {
+    width: 90%;
+    height: 90%;
+}
+
+.img img {
+    border-radius: 8px;
+    width: 100%;
+    height: 75%;
+}
+
+.picture {
+    border-radius: 8px;
+    width: 100%;
+    height: 75%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .card h2 {
@@ -178,8 +199,8 @@
         height: 23rem;
         margin-bottom: 2rem;
     }
-    
-    
+
+
     .hero__title {
         font-size: 1.8rem;
     }

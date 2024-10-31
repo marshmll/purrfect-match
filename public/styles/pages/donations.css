@@ -1,0 +1,94 @@
+.main {
+    width: 100dvw;
+    margin-top: 2rem;
+    position: relative;
+}
+
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 2rem;
+}
+
+.hero__title {
+    font-family: 'Moul', serif;
+    text-align: center;
+    font-size: 3.5rem;
+    font-weight: 500;
+}
+
+.hero__description {
+    font-size: 2rem;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    font-weight: 300;
+}
+
+.text {
+    font-size: 1.1rem;
+    display: block;
+    padding: 0 10rem;
+    text-align: justify;
+}
+
+.subtitle {
+    font-size: 1.8rem;
+    font-weight: 800;
+    font-family: 'Plus Jakarta Sans';
+    border-left: 3px solid black;
+    padding-left: .8rem;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+    text-align: left;
+}
+
+.paragraph {
+    font-family: 'Montserrat';
+    line-height: 1.3rem;
+    margin-bottom: 1rem;
+
+    b {
+        font-weight: 600;
+    }
+
+    a {
+        text-decoration: underline;
+    }
+}
+
+.bank {
+    display: block;
+    font-family: monospace;
+
+    b {
+        font-weight: 600;
+    }
+}
+
+.img {
+    display: block;
+    margin: 0 auto;
+    min-width: 15rem;
+    max-width: 40%;
+    height: auto;
+    width: 40%;
+}
+
+@media screen and (max-width: 768px) {
+    .hero__title {
+        font-size: 3rem;
+        margin-bottom: 1.3rem;
+    }
+
+    .hero__description {
+        font-size: 1.7rem;
+    }
+
+    .text {
+        font-size: 1.1rem;
+        display: block;
+        padding: 0 2rem;
+    }
+}

@@ -7,8 +7,7 @@ const SECRET_KEY = "d0c49157fea2ccff061bfec97a77d4a000efb82a632f171e8f7cc4ddee73
 
 /** 
  * Implementation of IETF RFC 7519 (JSON Web Token)
- * 
- * By: Renan Andrade, 15/09/2024.
+ * 15/09/2024.
  */
 class JWTManager
 {

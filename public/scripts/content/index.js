@@ -13,13 +13,7 @@ async function renderIndexPage() {
         return `
             <li class="card">
                 <div class="img">
-                    <img
-                        id="img1"
-                        src="${cat.picture_url}"
-                        alt="cat"
-                        draggable="false"
-                    />
-
+                <div class="picture" style="background-image: url('${cat.picture_url}')"></div>
                     <h2 class="cat-name">${cat.name}</h2>
                     <span>${cat.age} ano(s)</span>
                 </div>
