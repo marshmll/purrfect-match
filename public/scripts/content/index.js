@@ -11,25 +11,11 @@ async function renderIndexPage() {
 
     const catsCards = cats.map(cat => {
         return `
-<<<<<<< HEAD
             <li class="card">
                 <div class="img">
                 <div class="picture" style="background-image: url('${cat.picture_url}')"></div>
                     <h2 class="cat-name">${cat.name}</h2>
                     <span>${cat.age} ano(s)</span>
-=======
-             <li class="card">
-                <div class="img">
-                    <img
-                        id="img"
-                        src="${cat.picture_url}"
-                        alt="cat"
-                        draggable="false"
-                    />
-
-                    <h2 class="cat-name">${cat.name}</h2>
-                    <span>${cat.agr}</span>
->>>>>>> refs/remotes/origin/dev
                 </div>
             </li>
         `;
