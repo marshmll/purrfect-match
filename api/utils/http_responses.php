@@ -13,7 +13,7 @@ enum HttpStatus: int
     case InternalServerError = 500;
 };
 
-function sendResponse($json_response, $status = HttpStatus::Ok->value)
+function sendResponse($json_response, $status = 200)
 {
     http_response_code($status);
     echo $json_response;
