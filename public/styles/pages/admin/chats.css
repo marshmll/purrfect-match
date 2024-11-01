@@ -281,7 +281,7 @@
     position: relative;
     padding-bottom: 2rem;
     margin-bottom: .8rem;
-    word-break: break-all;
+    word-break: normal;
 }
 
 .message--received {
@@ -306,6 +306,7 @@ span.message__status {
     bottom: 0;
     margin: .5rem;
     font-size: .6rem;
+    word-break: normal;
 }
 
 .chat__form {
@@ -360,6 +361,10 @@ span.message__status {
         flex-direction: column;
     }
 
+    .container {
+        width: 90dvw;
+    }
+
     .contacts {
         width: 100%;
         height: min-content;
@@ -391,6 +396,17 @@ span.message__status {
     }
 
     .message {
-        min-width: 40%;
+        min-width: 50%;
+        word-break: keep-all;
+        padding-bottom: 3rem;
+    }
+
+    span.message__status {
+        bottom: -.5rem;
+    }
+
+    .message__datetime {
+        overflow: hidden;
+        bottom: 1rem;
     }
 }
