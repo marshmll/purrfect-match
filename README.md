@@ -1,6 +1,17 @@
-# Purrfect Match Web App
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/marshmll/purrfect-match">
+    <img src="https://raw.githubusercontent.com/marshmll/purrfect-match/refs/heads/main/public/images/icons/paw_white.svg" alt="Logo" width="150" height="auto">
+  </a>
 
-A web application developed for **Crazy Cat Gang**, an NGO in Curitiba, Brazil, focused on cat rescue and adoption. The platform optimizes adoption processes, centralizes data management, and enhances user experience through role-based access, customizable features, and streamlined communication.
+  <h3 align="center">Purrfect Match Web App</h3>
+
+  <p align="center">
+    A web application developed for <b>Crazy Cat Gang</b>, an NGO in Curitiba, Brazil, focused on cat rescue and adoption. The platform optimizes adoption processes, centralizes data management, and enhances user experience through role-based access, customizable features, and streamlined communication.
+    <br />
+  </p>
+</div>
 
 ## Key Features
 - **Centralized Operations**: Efficient management of adoptions and rescue requests.
